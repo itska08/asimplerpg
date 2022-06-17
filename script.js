@@ -230,7 +230,7 @@ let castMagic = (skill) =>  {
             case "Thornvines":
                 magicATK = playerATK*0.5 + 150;
                 effect.style.backgroundImage = "url('images/skill4.png')";
-                energyCon = 20;
+                energyCon = 25;
                 break;
         }
         
