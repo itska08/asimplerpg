@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "thornvines"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -29,6 +29,7 @@ let holyshieldbar = document.getElementById("holyshieldbar");
 let holyshieldText = document.getElementById("holyshieldText");
 let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
+let poisonIcon = document.getElementById("poisonicon");
 
 /* character and skill stats */
 let skill;
@@ -38,7 +39,8 @@ let dragonMaxHP = 10000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = dragonMaxHP;
-let dragonATK = random(1800, 2700);
+let dragonATK = 0;
+// let dragonATK = random(1800, 2700);
 let playerATK = random(200, 400);
 let damageDragon;
 let damagePlayer;
@@ -55,7 +57,10 @@ let holyshieldamount = 0;
 let holyshieldstate = true;
 let holyshieldcooldown = 0;
 let dmgreceive = false;
-
+let poisonDot = 0;
+let poisonState = true;
+let poisonTurn = 0;
+let poisonTurnText = document.getElementById("poisonText");
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
@@ -175,7 +180,10 @@ let helpText = (a) => {
             break;
         case "s3":
             popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/skill3icon.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
-            break;          
+            break;  
+        case "s4":
+            popup.innerHTML = "<h2>Thornvines</h2><img src='images/skill4icon.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
+            break;        
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
             document.getElementById('cast').style.visibility = 'hidden';
@@ -220,6 +228,11 @@ let castMagic = (skill) =>  {
                 effect.style.backgroundImage = "url('images/skill3.png')";
                 energyCon = 60;
                 break;
+            case "Thornvines":
+                magicATK = playerATK*0.5 + 150;
+                poisonDot = playerATK*0.2;
+                energyCon = 20;
+                break;
         }
         
         if (energy < energyCon) {
@@ -236,6 +249,7 @@ let castMagic = (skill) =>  {
                 shieldState = false;
                 shieldicon.style.display = "none";
             }
+            
             if (dmgreceive == true) {
                 if (skill == "Firerain") {
                     damagePlayer = damagePlayer + damagePlayer*0.3;
@@ -267,6 +281,18 @@ let castMagic = (skill) =>  {
                 holyshieldicon.style.display = "none";
             }
              playerHealthText.innerHTML = playerHP;
+             if (poisonState == true) {
+                dragonHP = dragonHP - poisonDot;
+                if (poisonTurn > 1) {
+                    poisonTurn--;
+                    poisonTurnText.innerHTML = poisonTurn + " turns left.";
+                } else if (poisonTurn == 1) {
+                    poisonTurn = 0;
+                    poisonDot = 0;
+                    poisonState = false;
+                    poisonIcon.style.display = "none";
+                }
+            }
             //energy calculation
             switch (skill) {
                 case "Icebolt":
@@ -286,6 +312,13 @@ let castMagic = (skill) =>  {
                     energy = energy - energyCon;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
+                    break;
+                case "Thornvines":
+                    energy = energy - energyCon;
+                    poisonState = true;
+                    poisonTurn = 3;
+                    poisonTurnText.innerHTML = poisonTurn + " turns left.";
+                    poisonIcon.style.display = "block";
                     break;
             }
             playerEnergyText.innerHTML = energy;
@@ -345,7 +378,7 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + "</span> damage on the dragon by using " + skill + ".";
+            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + "(+" + poisonDot.toFixed(0) + ") </span> damage on the dragon by using " + skill + ".";
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
         }

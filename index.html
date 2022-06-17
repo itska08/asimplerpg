@@ -36,8 +36,10 @@
             <div id="imgcontainer">
                 <a href="#" id="atkdebufficon"><img src="images/atkdebuff.png" class="icon"><span class="tooltip"><h3 class="flavortext">Curse of Power</h3><br>The Dragon's ATK is decreased by 30%.</span></a>
                 <a href="#" id="dmgreceiveicon"><img src="images/dmgreceive.png" class="icon"><span class="tooltip"><h3 class="flavortext">Curse of Weakness</h3><br>The Dragon receives 30% more DMG for the next attack.</span></a>
+                <a href="#" id="poisonicon"><img src="images/skill4icon.png" class="icon"><span class="tooltip"><h3 class="flavortext">Thornvines</h3><br>Deals DoT DMG of 120% per turn for 3 turns.<br><br><p id="poisonText">0 turns left.</p></p></span></a>
                 <a href="#" id="enragedicon"><img src="images/enraged.png" class="icon"><span class="tooltip"><h3 class="flavortext">Enraged</h3><br>The Dragon's ATK is increased by 80%.</span></a>
-                </div>
+                
+            </div>
             <div class = "wrapper">
             <div id="effect"></div>
             </div>
@@ -74,14 +76,16 @@
             <ul id="skillactive">
                 <p>To use a skill, click the button below.<br /></p>
                 <li><button id="s1" class="spellbutton" onclick="castMagic('Icebolt')">Icebolt</button></li>
-                <li><button id="help1" class="help" onclick="helpText('s1')">?</button></li>
+                <li><button class="help" onclick="helpText('s1')">?</button></li>
                 
                 <li><button id="s2" class="spellbutton" onclick="castMagic('Firerain')">Firerain</button></li>
-                <li><button id="help2" class="help" onclick="helpText('s2')">?</button></li>
+                <li><button class="help" onclick="helpText('s2')">?</button></li>
                 
                 <li><button id="s3" class="spellbutton" onclick="castMagic('Thunderstorm')">Thunderstorm</button></li>
-                <li><button id="help2" class="help" onclick="helpText('s3')">?</button></li>
-                
+                <li><button class="help" onclick="helpText('s3')">?</button></li><br><br>
+
+                <li><button id="s4" class="spellbutton" onclick="castMagic('Thornvines')">Thornvines</button></li>
+                <li><button class="help" onclick="helpText('s4')">?</button></li>
             </ul>
             
     
