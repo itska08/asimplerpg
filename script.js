@@ -39,8 +39,7 @@ let dragonMaxHP = 10000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = dragonMaxHP;
-let dragonATK = 0;
-// let dragonATK = random(1800, 2700);
+let dragonATK = random(1800, 2700);
 let playerATK = random(200, 400);
 let damageDragon;
 let damagePlayer;
@@ -230,7 +229,6 @@ let castMagic = (skill) =>  {
                 break;
             case "Thornvines":
                 magicATK = playerATK*0.5 + 150;
-                poisonDot = playerATK*0.2;
                 energyCon = 20;
                 break;
         }
@@ -316,6 +314,7 @@ let castMagic = (skill) =>  {
                 case "Thornvines":
                     energy = energy - energyCon;
                     poisonState = true;
+                    poisonDot = playerATK*1.2;
                     poisonTurn = 3;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
                     poisonIcon.style.display = "block";
@@ -378,7 +377,7 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + "(+" + poisonDot.toFixed(0) + ") </span> damage on the dragon by using " + skill + ".";
+            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" + poisonDot.toFixed(0) + " DoT DMG) </span> damage on the dragon by using " + skill + ".";
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
         }
