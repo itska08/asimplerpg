@@ -8,7 +8,8 @@ Current version: 1.1
 
 
 ```markdown
-
+# 1.2 - 17/2022
+- added a new skill - Thornvines with DoT mechanics
 # 1.1 - 17/6/2022
 - visual and core mechanics update
 # 1.0 - 2/6/2022
