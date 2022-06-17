@@ -14,7 +14,7 @@ body {
 		background-color: rgba(0,0,0,0.9);
 		text-align: center;
 		width: 95%;
-		height: 95%;
+		height: 96%;
 }
 #popup {
 	z-index: 9999999999;
@@ -159,7 +159,9 @@ h3 {
 	color: #a3edff;
 	text-align: center;
 }
-
+#credit {
+	font-size: 13px;
+}
 h2 {
 	border: 5px solid #ffffff;
 	background-color: #ffffff;
@@ -187,7 +189,7 @@ h5 {
           rgba(0, 0, 0, 0.5), 
           rgba(0, 0, 0, 0.5)
         ),
-     url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6d3fe3d0-d00b-4bdd-8517-a26f9862ee68/daob498-d2c07e9b-d17c-4859-82e5-dbeacdfc3c9d.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzZkM2ZlM2QwLWQwMGItNGJkZC04NTE3LWEyNmY5ODYyZWU2OFwvZGFvYjQ5OC1kMmMwN2U5Yi1kMTdjLTQ4NTktODJlNS1kYmVhY2RmYzNjOWQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.nCsR0qS0BCM4YkAdtaGn-utLDMog97cFuTVhEKIrIsk");
+     url("images/background.png");
 	background-size: cover;
 	background-position: center center;
 	width: 760px;
