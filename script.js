@@ -281,17 +281,19 @@ let castMagic = (skill) =>  {
             }
              playerHealthText.innerHTML = playerHP;
              if (poisonState == true) {
+                poisonDot = playerATK*1.2;
                 dragonHP = dragonHP - poisonDot;
-                if (poisonTurn > 1) {
+                if (poisonTurn > 0) {
                     poisonTurn--;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
-                } else if (poisonTurn == 1) {
+                } else if (poisonTurn == 0) {
                     poisonTurn = 0;
                     poisonDot = 0;
                     poisonState = false;
                     poisonIcon.style.display = "none";
                 }
             }
+
             //energy calculation
             switch (skill) {
                 case "Icebolt":
@@ -315,7 +317,6 @@ let castMagic = (skill) =>  {
                 case "Thornvines":
                     energy = energy - energyCon;
                     poisonState = true;
-                    poisonDot = playerATK*1.2;
                     poisonTurn = 3;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
                     poisonIcon.style.display = "block";
@@ -378,7 +379,7 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" + poisonDot.toFixed(0) + " DoT DMG) </span> damage on the dragon by using " + skill + ".";
+            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> damage on the dragon by using " + skill + ".";
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
         }
