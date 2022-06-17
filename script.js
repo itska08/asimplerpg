@@ -359,13 +359,13 @@ let castMagic = (skill) =>  {
                 document.getElementById('dragon').style.visibility = 'hidden';
                 document.getElementById('chest').style.display = 'block';
                 skillActivated.innerHTML = "<p><br><br></p>";
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br></p>"
+                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
 
             } else if (playerHP < 0 && dragonHP > 0) {
                 playerHP = 0;
                 skillActivated.innerHTML = "<p><br><br></p>";
                 helpText('playerdead');
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br></p>"
+                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
                 
             } else if (playerHP < 0 && dragonHP < 0) {
                 playerHP = 0;
@@ -373,7 +373,7 @@ let castMagic = (skill) =>  {
                 document.getElementById('dragon').style.visibility = 'hidden';
                 skillActivated.innerHTML = "<p><br><br></p>";
                 helpText('bothdead');
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br></p>"
+                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
                 
             }
             playerHealth.value = playerHP;
