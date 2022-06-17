@@ -175,7 +175,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Icebolt</h2><img src='images/skill1icon.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s2":
-            popup.innerHTML = "<h2>Firerain</h2><img src='images/skill2icon.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any subsequent attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Firerain</h2><img src='images/skill2icon.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s3":
             popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/skill3icon.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
