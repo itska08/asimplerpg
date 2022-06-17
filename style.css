@@ -51,6 +51,13 @@ body {
 	display: flex;
 	justify-content: center;
 	height: 55px;
+	margin-top: -40px;
+}
+
+#imgcontainer2 {
+	display: flex;
+	justify-content: center;
+	height: 55px;
 }
 a span {
 	display: none;
@@ -62,7 +69,7 @@ a span {
 }
 a {
 	position: relative;
-	margin: 0px 15px;
+	margin: 5px 15px;
 }
 a:hover span {
 	display: block;
@@ -107,7 +114,7 @@ progress#holyshieldbar::-webkit-progress-bar {
 	background-color: #00000000;
 	z-index: 99999;
 	margin-top: -61px;
-	margin-left: 95px;
+	margin-left: 94px;
 }
 
 /* for firefox */
@@ -117,7 +124,8 @@ progress#holyshieldbar::-moz-progress-bar {
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
-	margin-left: -95px;
+	
+	margin-left: -96px;
 }
 /* for firefox */
 progress#playerHealth::-moz-progress-bar {
@@ -165,7 +173,7 @@ h2 {
 	border: 5px solid #ffffff;
 	background-color: #ffffff;
 	text-align: center;
-	font-size: 19px;
+	font-size: 18px;
 }
 
 h5 {
