@@ -155,7 +155,7 @@ progress#dragonHealth {
 	text-align: center;
 }
 h3 {
-	color: #a3edff;
+	color: #ffdaa3;
 	text-align: center;
 }
 #credit {
@@ -221,7 +221,7 @@ h4 {
 	font-size: 110%;
 }
 #message {
-	background-color: #3c5e75;
+	background-color: #947155;
 	border: 5px solid #ffffff;
 	margin: 10px 0;
 	padding: 30px 15px;
@@ -260,7 +260,7 @@ input {
 button {
 	width: 19%;
 	font-size: 16px;
-	background-color: #42777e;
+	background-color: #7e6642;
 	color: #ffffff;
 	padding: 5px;
 	border-radius: 3px;
@@ -321,7 +321,9 @@ li {
 	background-color: rgb(138, 30, 30);
 	
 }
-
+#s1 {
+	background-color: #364e6e;
+}
 #s2 {
 	background-color: #6e3636;
 }
