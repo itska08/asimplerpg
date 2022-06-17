@@ -1,35 +1,4 @@
-@keyframes glow {
-    from {
-      box-shadow: 0 0 10px -20px #f4efae;
-    }
-    to {
-      box-shadow: 0 0 10px 5px #f4eaae;
-    }
-  }
-@-webkit-keyframes glow {
-    from {
-      box-shadow: 0 0 10px -20px #f4efae;
-    }
-    to {
-      box-shadow: 0 0 10px 5px #f4eaae;
-    }
-  }
-@keyframes glow2 {
-    from {
-      box-shadow: 0 0 10px -20px #ff9999;
-    }
-    to {
-      box-shadow: 0 0 10px 5px #f4aeae;
-    }
-  }
-@-webkit-keyframes glow2 {
-    from {
-      box-shadow: 0 0 10px -20px #ff9999;
-    }
-    to {
-      box-shadow: 0 0 10px 5px #f4aeae;
-    }
-  }
+
 body {
 	margin: 0;
 	background-color: #000000;
@@ -154,22 +123,22 @@ progress#holyshieldbar::-webkit-progress-value {
 /* for firefox */
 progress#playerHealth::-moz-progress-bar {
 	background-color: rgb(160, 21, 21);
-	animation: glow2 1s infinite alternate;
+
 }
 /* For Chrome or Safari */
 progress#playerHealth::-webkit-progress-value {
 	background: rgb(160, 21, 21);
-	-webkit-animation: glow2 1s infinite alternate;
+
 }
 /* for firefox */
 progress#dragonHealth::-moz-progress-bar {
 	background-color: #ffab88;
-    animation: glow 1s infinite alternate;
+
 }
 /* for Chrome or Safari */
 progress#dragonHealth::-webkit-progress-value {
 	background: #ffab88;
-    -webkit-animation: glow 1s infinite alternate;
+
 }
 #li1 {
 	margin-left: 19px;
