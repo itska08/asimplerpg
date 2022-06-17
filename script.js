@@ -121,7 +121,7 @@ function heal() {
             playerHP = playerHP + healAmountTemp; 
             healBuff = false;
             healBuffIcon.style.display = "none";
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmountTemp + " (25% of MaxHP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmountTemp + " (25% of Max HP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
             playerHealthText.innerHTML = playerHP;
         } else {
             playerHP = playerHP + healAmount;
