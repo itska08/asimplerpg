@@ -34,9 +34,21 @@ body {
 	margin: 0;
 	background-color: #000000;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+	width: 100%;
+	height: 100%;
+}
+#tutorial {
+		z-index: 99999999999;
+		position: absolute;
+		border-radius: 5px;
+		padding: 15px;
+		background-color: rgba(0,0,0,0.9);
+		text-align: center;
+		width: 95%;
+		height: 95%;
 }
 #popup {
-	z-index: 99999999999;
+	z-index: 9999999999;
 	position: absolute;
 	border: 3px solid white;
 	border-radius: 5px;
@@ -184,6 +196,16 @@ h2 {
 	background-color: #ffffff;
 	text-align: center;
 	font-size: 19px;
+}
+
+h5 {
+	border: 5px solid #ffffff;
+	background-color: #ffffff;
+	text-align: center;
+	font-size: 19px;
+}
+#dmgreceiveicon {
+	display: none;
 }
 #dragonname {
 	font-size: 26px;

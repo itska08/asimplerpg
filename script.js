@@ -28,6 +28,7 @@ let healBuffIcon = document.getElementById("healbufficon");
 let holyshieldbar = document.getElementById("holyshieldbar");
 let holyshieldText = document.getElementById("holyshieldText");
 let holyshieldicon = document.getElementById("holyshieldicon");
+let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 
 /* character and skill stats */
 let skill;
@@ -53,6 +54,7 @@ let totalReceiveHeal = healAmount + healAmount*0.5;
 let holyshieldamount = 0;
 let holyshieldstate = true;
 let holyshieldcooldown = 0;
+let dmgreceive = false;
 
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
@@ -169,7 +171,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Icebolt</h2><img src='images/skill1icon.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s2":
-            popup.innerHTML = "<h2>Firerain</h2><img src='images/skill2icon.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Firerain</h2><img src='images/skill2icon.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any consequent attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s3":
             popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/skill3icon.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
@@ -234,7 +236,21 @@ let castMagic = (skill) =>  {
                 shieldState = false;
                 shieldicon.style.display = "none";
             }
-            dragonHP -= damagePlayer.toFixed(0);
+            if (dmgreceive == true) {
+                if (skill == "Firerain") {
+                    damagePlayer = damagePlayer + damagePlayer*0.3;
+                    dragonHP -= damagePlayer;
+                    dmgreceive = true;
+                    dmgReceiveIcon.style.display = "block";
+                } else {
+                    damagePlayer = damagePlayer + damagePlayer*0.3;
+                    dragonHP -= damagePlayer;
+                    dmgreceive = false;
+                    dmgReceiveIcon.style.display = "none";
+                }
+            } else {
+                dragonHP -= damagePlayer.toFixed(0);
+            }
             if (holyshieldstate == true) {
                 holyshieldamount -= damageDragon.toFixed(0);
                 if (holyshieldamount <= 0) {
@@ -261,6 +277,10 @@ let castMagic = (skill) =>  {
                     break;
                 case "Firerain":
                     energy = energy - energyCon;
+                    if (dmgreceive == false) {
+                        dmgreceive = true;
+                        dmgReceiveIcon.style.display = "block";
+                    }
                     break;
                 case "Thunderstorm":
                     energy = energy - energyCon;
@@ -279,6 +299,7 @@ let castMagic = (skill) =>  {
                     dragonHP = dragonHP + 5000;
                     dragonATK = dragonATK + dragonATK * 0.8;
                     helpText('enraged');
+                    document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
                     state = false;
                 }
             } else {
@@ -349,6 +370,10 @@ function playNextFrame() {
 
 function closePopup() {
     popup.style.display = "none";
+}
+
+function closeTutorial() {
+    document.getElementById("tutorial").style.display = "none";
 }
 /*
  * RESPONSIVE CODE
