@@ -357,23 +357,20 @@ let castMagic = (skill) =>  {
             if (dragonHP < 0 && playerHP > 0) {
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
-                document.getElementById('chest').style.display = 'block';
-                skillActivated.innerHTML = "<p><br><br></p>";
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
+                document.getElementById("tutorial").style.display = "block";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/mage.gif'>";
 
             } else if (playerHP < 0 && dragonHP > 0) {
                 playerHP = 0;
-                skillActivated.innerHTML = "<p><br><br></p>";
-                helpText('playerdead');
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
+                document.getElementById("tutorial").style.display = "block";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'>";
                 
             } else if (playerHP < 0 && dragonHP < 0) {
                 playerHP = 0;
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
-                skillActivated.innerHTML = "<p><br><br></p>";
-                helpText('bothdead');
-                document.getElementById("supportactive").innerHTML = "<p><br><br><br><br><br><br></p>"
+                document.getElementById("tutorial").style.display = "block";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'>";
                 
             }
             playerHealth.value = playerHP;
