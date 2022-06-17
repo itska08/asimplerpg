@@ -1,4 +1,3 @@
-
 body {
 	margin: 0;
 	background-color: #000000;
@@ -7,14 +6,14 @@ body {
 	height: 100%;
 }
 #tutorial {
-		z-index: 99999999999;
-		position: absolute;
-		border-radius: 5px;
-		padding: 15px;
-		background-color: rgba(0,0,0,0.9);
-		text-align: center;
-		width: 95%;
-		height: 96%;
+	z-index: 99999999999;
+	position: absolute;
+	border-radius: 5px;
+	padding: 15px;
+	background-color: rgba(0,0,0,0.9);
+	text-align: center;
+	width: 95%;
+	height: 96%;
 }
 #popup {
 	z-index: 9999999999;
