@@ -41,7 +41,7 @@ let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = dragonMaxHP;
 let dragonATK = random(1800, 2500);
-let playerATK = random(200, 400);
+let playerATK = random(150, 350);
 let damageDragon;
 let damagePlayer;
 let state = false;

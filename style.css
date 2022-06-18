@@ -190,7 +190,7 @@ h2 {
 	border: 5px solid #ffffff;
 	background-color: #ffffff;
 	text-align: center;
-	font-size: 22px;
+	font-size: 25px;
 }
 
 h5 {
@@ -280,7 +280,7 @@ span {
 }
 .damage {
 	color: red;
-	font-size: 23px;
+	font-size: 25px;
 	padding: 1px 5px;
 	font-weight: 700;
 	line-height: 2em;
