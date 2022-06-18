@@ -267,19 +267,12 @@ let castMagic = (skill) =>  {
             }
             
             if (dmgreceive == true) {
-                if (skill == "Firerain") {
-                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
-                    dragonHP -= damagePlayer;
-                    dmgreceive = true;
-                    dmgReceiveIcon.style.display = "block";
-                } else {
                     damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
                     dragonHP -= damagePlayer;
                     dmgreceive = false;
                     dmgReceiveIcon.style.display = "none";
-                }
             } else {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier;
                 dragonHP -= damagePlayer.toFixed(0);
             }
             if (doubledmgState = true) {
@@ -317,7 +310,7 @@ let castMagic = (skill) =>  {
                 }
             }
 
-            //energy calculation
+            //energy calculation and effect application
             switch (skill) {
                 case "Icebolt":
                     energy = energy + random(10, 20);
@@ -327,10 +320,8 @@ let castMagic = (skill) =>  {
                     break;
                 case "Firerain":
                     energy = energy - energyCon;
-                    if (dmgreceive == false) {
-                        dmgreceive = true;
-                        dmgReceiveIcon.style.display = "block";
-                    }
+                    dmgreceive = true;
+                    dmgReceiveIcon.style.display = "block";
                     break;
                 case "Thunderstorm":
                     energy = energy - energyCon;
@@ -345,11 +336,11 @@ let castMagic = (skill) =>  {
                     poisonIcon.style.display = "block";
                     break;
             }
-            playerEnergyText.innerHTML = energy;
-            turn++;
-            turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
-            cooldown--;
-            holyshieldcooldown--;
+                    playerEnergyText.innerHTML = energy;
+                    turn++;
+                    turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
+                    cooldown--;
+                    holyshieldcooldown--;
             if (dragonHP <= 5000) {
                 state = true;
                 if (state == true && enragedicon.style.display == "") {
