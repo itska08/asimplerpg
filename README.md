@@ -2,7 +2,7 @@
 
 Live preview: [click here](https://thaykhangne.github.io/firemage-battle/)
 
-Current version: 1.1
+Current version: 1.2
 
 ### Changes
 
