@@ -120,11 +120,14 @@ progress#holyshieldbar::-webkit-progress-bar {
 /* for firefox */
 progress#holyshieldbar::-moz-progress-bar {
 	background-color: #cfcfcf;
+	height: 0.25rem;
+        
 }
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
-	
+	height: 0.25rem;
+        
 	margin-left: -96px;
 }
 /* for firefox */
