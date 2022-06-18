@@ -21,4 +21,4 @@ Current version: 1.2
 
 I am but an amateur coding enjoyer. Not everything in this project is optimized and perfect.
 
-- Khang Nguyen
+-Khang Nguyen
