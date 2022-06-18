@@ -41,8 +41,9 @@ body {
 }
 .spellbutton {
 	width: 200px;
+	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 20px;
 }
 #healbufficon {
 	display: none;
@@ -330,6 +331,8 @@ li {
 .support {
 	display: block;
 	width: 160px;
+	font-size: 17px;
+	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	margin-left: auto;
 	color:#000;
 	background-color: rgb(238, 238, 238);
