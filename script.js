@@ -274,7 +274,6 @@ let castMagic = (skill) =>  {
                     dmgReceiveIcon.style.display = "block";
                 } else {
                     damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
-                    alert(damagePlayer);
                     dragonHP -= damagePlayer;
                     dmgreceive = false;
                     dmgReceiveIcon.style.display = "none";
