@@ -169,6 +169,19 @@ progress#dragonHealth {
 	width: 1080px;
 	margin: 0 auto;
 }
+#bookimg {
+	position: absolute;
+	width: 130px;
+	left: 80px;
+	top: 1175px;
+}
+#swordimg {
+	position: absolute;
+	width: 120px;
+	right: 85px;
+	top: 1180px;
+	transform: scaleX(-1);
+}
 #ene {
 	color: #ffffff;
 	text-align: center;
