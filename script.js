@@ -188,7 +188,7 @@ let helpText = (a) => {
             document.getElementById('cast').style.visibility = 'hidden';
             break;
         case "dragonstats":
-            popup.innerHTML = "<h2>Dragon's stats</h2><p>Dragon's HP: "+dragonHP.toFixed(0)+"</p><br><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Fafnir the First King</h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
             break;
         case "enraged":
             popup.innerHTML = "<h2>The dragon is enraged!</h2><p>Its ATK is significantly higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
