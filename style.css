@@ -102,6 +102,10 @@ progress {
 	margin: auto;
 	width: 300px;
 	display: block;
+	border-radius: 3px;
+	border: none;
+	box-shadow: 0 3px 0px #212324;
+	outline: none;
 	-webkit-appearance: none;
    	appearance: none;
 }
