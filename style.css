@@ -173,6 +173,16 @@ progress#dragonHealth {
 	color: #ffffff;
 	text-align: center;
 }
+#learnmore {
+	width: 75px;
+	height: 70px;
+	font-size: 40px;
+	font-weight: bold;
+	position: absolute;
+	top: -3px;
+	left: -3px;
+	border: 5px solid #b6b6b6;
+}
 h3 {
 	color: #cecece;
 	text-align: center;
@@ -190,7 +200,7 @@ h2 {
 	border: 5px solid #ffffff;
 	background-color: #ffffff;
 	text-align: center;
-	font-size: 25px;
+	font-size: 23px;
 }
 
 h5 {
@@ -280,8 +290,8 @@ span {
 }
 .damage {
 	color: red;
-	font-size: 25px;
-	padding: 1px 5px;
+	font-size: 23px;
+	padding: 0px 2px;
 	font-weight: 700;
 	line-height: 2em;
 }

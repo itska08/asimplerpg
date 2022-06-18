@@ -390,7 +390,7 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> damage on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> damage on the dragon by using " + skill + ".";
+            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skill + "</span>.";
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
         }
@@ -416,7 +416,9 @@ function playNextFrame() {
 function closePopup() {
     popup.style.display = "none";
 }
-
+function openTutorial() {
+    document.getElementById("tutorial").style.display = "block";
+}
 function closeTutorial() {
     document.getElementById("tutorial").style.display = "none";
 }
