@@ -2,7 +2,7 @@
 
 Live preview: [click here](https://thaykhangne.github.io/firemage-battle/)
 
-Current version: 1.1
+Current version: 1.2
 
 ### Changes
 
@@ -21,4 +21,4 @@ Current version: 1.1
 
 I am but an amateur coding enjoyer. Not everything in this project is optimized and perfect.
 
-- Khang Nguyen
+-Khang Nguyen
