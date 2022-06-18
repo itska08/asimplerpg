@@ -40,7 +40,7 @@ let dragonMaxHP = 10000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = dragonMaxHP;
-let dragonATK = random(1800, 2700);
+let dragonATK = 0;
 let playerATK = random(200, 400);
 let damageDragon;
 let damagePlayer;
@@ -49,7 +49,6 @@ let turn = 0;
 let magicATK = 0;
 let cooldown = 0;
 let shieldState = false;
-let healAmountTemp = 0;
 let healAmount = playerMaxHP * 0.25 + random(100, 500);
 let healBuff = false;
 let totalReceiveHeal = healAmount + healAmount*0.5;
@@ -135,12 +134,13 @@ function heal() {
         popup.innerHTML = "<p>You are already dead.</p><button onclick='closePopup()'>close</button>";
     } else {
         if (healBuff == true) {
-            healAmountTemp = healAmount + healAmount*0.5;
-            playerHP = playerHP + healAmountTemp; 
+            healAmount = healAmount + healAmount*0.5;
+            playerHP = playerHP + healAmount;
             healBuff = false;
             healBuffIcon.style.display = "none";
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmountTemp + " (25% of Max HP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25% of Max HP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
             playerHealthText.innerHTML = playerHP;
+            healAmount = playerMaxHP * 0.25 + random(100, 500);
         } else {
             playerHP = playerHP + healAmount;
             popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
