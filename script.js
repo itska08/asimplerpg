@@ -30,6 +30,7 @@ let holyshieldText = document.getElementById("holyshieldText");
 let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 let poisonIcon = document.getElementById("poisonicon");
+let doubledmgIcon = document.getElementById("doubledmgicon");
 
 /* character and skill stats */
 let skill;
@@ -60,6 +61,9 @@ let poisonDot = 0;
 let poisonState = true;
 let poisonTurn = 0;
 let poisonTurnText = document.getElementById("poisonText");
+let doubledmgState = false;
+let doublemodifier = 0;
+
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
@@ -73,6 +77,16 @@ function buffAtk() {
     document.getElementById('buff').setAttribute("onclick", "");
     atkbufficon.style.display = "block";
     playerAtkText.innerHTML = playerATK;
+}
+
+function doubledmg() {
+    doubledmgState = true;
+    doublemodifier = 1;
+    document.getElementById('doubledmg').style.pointerevents = 'none';
+    document.getElementById('doubledmg').style.cursor = 'not-allowed';
+    document.getElementById('doubledmg').style.opacity = '0.6';
+    document.getElementById('doubledmg').setAttribute("onclick", "");
+    doubledmgIcon.style.display = "block";
 }
 
 function debuffAtk() {
@@ -171,6 +185,9 @@ let helpText = (a) => {
         case "5":
             popup.innerHTML = "<h2>Heaven's Will</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 30% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
             break;
+        case "6":
+            popup.innerHTML = "<h2>Edge of Eternity</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
+            break;
         case "s1":
             popup.innerHTML = "<h2>Icebolt</h2><img src='images/skill1icon.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
@@ -251,18 +268,25 @@ let castMagic = (skill) =>  {
             
             if (dmgreceive == true) {
                 if (skill == "Firerain") {
-                    damagePlayer = damagePlayer + damagePlayer*0.3;
+                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
                     dragonHP -= damagePlayer;
                     dmgreceive = true;
                     dmgReceiveIcon.style.display = "block";
                 } else {
-                    damagePlayer = damagePlayer + damagePlayer*0.3;
+                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
+                    alert(damagePlayer);
                     dragonHP -= damagePlayer;
                     dmgreceive = false;
                     dmgReceiveIcon.style.display = "none";
                 }
             } else {
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
                 dragonHP -= damagePlayer.toFixed(0);
+            }
+            if (doubledmgState = true) {
+                doubledmgState = false;
+                doubledmgIcon.style.display = "none";
+                doublemodifier = 0;
             }
             if (holyshieldstate == true) {
                 holyshieldamount -= damageDragon.toFixed(0);
