@@ -340,9 +340,11 @@ li {
 }
 
 .help {
-	margin-left: -45px;
-	width: 20px;
+	margin-left: -28px;
+	width: 30px;
 	height: 30px;
+	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+	
 }
 #poisonicon {
 	display: none;
