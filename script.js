@@ -31,6 +31,8 @@ let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 let poisonIcon = document.getElementById("poisonicon");
 let doubledmgIcon = document.getElementById("doubledmgicon");
+let playerClass;
+let switchButtonDefault = document.getElementById("mageclass");
 
 /* character and skill stats */
 let skill;
@@ -66,8 +68,21 @@ let doublemodifier = 0;
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
-let switchChar = (c) => {
-/*wip*/
+
+let switchClass = (c) => {
+    closeSettings();
+    switch (c) {
+        case "archer":
+            switchButtonDefault.setAttribute("id","archerclass");
+            switchButtonDefault.innerHTML = "Archer";
+            playerClass = 1;
+        break;
+        case "mage":
+            switchButtonDefault.setAttribute("id","mageclass");
+            switchButtonDefault.innerHTML = "Elemental Mage";
+            playerClass = 0;
+            break;
+    }
 }
 function buffAtk() {
     let buffAmount = playerATK * 0.3;

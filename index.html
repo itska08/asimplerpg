@@ -12,10 +12,12 @@
         <h5>Settings</h5>
         <h3 id="change">Change character (WIP)</h3>
         <ul id="ulsettings">
-        <li><button class="classchange">Mage</button></li>
-        <li><button class="classchange">Archer</button></li>
+        <li><button id="mage" class="classchange" onclick="switchClass('mage')">Mage</button></li>
+        <li><button id="archer" class="classchange"onclick="switchClass('archer')">Archer</button></li>
         </ul>
         <button id="settingsclose" onclick='closeSettings()'>close</button>
+        <p id="copyright">© 2022 - Khang Nguyen - v1.3</p>
+        
     </div>
     <div id="tutorial">
         <h5 id="welcome">Welcome!</h5>
@@ -81,6 +83,7 @@
             <li><p id="hp">0</p></li>
             <li><button class="support">Holy Shield</button></li>
             <li><p id="holyshieldText">0</p></li><br>
+            <li><button class="classchange" id="mageclass" style="width: 200px; height: 50px; font-size: 20px;">Elemental Mage</button></li>
             <li><h3>Energy</h3></li>
              <li><p id="ene">0</p></li>
              <li><h3>Attack</h3></li>
@@ -120,7 +123,7 @@
             </ul>
         
         </div>
-        <p>© 2022 - Khang Nguyen - v1.2</p>
+        
     </div>
     <script src="script.js"></script>
 </body>

@@ -6,15 +6,17 @@ body {
 	height: 100%;
 }
 #settings {
-	z-index: 99999999;
+	z-index: 999999999;
 	position: absolute;
-	left: 700px;
+	left: 50%;
+	margin-left: -285px;
+	margin-top: 8px;
 	background-color: rgba(0,0,0,0.9);
 	border: 3px solid #e7e7e7;
 	border-radius: 15px;
 	text-align: center;
-	width: 515px;
-	height: 96%;
+	width: 565px;
+	height: 98%;
 	display: none;
 }
 #change {
@@ -22,6 +24,24 @@ body {
 	text-align: left;
 	margin-left: 15px;
 }
+#copyright {
+	position: relative;
+	top: 660px;
+	font-size: 15px;
+}
+#mage {
+	background-color: #59366e;
+}
+#mageclass {
+	background-color: #59366e;
+}
+#archer {
+	background-color: #366e36;
+}
+#archerclass {
+	background-color: #366e36;
+}
+
 #tutorial {
 	z-index: 9999999;
 	position: absolute;
@@ -452,12 +472,12 @@ li {
 }
 .classchange {
 	display: block;
-	width: 120px;
-	height: 35px;
+	width: 160px;
+	height: 50px;
 	font-size: 15px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	margin-left: auto;
-	color:#000;
+	color:#fff;
 	background-color: rgb(238, 238, 238);
 	font-weight: bold;
 }
