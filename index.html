@@ -8,7 +8,15 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
-
+    <div id="settings">
+        <h5>Settings</h5>
+        <h3 id="change">Change character (WIP)</h3>
+        <ul id="ulsettings">
+        <li><button class="classchange">Mage</button></li>
+        <li><button class="classchange">Archer</button></li>
+        </ul>
+        <button id="settingsclose" onclick='closeSettings()'>close</button>
+    </div>
     <div id="tutorial">
         <h5 id="welcome">Welcome!</h5>
         <p>In this game, you are an elemental mage who is fighting against the most fearful dragon, Fafnir.<br>
@@ -25,7 +33,7 @@
     <div id="container">
 
         <div id="cave">
-            <button id="learnmore" onclick="openTutorial()">≡</button>
+            <button id="learnmore" onclick="openSettings()">≡</button>
          
             <ul id="boss">
                 <p id="playerdmgtext">0</p>

@@ -66,7 +66,9 @@ let doublemodifier = 0;
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
-
+let switchChar = (c) => {
+/*wip*/
+}
 function buffAtk() {
     let buffAmount = playerATK * 0.3;
     playerATK = playerATK + buffAmount;
@@ -427,6 +429,13 @@ function openTutorial() {
 }
 function closeTutorial() {
     document.getElementById("tutorial").style.display = "none";
+}
+function openSettings() {
+    document.getElementById("settings").style.display = "block";
+}
+
+function closeSettings() {
+    document.getElementById("settings").style.display = "none";
 }
 /*
  * RESPONSIVE CODE
