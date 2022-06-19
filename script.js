@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "thornvines"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "thornvines", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -33,7 +33,9 @@ let poisonIcon = document.getElementById("poisonicon");
 let doubledmgIcon = document.getElementById("doubledmgicon");
 let playerClass;
 let switchButtonDefault = document.getElementById("mageclass");
-
+let bleedIcon = document.getElementById("bleedicon");
+let hunterIcon = document.getElementById("huntericon");
+let hunterAtkIcon = document.getElementById("hunteratkicon");
 /* character and skill stats */
 let skill;
 let energy = 0;
@@ -42,7 +44,7 @@ let dragonMaxHP = 10000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
-let dragonATK = 2400;
+let dragonATK = 2100;
 let playerATK = 300;
 let damageDragon;
 let damagePlayer;
@@ -55,15 +57,24 @@ let healAmount = playerMaxHP * 0.25 + random(100, 500);
 let healBuff = false;
 let totalReceiveHeal = healAmount + healAmount*0.5;
 let holyshieldamount = 0;
-let holyshieldstate = true;
+let holyshieldstate = false;
 let holyshieldcooldown = 0;
 let dmgreceive = false;
 let poisonDot = 0;
-let poisonState = true;
+let poisonState = false;
 let poisonTurn = 0;
 let poisonTurnText = document.getElementById("poisonText");
 let doubledmgState = false;
 let doublemodifier = 0;
+let huntermark = false;
+let bleedState = false;
+let bleedTurn = 0;
+let bleedDot = 0;
+let bleedTurnText = document.getElementById("bleedText");
+let hunteratkbuff = false;
+let hunteratkcooldown = 0;
+let hunteratkmodifier = 0;
+
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
@@ -81,6 +92,8 @@ let switchClass = (c) => {
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerATK = 400;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "block";
         break;
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
@@ -91,12 +104,89 @@ let switchClass = (c) => {
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
             playerATK = 300;
+            document.getElementById("skillactive").style.display = "block";
+            document.getElementById("skillactive2").style.display = "none";
             break;
     }
+    resetGame();
+}
+
+function resetGame() {
+    energy = 0;
+    energyCon = 0;
+    turn = 0;
+    cooldown = 0;
+    magicATK = 0;
+    energyCon = 0;
+    holyshieldcooldown = 0;
+    dragonHP = dragonMaxHP;
+    holyshieldamount = 0;
+    dragonATK = 2100;
+    state = false;
+    healBuff = false;
+    shieldState = false;
+    holyshieldstate = false;
+    dmgreceive = false;
+    poisonDot = 0;
+    poisonState = false;
+    poisonTurn = 0;
+    doubledmgState = false;
+    doublemodifier = 0;
+    huntermark = false;
+    bleedState = false;
+    hunteratkbuff = false;
+    hunteratkcooldown = 0;
+    bleedTurn = 0;
+    bleedDot = 0;
+    hunteratkmodifier = 0;
+    turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
+    atkbufficon.style.display = "none";
+    atkdebufficon.style.display = "none";
+    enragedicon.style.display = "none";
+    poisonIcon.style.display = "none";
+            dmgReceiveIcon.style.display = "none";
+            healBuffIcon.style.display = "none";
+            hunterIcon.style.display = "none";
+            bleedIcon.style.display = "none";
+            hunterAtkIcon.style.display = "none";
+
+    document.getElementById('buff').style.pointerevents = 'auto';
+    document.getElementById('buff').style.cursor = 'pointer';
+    document.getElementById('buff').style.opacity = '1';
+    document.getElementById('buff').setAttribute("onclick", "buffAtk()");
+
+    document.getElementById('holyshield').style.pointerevents = 'auto';
+    document.getElementById('holyshield').style.cursor = 'pointer';
+    document.getElementById('holyshield').style.opacity = '1';
+    document.getElementById('holyshield').setAttribute("onclick", "holyShield()");
+
+    document.getElementById('debuff').style.pointerevents = 'auto';
+    document.getElementById('debuff').style.cursor = 'pointer';
+    document.getElementById('debuff').style.opacity = '1';
+    document.getElementById('debuff').setAttribute("onclick", "debuffAtk()");
+
+    document.getElementById('shield').style.pointerevents = 'auto';
+    document.getElementById('shield').style.cursor = 'pointer';
+    document.getElementById('shield').style.opacity = '1';
+    document.getElementById('shield').setAttribute("onclick", "shield()");
+
+    document.getElementById('heal').style.pointerevents = 'auto';
+    document.getElementById('heal').style.cursor = 'pointer';
+    document.getElementById('heal').style.opacity = '1';
+    document.getElementById('heal').setAttribute("onclick", "heal()");
+
+    document.getElementById('doubledmg').style.pointerevents = 'auto';
+    document.getElementById('doubledmg').style.cursor = 'pointer';
+    document.getElementById('doubledmg').style.opacity = '1';
+    document.getElementById('doubledmg').setAttribute("onclick", "doubledmg()");
+    document.getElementById('welcomemessage').innerHTML = "You have entered the lair of the big bad <span class='damage'>Fafnir</span>.<br>Defeat it and claim your <span class='damage'>treasure!</span>";
+    dragonHealth.value = dragonHP;
     playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerHealthText.innerHTML = playerHP;
-
+    playerHealth.value = playerHP;
+    holyshieldText.innerHTML = holyshieldamount;
+    effect.style.backgroundImage = "";
 }
 
 
@@ -232,7 +322,19 @@ let helpText = (a) => {
             break;  
         case "s4":
             popup.innerHTML = "<h2>Thornvines</h2><img src='images/skill4icon.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
-            break;        
+            break;
+        case "s5":
+            popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% of ATK (+200) to the target. Marks it with a Mark of the Hunter for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s6":
+            popup.innerHTML = "<h2>Bloodshed</h2><img src='images/s6.png' class='icon'><br><p>Deals 200% of ATK (+470) to the target and another 125% of ATK to the target every turn for 3 turns.<br>Energy consumption: 35</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s7":
+            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% of ATK (+1050) to the target. If the target is under Mark of the Hunter, deals an additional amount of 150% of ATK.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            break;     
+        case "s8":
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 20% for 2 turns and mark the enemy with Mark of the Hunter.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;     
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
             document.getElementById('cast').style.visibility = 'hidden';
@@ -252,39 +354,102 @@ let helpText = (a) => {
 
 
 let castMagic = (skill) =>  {
-    if (magicArray.indexOf(skill.toLowerCase()) > -1) {
-        
+    if (magicArray.indexOf(skill) > -1) {
+        let skillName;
         //define the skill consumption
         switch (skill) {
-            case "Icebolt":
-                magicATK = playerATK*0.1 + 250;
+            case "icebolt":
+                magicATK = playerATK*1.1 + 250;
+                skillName = "Icebolt";
                 energyCon = 0;
                 effect.style.backgroundImage = "url('images/skill1.png')";
                 break;
-            case "Firerain":
-                magicATK = playerATK*0.5 + 450;
+            case "firerain":
+                magicATK = playerATK*1.5 + 450;
+                skillName = "Firerain";
+                dmgreceive = true;
+                dmgReceiveIcon.style.display = "block";
                 energyCon = 30;
                 effect.style.backgroundImage = "url('images/skill2.png')";
                 break;
-            case "Thunderstorm":
-                magicATK = playerATK*2.0 + 1150;
+            case "thunderstorm":
+                magicATK = playerATK*3 + 1150;
+                skillName = "Thunderstorm";
+                healBuff = true;
+                healBuffIcon.style.display = "block";
                 effect.style.backgroundImage = "url('images/skill3.png')";
                 energyCon = 60;
                 break;
-            case "Thornvines":
-                magicATK = playerATK*0.5 + 150;
+            case "thornvines":
+                magicATK = playerATK*1.5 + 150;
+                skillName = "Thornvines";
+                
                 effect.style.backgroundImage = "url('images/skill4.png')";
                 energyCon = 25;
                 break;
+            case "arrowoflight":
+                magicATK = playerATK + 200;
+                huntermark = true;
+                hunterIcon.style.display = "block";
+                skillName = "Arrow of Light";
+                energyCon = 0;
+                break;
+            case "bloodshed":
+                magicATK = playerATK*2 + 470;
+                skillName = "Bloodshed";
+                energyCon = 35;
+                break;
+            case "piercingshot":
+                if (huntermark == false) {
+                    magicATK = playerATK*3.8 + 1050;
+                } else {
+                    magicATK = playerATK*5.3 + 1050;
+                    huntermark = false;
+                    hunterIcon.style.display = "none";
+                }
+                skillName = "Piercing Shot";
+                energyCon = 60;
+                break;
+            case "huntersinstinct":
+                magicATK = 0;
+                hunteratkbuff = true;
+                hunteratkcooldown = 2;
+                hunteratkmodifier = 0.2;
+                hunterAtkIcon.style.display = "block";
+                huntermark = true;
+                hunterIcon.style.display = "block";
+                skillName = "Hunter's Instinct";
+                energyCon = 40;
+                break;               
         }
         
         if (energy < energyCon) {
             popup.style.display = "block";
             popup.innerHTML = "<p>You don't have enough energy to use that!</p><button onclick='closePopup()'>close</button>";
+            magicATK = 0;
+            energyCon = 0;
+            huntermark = false;
+            dmgreceive = false;
+            healBuff = false;
+            poisonState = false;
+            poisonTurn = 0;
+            bleedState = false;
+            hunteratkbuff = false;
+            hunteratkcooldown = 0;
+            bleedTurn = 0;
+            bleedDot = 0;
+            hunteratkmodifier = 0;
+            poisonIcon.style.display = "none";
+            dmgReceiveIcon.style.display = "none";
+            healBuffIcon.style.display = "none";
+            hunterIcon.style.display = "none";
+            bleedIcon.style.display = "none";
+            hunterAtkIcon.style.display = "none";
+                           
         } else {
             currentFrame = 1;
             //damage calculation
-            damagePlayer = playerATK + random(50, 100) + magicATK;
+            damagePlayer = random(50, 100) + magicATK;
             if (shieldState == false) {
                 damageDragon = dragonATK + random(100, 300);
             } else {
@@ -294,13 +459,20 @@ let castMagic = (skill) =>  {
             }
             
             if (dmgreceive == true) {
-                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier;
+                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
                     dragonHP -= damagePlayer;
                     dmgreceive = false;
                     dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
+            }
+            if (hunteratkcooldown == 0) {
+                        hunteratkbuff = false;
+                        hunteratkmodifier = 0;
+                        hunterAtkIcon.style.display = "none";
+            } else {
+                        hunteratkcooldown--;
             }
             if (doubledmgState = true) {
                 doubledmgState = false;
@@ -336,38 +508,57 @@ let castMagic = (skill) =>  {
                     poisonIcon.style.display = "none";
                 }
             }
+            
+            if (bleedState == true) {
+                bleedDot = playerATK*1.25;
+                dragonHP = dragonHP - bleedDot;
+                if (bleedTurn > 0) {
+                    bleedTurn--;
+                    bleedTurnText.innerHTML = bleedTurn + " turns left.";
+                } else if (bleedTurn == 0) {
+                    bleedturn = 0;
+                    bleedDot = 0;
+                    bleedState = false;
+                    bleedIcon.style.display = "none";
+                }
+            }
 
             //energy calculation and effect application
             switch (skill) {
-                case "Icebolt":
+                case "icebolt":
                     energy = energy + random(10, 20);
                     if (energy >= 100) {
                         energy = 100;
                     }
                     break;
-                case "Firerain":
-                    energy = energy - energyCon;
-                    dmgreceive = true;
-                    dmgReceiveIcon.style.display = "block";
+                case "arrowoflight":
+                    energy = energy + random(10, 20);
+                    if (energy >= 100) {
+                        energy = 100;
+                    }
                     break;
-                case "Thunderstorm":
-                    energy = energy - energyCon;
-                    healBuff = true;
-                    healBuffIcon.style.display = "block";
-                    break;
-                case "Thornvines":
+                case "thornvines":
                     energy = energy - energyCon;
                     poisonState = true;
                     poisonTurn = 3;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
                     poisonIcon.style.display = "block";
+                case "bloodshed":
+                    energy = energy - energyCon;
+                    bleedState = true;
+                    bleedTurn = 3;
+                    bleedTurnText.innerHTML = poisonTurn + " turns left.";
+                    bleedIcon.style.display = "block";
+                default:
+                    energy = energy - energyCon;
                     break;
+                
             }
-                    playerEnergyText.innerHTML = energy;
-                    turn++;
-                    turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
-                    cooldown--;
-                    holyshieldcooldown--;
+            playerEnergyText.innerHTML = energy;
+            turn++;
+            turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
+            cooldown--;
+            holyshieldcooldown--;
             if (dragonHP <= 5000) {
                 state = true;
                 if (state == true && enragedicon.style.display == "") {
@@ -424,11 +615,16 @@ let castMagic = (skill) =>  {
                 setTimeout(()=>{document.getElementById("playerpoisontext").style.opacity = 0}, 1000);
                 document.getElementById("playerpoisontext").style.opacity = 1;
             }
-            
+            if (bleedDot > 0) {
+                document.getElementById("playerbleedtext").innerHTML = bleedDot.toFixed(0);
+                document.getElementById("playerbleedtext").style.display = "block";
+                setTimeout(()=>{document.getElementById("playerbleedtext").style.opacity = 0}, 1000);
+                document.getElementById("playerbleedtext").style.opacity = 1;
+            }
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skill + "</span>.";
+            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
             
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
