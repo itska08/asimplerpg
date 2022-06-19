@@ -19,7 +19,7 @@ body {
 	z-index: 9999999999;
 	position: absolute;
 	border: 3px solid #e7e7e7;
-	border-radius: 5px;
+	border-radius: 25px;
 	padding: 15px;
 	background-color: rgba(0,0,0,0.9);
 	text-align: center;
@@ -36,6 +36,30 @@ body {
 #holyshieldicon {
 	display: none;
 }
+#playerdmgtext {
+	z-index: 999999;
+	position: absolute;
+	display: none;
+	font-size: 70px;
+	top: 440px;
+	left: 590px;
+	color: darkred;
+	font-weight: bold;
+	text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
+}
+#playerpoisontext {
+	z-index: 999999;
+	position: absolute;
+	display: none;
+	font-size: 50px;
+	top: 320px;
+	left: 370px;
+	color: rgb(0, 139, 86);
+	font-weight: bold;
+	text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
+}
+
+
 #li2 {
 	margin-top: -100px;
 }
@@ -43,7 +67,7 @@ body {
 	width: 230px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	font-weight: bold;
-	font-size: 23px;
+	font-size: 25px;
 }
 #healbufficon {
 	display: none;
@@ -59,6 +83,7 @@ body {
 	display: flex;
 	justify-content: center;
 	height: 55px;
+	margin-top: -15px;
 }
 a span {
 	display: none;
@@ -103,17 +128,20 @@ progress {
 	margin: auto;
 	width: 500px;
 	display: block;
-	border-radius: 3px;
+	height: 20px;
 	border: none;
 	box-shadow: 0 3px 0px #212324;
 	outline: none;
 	-webkit-appearance: none;
    	appearance: none;
+	
 }
 #holyshieldbar {
+	
 	z-index: 99999;
-	margin-top: -75px;
-	margin-left: 107px;
+	position: absolute;
+	left: 290px;
+	top: 1105px;
 	width: 500px;
 	background-color: #00000000;
 	box-shadow: 0 0px 0px #212324;
@@ -122,21 +150,20 @@ progress {
 progress#holyshieldbar::-webkit-progress-bar {
 	background-color: #00000000;
 	z-index: 99999;
-	margin-top: -61px;
-	margin-left: 94px;
 }
 
 /* for firefox */
 progress#holyshieldbar::-moz-progress-bar {
 	background-color: #cfcfcf;
 	height: 0.25rem;
-        
+	border-radius: 10px;
+	position: absolute;
 }
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
 	height: 0.5rem;
-	margin-left: -95px;
+	position: absolute;
 }
 /* for firefox */
 progress#playerHealth::-moz-progress-bar {
@@ -146,12 +173,10 @@ progress#playerHealth::-moz-progress-bar {
 /* For Chrome or Safari */
 progress#playerHealth::-webkit-progress-value {
 	background: rgb(160, 21, 21);
-
 }
 /* for firefox */
 progress#dragonHealth::-moz-progress-bar {
 	background-color: #ffab88;
-
 }
 /* for Chrome or Safari */
 progress#dragonHealth::-webkit-progress-value {
@@ -163,6 +188,7 @@ progress#dragonHealth::-webkit-progress-value {
 }
 progress#dragonHealth {
 	width: 670px;
+	height: 20px;
 }
 #container {
 	position: absolute;
@@ -171,13 +197,13 @@ progress#dragonHealth {
 }
 #bookimg {
 	position: absolute;
-	width: 130px;
-	left: 80px;
-	top: 1175px;
+	width: 100px;
+	left: 70px;
+	top: 1185px;
 }
 #swordimg {
 	position: absolute;
-	width: 120px;
+	width: 95px;
 	right: 85px;
 	top: 1180px;
 	transform: scaleX(-1);
@@ -202,9 +228,9 @@ progress#dragonHealth {
 h3 {
 	color: #cecece;
 	text-align: center;
-	box-shadow: 0px 2px 0px #b6b6b6;
+	box-shadow: 0 4px 2px -2px #b6b6b6;
 	outline: none;
-	font-size: 23px;
+	font-size: 25px;
 }
 #doubledmgicon {
 	display: none;
@@ -217,6 +243,8 @@ h2 {
 	background-color: #ffffff;
 	text-align: center;
 	font-size: 26px;
+	border-radius: 25px;
+	padding: 10px;
 }
 
 h5 {
@@ -234,6 +262,7 @@ h5 {
 	color: #ffa3a3;
 }
 #cave {
+	border-radius: 25px;
     background:
         linear-gradient(
           rgba(0, 0, 0, 0.5), 
@@ -288,6 +317,7 @@ h4 {
 	border: 5px solid #e7e7e7;
 	margin: 10px 0;
 	padding: 30px 15px;
+	border-radius: 25px;
 }
 p {
 	color: #ffffff;
@@ -317,7 +347,7 @@ input {
 	font-size: 16px;
 	padding: 5px;
 	box-sizing: border-box;
-	border-radius: 3px;
+	border-radius: 25px;
 	border: 1px solid #bdbdbd;
 }
 button {
@@ -326,7 +356,7 @@ button {
 	background-color: #464646;
 	color: #ffffff;
 	padding: 5px;
-	border-radius: 3px;
+	border-radius: 25px;
 	border: none;
 	box-shadow: 0 4px 0px #212324;
 	outline: none;
@@ -353,8 +383,8 @@ button {
 ul {
 	border: 3px solid #e7e7e7;
 	background-color: rgba(0, 0, 0, 0.4);
-	border-radius: 5px;
-	padding: 10px;
+	border-radius: 25px;
+	padding: 30px 25px;
 	margin-top: 10px;
 	list-style-type: none;
 	text-align: center;
@@ -368,7 +398,8 @@ li {
 .support {
 	display: block;
 	width: 200px;
-	font-size: 20px;
+	height: 60px;
+	font-size: 22px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	margin-left: auto;
 	color:#000;

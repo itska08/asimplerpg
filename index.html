@@ -26,7 +26,10 @@
 
         <div id="cave">
             <button id="learnmore" onclick="openTutorial()">≡</button>
+         
             <ul id="boss">
+                <p id="playerdmgtext">0</p>
+                <p id="playerpoisontext">0</p>
                 <li><h3 id="dragonname">Fafnir the First King</h3></li>
                 <li><button class="help" id="dragonhelp" onclick="helpText('dragonstats')">?</button></li>
                 <progress id="dragonHealth" value="10000" max="10000"></progress></li><br>
@@ -48,8 +51,7 @@
         </div>
         <div id="alert" class="alert"></div>
         <div id="healalert" class="alert"></div>
-         <div id="popup">
-        </div>
+         <div id="popup"></div>
         
         <div id="message">
             <p id="turn">Turn: 0</p>
@@ -65,21 +67,19 @@
             <ul>
                 <img src="images/book.gif" id="bookimg">
                 <img src="images/sword.gif" id="swordimg">
-            <li><h3>Health</h3></li>
             <li><progress id="playerHealth" value="10000" max="10000"></progress></li><br>
             <li><progress id="holyshieldbar" value="0" max="5000"></progress></li><br>
-            <li id="li2"><h3>Health Points</h3></li>
+            <li><button class="support">Health Points</button></li>
             <li><p id="hp">0</p></li>
-            <li id="li2"><h3>Holy Shield</h3></li>
+            <li><button class="support">Holy Shield</button></li>
             <li><p id="holyshieldText">0</p></li><br>
             <li><h3>Energy</h3></li>
              <li><p id="ene">0</p></li>
              <li><h3>Attack</h3></li>
              <li><p id="atk">0</p></li>
-                
+
             </ul>
             <ul id="skillactive">
-                <p>To use a skill, click the button below.<br /></p>
                 <li><button id="s1" class="spellbutton" onclick="castMagic('Icebolt')">Icebolt</button></li>
                 <li><button class="help" onclick="helpText('s1')">?</button></li>
                 
@@ -97,7 +97,6 @@
             
             
             <ul id="supportactive">
-                <p id="supporttext">Too difficult? Try one of the support spells here!</p>
                 <li><button id="buff" class="support" onclick="buffAtk()">Blessing of Fire</button></li>
                 <li><button id="help1" class="help" onclick="helpText('1')">?</button></li>
                 <li><button id="debuff" class="support" onclick="debuffAtk()">Curse of Power</button></li>

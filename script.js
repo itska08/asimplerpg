@@ -211,12 +211,6 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>The dragon is enraged!</h2><p>Its ATK is significantly higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
             enragedicon.style.display = "block";
             break;
-        case "bothdead":
-            popup.innerHTML = "<h2>Uh-oh</h2><p>You both died. Someday, someone will find your corpse and your treasure.</p>";
-            break;
-        case "playerdead":
-            popup.innerHTML = "<h2>Take that</h2><p>You died.</p>";
-            break;
         case "wrongcode":
             popup.innerHTML = "<h2>Warning</h2><p>Cannot cast the input spell.</p><button onclick='closePopup()'>close</button>";
             break;
@@ -372,25 +366,35 @@ let castMagic = (skill) =>  {
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/mage.gif'>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/mage.gif'><br><button onClick='window.location.reload();'>Play again</button>";
 
             } else if (playerHP < 0 && dragonHP > 0) {
                 playerHP = 0;
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>Try again</button>";
                 
             } else if (playerHP < 0 && dragonHP < 0) {
                 playerHP = 0;
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>Try again</button>";
                 
             }
+            document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
+            document.getElementById("playerdmgtext").style.display = "block";
+            setTimeout(()=>{document.getElementById("playerdmgtext").style.display = "none"}, 1000);
+            if (poisonDot > 0) {
+                document.getElementById("playerpoisontext").innerHTML = poisonDot.toFixed(0);
+                document.getElementById("playerpoisontext").style.display = "block";
+                setTimeout(()=>{document.getElementById("playerpoisontext").style.display = "none"}, 1000);
+            }
+            
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
             damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skill + "</span>.";
+            
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
         }
