@@ -133,7 +133,6 @@ progress {
 	width: 500px;
 	display: block;
 	height: 20px;
-	border: none;
 	box-shadow: 0 3px 0px #212324;
 	outline: none;
 	-webkit-appearance: none;
@@ -180,11 +179,17 @@ progress#playerHealth::-webkit-progress-value {
 }
 /* for firefox */
 progress#dragonHealth::-moz-progress-bar {
-	background-color: #ffab88;
+	background-color: #eb5a1c;
+
 }
 /* for Chrome or Safari */
 progress#dragonHealth::-webkit-progress-value {
-	background: #ffab88;
+	background: #eb5a1c;
+	
+
+}
+progress#dragonHealth {
+	border: 3px solid #eeeeee;
 
 }
 #li1 {
