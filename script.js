@@ -383,11 +383,13 @@ let castMagic = (skill) =>  {
             }
             document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
             document.getElementById("playerdmgtext").style.display = "block";
-            setTimeout(()=>{document.getElementById("playerdmgtext").style.display = "none"}, 1000);
+            setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
+            document.getElementById("playerdmgtext").style.opacity = 1;
             if (poisonDot > 0) {
                 document.getElementById("playerpoisontext").innerHTML = poisonDot.toFixed(0);
                 document.getElementById("playerpoisontext").style.display = "block";
-                setTimeout(()=>{document.getElementById("playerpoisontext").style.display = "none"}, 1000);
+                setTimeout(()=>{document.getElementById("playerpoisontext").style.opacity = 0}, 1000);
+                document.getElementById("playerpoisontext").style.opacity = 1;
             }
             
             playerHealth.value = playerHP;
