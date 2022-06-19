@@ -41,9 +41,9 @@ let energyCon = 0;
 let dragonMaxHP = 10000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
-let playerHP = dragonMaxHP;
-let dragonATK = random(1800, 2500);
-let playerATK = random(150, 350);
+let playerHP = playerMaxHP;
+let dragonATK = 2400;
+let playerATK = 300;
 let damageDragon;
 let damagePlayer;
 let state = false;
@@ -64,10 +64,10 @@ let poisonTurn = 0;
 let poisonTurnText = document.getElementById("poisonText");
 let doubledmgState = false;
 let doublemodifier = 0;
-
 playerEnergyText.innerHTML = energy;
 playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
+
 
 let switchClass = (c) => {
     closeSettings();
@@ -75,7 +75,12 @@ let switchClass = (c) => {
         case "archer":
             switchButtonDefault.setAttribute("id","archerclass");
             switchButtonDefault.innerHTML = "Archer";
+            document.getElementById("playerHealth").setAttribute("max","8000");
+            document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = 1;
+            playerMaxHP = 8000;
+            playerHP = playerMaxHP;
+            playerATK = 400;
         break;
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
@@ -83,7 +88,13 @@ let switchClass = (c) => {
             playerClass = 0;
             break;
     }
+    playerEnergyText.innerHTML = energy;
+    playerAtkText.innerHTML = playerATK;
+    playerHealthText.innerHTML = playerHP;
+
 }
+
+
 function buffAtk() {
     let buffAmount = playerATK * 0.3;
     playerATK = playerATK + buffAmount;
