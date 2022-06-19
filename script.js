@@ -85,7 +85,12 @@ let switchClass = (c) => {
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
             switchButtonDefault.innerHTML = "Elemental Mage";
+            document.getElementById("playerHealth").setAttribute("max","10000");
+            document.getElementById("playerHealth").setAttribute("value","10000");
             playerClass = 0;
+            playerMaxHP = 10000;
+            playerHP = playerMaxHP;
+            playerATK = 300;
             break;
     }
     playerEnergyText.innerHTML = energy;
