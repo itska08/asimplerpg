@@ -9,7 +9,8 @@ Current version: 1.2
 
 ```markdown
 # 1.2 - 17/2022
-- added a new skill - Thornvines with DoT mechanics
+- added new skills and new support spells
+- various UI changes
 # 1.1 - 17/6/2022
 - visual and core mechanics update
 # 1.0 - 2/6/2022
