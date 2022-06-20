@@ -11,7 +11,7 @@ Current version: 1.3
 # 1.3 - 20/6/2022
 - visual update
 - new mechanics - DEF
-- new character - Archer
+- two new classes - Archer and Paladin
 # 1.2 - 17/2022
 - added new skills and new support spells
 - various UI changes
