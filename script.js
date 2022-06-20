@@ -352,25 +352,25 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Edge of Eternity</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
             break;
         case "s1":
-            popup.innerHTML = "<h2>Icebolt</h2><img src='images/s1.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Icebolt</h2><img src='images/s1.png' class='icon'><br><p>Deals 110% DMG (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s2":
-            popup.innerHTML = "<h2>Firerain</h2><img src='images/s2.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Firerain</h2><img src='images/s2.png' class='icon'><br><p>Deals 150% DMG (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s3":
-            popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/s3.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/s3.png' class='icon'><br><p>Deals 300% DMG (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;  
         case "s4":
-            popup.innerHTML = "<h2>Thornvines</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Thornvines</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% DMG (+150) and another 120% DMG to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
             break;
         case "s5":
-            popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% of ATK (+200) to the target. Marks it with a Hunter's Mark for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% DMG (+200) to the target. Marks it with a Hunter's Mark for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s6":
-            popup.innerHTML = "<h2>Bloodshed</h2><img src='images/s6.png' class='icon'><br><p>Deals 200% of ATK (+470) to the target and another 125% of ATK to the target every turn for 3 turns.<br>Energy consumption: 35</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Bloodshed</h2><img src='images/s6.png' class='icon'><br><p>Deals 200% DMG (+470) to the target and another 125% DMG to the target every turn for 3 turns.<br>Energy consumption: 35</p><button onclick='closePopup()'>close</button>";
             break;
         case "s7":
-            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% of ATK (+1050) to the target. If the target is under Hunter's Mark, deals an additional amount of 150% of ATK.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, deals an additional amount of 150% DMG.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
             popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 20% and Critical Rate by 50% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
