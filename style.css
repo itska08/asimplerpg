@@ -6,39 +6,30 @@ body {
 	height: 100%;
 }
 #settings {
-	z-index: 999999999;
+	z-index: 9999999;
 	position: absolute;
-	left: 50%;
-	margin-left: -285px;
-	margin-top: 8px;
+	border-radius: 5px;
+	padding: 15px;
 	background-color: rgba(0,0,0,0.9);
-	border: 3px solid #e7e7e7;
-	border-radius: 15px;
 	text-align: center;
-	width: 29.3%;
-	height: 98%;
+	width: 95%;
+	height: 96.5%;
 	display: none;
 }
 #change {
 	font-size: 16px;
-	text-align: left;
-	margin-left: 15px;
+	text-align: center;
 }
 #copyright {
 	position: relative;
 	top: 600px;
 	font-size: 15px;
 }
-#mage {
+#mage, #mage2, #mageclass {
 	background-color: #59366e;
 }
-#mageclass {
-	background-color: #59366e;
-}
-#archer {
-	background-color: #366e36;
-}
-#archerclass {
+
+#archer, #archer2, #archerclass {
 	background-color: #366e36;
 }
 
@@ -50,7 +41,7 @@ body {
 	background-color: rgba(0,0,0,0.9);
 	text-align: center;
 	width: 95%;
-	height: 96%;
+	height: 96.5%;
 }
 #popup {
 	z-index: 99999999;

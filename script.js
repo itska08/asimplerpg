@@ -80,9 +80,10 @@ playerAtkText.innerHTML = playerATK;
 playerHealthText.innerHTML = playerHP;
 
 
-let switchClass = (c) => {
+let switchClass = (playerClass) => {
     closeSettings();
-    switch (c) {
+    closeTutorial();
+    switch (playerClass) {
         case "archer":
             switchButtonDefault.setAttribute("id","archerclass");
             switchButtonDefault.innerHTML = "Archer";

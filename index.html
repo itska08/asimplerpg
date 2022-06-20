@@ -21,11 +21,16 @@
     </div>
     <div id="tutorial">
         <h5 id="welcome">Welcome!</h5>
-        <p>In this game, you are an elemental mage who is fighting against the most fearful dragon, Fafnir.<br>
-            Try using a variety of skills and abilities combination to defeat the dragon.<br><br>
+        <p>In this game, you are a hero who is fighting against the most fearful dragon, Fafnir.<br>
+            Choose a class and try using a variety of skills and abilities combination to defeat the dragon.<br><br>
             Good luck! <br>
-            <img src="images/mage.gif">
             </p>
+            <ul id="ulsettings">
+                <li><button id="mage2" class="classchange" onclick="switchClass('mage')">Mage</button></li>
+                <li><button id="archer2" class="classchange"onclick="switchClass('archer')">Archer</button></li>
+                </ul> 
+                
+                <img src="images/mage.gif">
         <p id="credit">- Dragon Art by Resa11 at deviantart.com<br>
             - Background Art by lokiie1984 at deviantart.com<br>
             - Skull Art by Geoffrey Gilderoy|<br>
@@ -42,7 +47,7 @@
                 <p id="playerpoisontext">0</p>
                 <p id="playerbleedtext">0</p>
                 <li><h3 id="dragonname">Fafnir the First King</h3></li>
-                <li><button class="help" id="dragonhelp" onclick="helpText('dragonstats')">?</button></li>
+                <li><button class="help" id="dragonhelp" onclick="helpText('dragonstats')">i</button></li>
                 <progress id="dragonHealth" value="10000" max="10000"></progress></li><br>
             
             </ul>
@@ -95,46 +100,46 @@
             </ul>
             <ul id="skillactive">
                 <li><button id="s1" class="spellbutton" onclick="castMagic('icebolt')">Icebolt</button></li>
-                <li><button class="help" onclick="helpText('s1')">?</button></li>
+                <li><button class="help" onclick="helpText('s1')">i</button></li>
                 
                 <li><button id="s2" class="spellbutton" onclick="castMagic('firerain')">Firerain</button></li>
-                <li><button class="help" onclick="helpText('s2')">?</button></li><br><br>
+                <li><button class="help" onclick="helpText('s2')">i</button></li><br><br>
                 
                 <li><button id="s3" class="spellbutton" onclick="castMagic('thunderstorm')">Thunderstorm</button></li>
-                <li><button class="help" onclick="helpText('s3')">?</button></li>
+                <li><button class="help" onclick="helpText('s3')">i</button></li>
 
                 <li><button id="s4" class="spellbutton" onclick="castMagic('thornvines')">Thornvines</button></li>
-                <li><button class="help" onclick="helpText('s4')">?</button></li>
+                <li><button class="help" onclick="helpText('s4')">i</button></li>
             </ul>
             <ul id="skillactive2">
                 <li><button id="s5" class="spellbutton" onclick="castMagic('arrowoflight')">Arrow of Light</button></li>
-                <li><button class="help" onclick="helpText('s5')">?</button></li>
+                <li><button class="help" onclick="helpText('s5')">i</button></li>
                 
                 <li><button id="s6" class="spellbutton" onclick="castMagic('bloodshed')">Bloodshed</button></li>
-                <li><button class="help" onclick="helpText('s6')">?</button></li><br><br>
+                <li><button class="help" onclick="helpText('s6')">i</button></li><br><br>
                 
                 <li><button id="s7" class="spellbutton" onclick="castMagic('piercingshot')">Piercing Shot</button></li>
-                <li><button class="help" onclick="helpText('s7')">?</button></li>
+                <li><button class="help" onclick="helpText('s7')">i</button></li>
 
                 <li><button id="s8" class="spellbutton" onclick="castMagic('huntersinstinct')">Hunter's Instinct</button></li>
-                <li><button class="help" onclick="helpText('s8')">?</button></li>
+                <li><button class="help" onclick="helpText('s8')">i</button></li>
             </ul>
     
             
             
             <ul id="supportactive">
                 <li><button id="buff" class="support" onclick="buffAtk()">Blessing of Fire</button></li>
-                <li><button id="help1" class="help" onclick="helpText('1')">?</button></li>
+                <li><button id="help1" class="help" onclick="helpText('1')">i</button></li>
                 <li><button id="debuff" class="support" onclick="debuffAtk()">Curse of Power</button></li>
-                <li><button id="help2" class="help" onclick="helpText('2')">?</button></li>
+                <li><button id="help2" class="help" onclick="helpText('2')">i</button></li>
                 <li><button id="doubledmg" class="support" onclick="doubledmg()">Edge of Eternity</button></li>
-                <li><button id="help6" class="help" onclick="helpText('6')">?</button></li><br><br>
+                <li><button id="help6" class="help" onclick="helpText('6')">i</button></li><br><br>
                 <li><button id="heal" class="support" onclick="heal()">Blessing of Light</button></li>
-                <li><button id="help3" class="help" onclick="helpText('3')">?</button></li>
+                <li><button id="help3" class="help" onclick="helpText('3')">i</button></li>
                 <li><button id="shield" class="support" onclick="shield()">Blessing of Earth</button></li>
-                <li><button id="help4" class="help" onclick="helpText('4')">?</button></li>
+                <li><button id="help4" class="help" onclick="helpText('4')">i</button></li>
                 <li><button id="holyshield" class="support" onclick="holyShield()">Heaven's Will</button></li>
-                <li><button id="help5" class="help" onclick="helpText('5')">?</button></li>
+                <li><button id="help5" class="help" onclick="helpText('5')">i</button></li>
             </ul>
         
         </div>
