@@ -2,12 +2,16 @@
 
 Live preview: [click here](https://thaykhangne.github.io/firemage-battle/)
 
-Current version: 1.2
+Current version: 1.3
 
 ### Changes
 
 
 ```markdown
+# 1.3 - 20/6/2022
+- visual update
+- new mechanics - DEF
+- new character - Archer
 # 1.2 - 17/2022
 - added new skills and new support spells
 - various UI changes
