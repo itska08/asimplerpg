@@ -149,7 +149,8 @@ function resetGame() {
             hunterIcon.style.display = "none";
             bleedIcon.style.display = "none";
             hunterAtkIcon.style.display = "none";
-
+    holyshieldicon.style.display = "none";
+    
     document.getElementById('buff').style.pointerevents = 'auto';
     document.getElementById('buff').style.cursor = 'pointer';
     document.getElementById('buff').style.opacity = '1';
