@@ -337,7 +337,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% of ATK (+1050) to the target. If the target is under Mark of the Hunter, deals an additional amount of 150% of ATK.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
-            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 20% for 2 turns and mark the enemy with Mark of the Hunter.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 50% for 2 turns and mark the enemy with Mark of the Hunter.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;     
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -457,7 +457,7 @@ let castMagic = (skill) =>  {
                     magicATK = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
-                    hunteratkmodifier = 0.2;
+                    hunteratkmodifier = 0.5;
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
                     hunterIcon.style.display = "block";
