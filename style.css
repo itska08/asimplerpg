@@ -24,7 +24,7 @@ body {
 }
 #copyright {
 	position: relative;
-	top: 600px;
+	top: 50px;
 	font-size: 15px;
 }
 #mage, #mage2, #mageclass {
@@ -488,7 +488,6 @@ ul {
 }
 #settingsclose {
 	position: relative;
-	top: 560px;
 }
 li {
 	display: inline-block;

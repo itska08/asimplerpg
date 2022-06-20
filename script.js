@@ -51,7 +51,7 @@ let dragonMaxHP = 15000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
-let dragonATK = 2100;
+let dragonATK = 2400;
 let playerATK = 300;
 let damageDragon;
 let damagePlayer;
@@ -112,8 +112,8 @@ let switchClass = (playerClass) => {
             playerClass = "archer";
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
-            playerATK = 400;
-            playerDEF = 150;
+            playerATK = 360;
+            playerDEF = 220;
             critRate = 20;
             defaultCrit = critRate;
             critHit = false;
@@ -132,8 +132,8 @@ let switchClass = (playerClass) => {
             playerClass = "mage";
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
-            playerATK = 310;
-            playerDEF = 260;
+            playerATK = 290;
+            playerDEF = 270;
             critRate = 10;
             defaultCrit = critRate;
             critHit = false;
@@ -153,10 +153,10 @@ let switchClass = (playerClass) => {
             playerHP = playerMaxHP;
             playerATK = 120;
             playerDEF = 360;
-            critRate = 0;
+            critRate = 15;
             defaultCrit = critRate;
             critHit = false;
-            critDmg = 0.0;
+            critDmg = 0.4;
             critRoll = 0;
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "none";
@@ -570,7 +570,7 @@ let castMagic = (skill) =>  {
                         lightmarkicon.style.display = "block";
                         document.getElementById("lightText").innerHTML = lightmark + " stacks.";
                     }
-                    //effect.style.backgroundImage = "url('images/skill1.png')";
+                    effect.style.backgroundImage = "url('images/skill9.png')";
                     break;
                 case "rectitude":
                     magicATK = playerATK*1.4 + 300;
@@ -583,37 +583,34 @@ let castMagic = (skill) =>  {
                         lightmarkicon.style.display = "block";
                         document.getElementById("lightText").innerHTML = lightmark + " stacks.";
                     }
-                    //effect.style.backgroundImage = "url('images/skill2.png')";
+                    effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
                     magicATK = playerATK*2.8 + 915 + playerATK*1.2*lightmark;
                     lightmark = 0;
                     lightmarkicon.style.display = "none";
-                    //effect.style.backgroundImage = "url('images/skill3.png')";
+                    effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
                     magicATK = playerATK*2.0 + 700 + playerMaxHP*0.12;
-                    //effect.style.backgroundImage = "url('images/skill4.png')";
+                    effect.style.backgroundImage = "url('images/skill12.png')";
                     break;               
             }
             //raw damage calculation
             if (skill == "huntersinstinct") {
                 damagePlayer = 0;
             } else {
+                
                 critRoll = random(1,100);
-               
                 if (critRoll >= 100-critRate) {
                     critHit=true;
-                } else {
-                    critHit=false;
-                }
-                if (critHit == true) {
                     damagePlayer = random(50, 100) + magicATK;
                     damagePlayer = damagePlayer+damagePlayer*critDmg;
                 } else {
+                    critHit=false;
                     damagePlayer = random(50, 100) + magicATK;
                 }
-                
+                playerCritText.innerHTML = critRate + "%";
             }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(300, 500) - playerDEF;
@@ -632,15 +629,25 @@ let castMagic = (skill) =>  {
                 dragonHP -= damagePlayer.toFixed(0);
             }
             //check debuff states and calculate debuff dmg
-            if (hunteratkcooldown == 0) {
+            if (hunteratkcooldown == 0 && critHit == false) {
                         hunteratkbuff = false;
                         hunteratkmodifier = 0;
                         hunterAtkIcon.style.display = "none";
-                        critRate = defaultCrit;
-                        playerCritText.innerHTML = critRate + "%";
-            } else {
-                        hunteratkcooldown--;
+                        critRate = critRate+5;
+            } else if (hunteratkcooldown == 0 && critHit == true) {
+                    hunteratkbuff = false;
+                    hunteratkmodifier = 0;
+                    hunterAtkIcon.style.display = "none";
+                    critRate = defaultCrit;
+            } else if (hunteratkcooldown > 0 && critHit == true) {
+                    hunteratkcooldown--;
+                    critRate = defaultCrit;
+            } else if (hunteratkcooldown > 0 && critHit == false) {
+                    hunteratkcooldown--;
+                    critRate = critRate+5;
             }
+                
+            playerCritText.innerHTML = critRate + "%";
             if (doubledmgState = true) {
                 doubledmgState = false;
                 doubledmgIcon.style.display = "none";

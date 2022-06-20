@@ -9,12 +9,17 @@
 </head>
 <body>
     <div id="settings">
-        <h5>Settings</h5>
-        <h3 id="change">Change character</h3>
+        <h5>Change Your Character</h5>
         <ul id="ulsettings">
-        <li><button id="mage" class="classchange" onclick="switchClass('mage')">Elemental Mage</button></li>
-        <li><button id="archer" class="classchange"onclick="switchClass('archer')">Forest Archer</button></li>
-        <li><button id="paladin" class="classchange"onclick="switchClass('paladin')">Paladin of Light</button></li>
+        <li><button id="mage" class="classchange" onclick="switchClass('mage')">Elemental Mage</button></li><br><br>
+        <li><p style="font-size: 15px;">Elemental Mage is an excellent choice if you want a balanced gameplay. This class possesses a range of basic elemental abilities, yet very powerful if play right. Recommended for beginner.</p><br></li>
+        <br><hr><br>
+        <li><button id="archer" class="classchange"onclick="switchClass('archer')">Forest Archer</button></li><br><br>
+        <li><p style="font-size: 15px;">Forest Archer's gameplay is one of the riskiest. You lose more to gain more, they once said. This class includes many powerful stat boosts and abilities that are sure to hit the enemy like a truck. A glass truck, though. Recommended for anyone who enjoys living a dangerous life.</p><br></li>
+        <br><hr><br>
+        <li><button id="paladin" class="classchange"onclick="switchClass('paladin')">Paladin of Light</button></li><br><br>
+        <li><p style="font-size: 15px;">Paladin of Light is one of those classes which seem casual but actually very strategic. The more wisely you use his skills, the faster you get to end the fight. This class comes with minimum offensive stats while having abilities that can send you to the extreme. Recommended for people who prefer strategy over power.</p><br></li>
+        <br>
         </ul>
         <button id="settingsclose" onclick='closeSettings()'>close</button>
         <p id="copyright">© 2022 - Khang Nguyen - v1.3</p>
@@ -93,7 +98,7 @@
               
             <li><progress id="playerHealth" value="10000" max="10000"></progress></li><br>
             <li><progress id="holyshieldbar" value="0" max="5000"></progress></li><br>
-            <li><button class="classchange" id="mageclass" style="width: 200px; height: 50px; font-size: 20px;">Elemental Mage</button></li>
+            <li><button class="classchange" id="mageclass" style="width: 220px; height: 45px; font-size: 24px;">Elemental Mage</button></li>
             
             <li><button class="support" id="hpbutton">HP: <p id="hp">0</p></button></li>
             <li><button class="support" id="shieldbutton">Holy Shield: <p id="holyshieldText">0</p></button></li><br>
