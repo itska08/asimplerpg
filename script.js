@@ -410,38 +410,32 @@ let castMagic = (skill) =>  {
                 case "icebolt":
                     magicATK = playerATK*1.1 + 250;
                     effect.style.backgroundImage = "url('images/skill1.png')";
-                    energyCon = 0;
                     break;
                 case "firerain":
                     magicATK = playerATK*1.5 + 450;
                     dmgreceive = true;
                     dmgReceiveIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill2.png')";
-                    energyCon = 30;
                     break;
                 case "thunderstorm":
                     magicATK = playerATK*3 + 1150;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
-                    energyCon = 60;
                     break;
                 case "thornvines":
                     magicATK = playerATK*1.5 + 150;
                     effect.style.backgroundImage = "url('images/skill4.png')";
-                    energyCon = 25;
                     break;
                 case "arrowoflight":
                     magicATK = playerATK + 200;
                     huntermark = true;
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill5.png')";
-                    energyCon = 0;
                     break;
                 case "bloodshed":
                     magicATK = playerATK*2 + 470;
                     effect.style.backgroundImage = "url('images/skill6.png')";
-                    energyCon = 35;
                     break;
                 case "piercingshot":
                     if (huntermark == false) {
@@ -452,7 +446,6 @@ let castMagic = (skill) =>  {
                         hunterIcon.style.display = "none";
                     }
                     effect.style.backgroundImage = "url('images/skill7.png')";
-                    energyCon = 60;
                     break;
                 case "huntersinstinct":
                     magicATK = 0;
@@ -463,7 +456,6 @@ let castMagic = (skill) =>  {
                     huntermark = true;
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill8.png')";
-                    energyCon = 40;
                     break;               
             }
             //damage calculation
