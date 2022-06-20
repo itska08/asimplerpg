@@ -420,7 +420,7 @@ span {
 	line-height: 2em;
 }
 .damage {
-	color: red;
+	color: rgb(214, 65, 65);
 	font-size: 26px;
 	padding: 0px 2px;
 	font-weight: 700;
