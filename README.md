@@ -1,6 +1,6 @@
 ## Welcome to my small project
 
-Live preview: [click here](https://thaykhangne.github.io/firemage-battle/)
+Live preview: [[click here]](https://thaykhangne.github.io/a-simple-rpg/)
 
 Current version: 1.3
 
