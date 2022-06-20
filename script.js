@@ -150,7 +150,7 @@ function resetGame() {
             bleedIcon.style.display = "none";
             hunterAtkIcon.style.display = "none";
     holyshieldicon.style.display = "none";
-    
+
     document.getElementById('buff').style.pointerevents = 'auto';
     document.getElementById('buff').style.cursor = 'pointer';
     document.getElementById('buff').style.opacity = '1';
@@ -451,7 +451,11 @@ let castMagic = (skill) =>  {
                     break;               
             }
             //damage calculation
-            damagePlayer = random(50, 100) + magicATK;
+            if (skill == "huntersinstinct") {
+                damagePlayer = 0;
+            } else {
+                damagePlayer = random(50, 100) + magicATK;
+            }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(100, 300);
             } else {
