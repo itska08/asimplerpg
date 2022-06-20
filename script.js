@@ -560,17 +560,19 @@ let castMagic = (skill) =>  {
                     }
                     break;
                 case "thornvines":
-                    energy = energy - energyCon;
                     poisonState = true;
                     poisonTurn = 3;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
                     poisonIcon.style.display = "block";
-                case "bloodshed":
                     energy = energy - energyCon;
+                    break;
+                case "bloodshed":
                     bleedState = true;
                     bleedTurn = 3;
                     bleedTurnText.innerHTML = poisonTurn + " turns left.";
                     bleedIcon.style.display = "block";
+                    energy = energy - energyCon;
+                    break;
                 default:
                     energy = energy - energyCon;
                     break;
@@ -581,16 +583,16 @@ let castMagic = (skill) =>  {
             turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
             cooldown--;
             holyshieldcooldown--;
-            if (dragonHP <= 5000) {
-                state = true;
-                dragonHP = dragonHP + 5000;
+            if (dragonHP <= 5000 && state==false) {
+                    dragonHP = dragonHP + 5000;
                     dragonATK = dragonATK + dragonATK * 0.8;
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-                    state = false;
-             } else {
-                state = false;
+                    state=true;
+                } else if (dragonHP <= 5000 && state==true) {
+                state = true;
             }
+        
 
             if (cooldown == 0) {
                 document.getElementById('heal').style.pointerevents = 'auto';
