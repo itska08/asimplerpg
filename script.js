@@ -36,11 +36,13 @@ let switchButtonDefault = document.getElementById("mageclass");
 let bleedIcon = document.getElementById("bleedicon");
 let hunterIcon = document.getElementById("huntericon");
 let hunterAtkIcon = document.getElementById("hunteratkicon");
+let playerDefText = document.getElementById("def");
+let defbufficon = document.getElementById("defbufficon");
 /* character and skill stats */
 let skill;
 let energy = 0;
 let energyCon = 0;
-let dragonMaxHP = 10000;
+let dragonMaxHP = 15000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
@@ -74,6 +76,12 @@ let bleedTurnText = document.getElementById("bleedText");
 let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
+let playerDEF = 300;
+
+playerEnergyText.innerHTML = energy;
+    playerAtkText.innerHTML = playerATK;
+    playerHealthText.innerHTML = playerHP;
+    playerDefText.innerHTML = playerDEF;
 
 let switchClass = (playerClass) => {
     closeSettings();
@@ -88,6 +96,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerATK = 400;
+            playerDEF = 200;
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "block";
         break;
@@ -100,6 +109,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
             playerATK = 300;
+            playerDEF = 300;
             document.getElementById("skillactive").style.display = "block";
             document.getElementById("skillactive2").style.display = "none";
             break;
@@ -148,12 +158,13 @@ function resetGame() {
     holyshieldicon.style.display = "none";
     shieldicon.style.display = "none";
     doubledmgIcon.style.display = "none";
+    defbufficon.style.display = "none";
 
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById('buff').style.pointerevents = 'auto';
     document.getElementById('buff').style.cursor = 'pointer';
     document.getElementById('buff').style.opacity = '1';
-    document.getElementById('buff').setAttribute("onclick", "buffAtk()");
+    document.getElementById('buff').setAttribute("onclick", "buff()");
 
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
@@ -183,23 +194,29 @@ function resetGame() {
     dragonHealth.value = dragonHP;
     playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
+    playerDefText.innerHTML = playerDEF;
     playerHealthText.innerHTML = playerHP;
     playerHealth.value = playerHP;
     holyshieldText.innerHTML = holyshieldamount;
     holyshieldbar.value = holyshieldamount;
+    
     effect.style.backgroundImage = "";
 }
 
 
-function buffAtk() {
+function buff() {
     let buffAmount = playerATK * 0.3;
+    let defbuffAmount = playerDEF * 0.3;
     playerATK = playerATK + buffAmount;
+    playerDEF = playerDEF + defbuffAmount;
     document.getElementById('buff').style.pointerevents = 'none';
     document.getElementById('buff').style.cursor = 'not-allowed';
     document.getElementById('buff').style.opacity = '0.6';
     document.getElementById('buff').setAttribute("onclick", "");
     atkbufficon.style.display = "block";
+    defbufficon.style.display = "block";
     playerAtkText.innerHTML = playerATK;
+    playerDefText.innerHTML = playerDEF;
 }
 
 function doubledmg() {
@@ -295,7 +312,7 @@ let helpText = (a) => {
     popup.style.display = "block";
     switch (a) {
         case "1":
-            popup.innerHTML = "<h2>Blessing of Fire</h2><img src='images/atkbuff.png' class='icon'><br><p>Increase your ATK by 30%.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Song of Fire and Ice</h2><ul id='ulsettings'><li><img src='images/atkbuff.png' class='icon'></li><li><img src='images/defbuff.png' class='icon'></li></ul><br><p>Increase your ATK and DEF by 30%.</p><button onclick='closePopup()'>close</button>";
             break;
         case "2":
             popup.innerHTML = "<h2>Curse of Power</h2><img src='images/atkdebuff.png' class='icon'><br><p>Decrease the Dragon's ATK by 30%</p><button onclick='closePopup()'>close</button>";
@@ -461,7 +478,7 @@ let castMagic = (skill) =>  {
                 damagePlayer = random(50, 100) + magicATK;
             }
             if (shieldState == false) {
-                damageDragon = dragonATK + random(100, 300);
+                damageDragon = dragonATK + random(300, 500) - playerDEF;
             } else {
                 damageDragon = 0;
                 shieldState = false;
@@ -572,7 +589,7 @@ let castMagic = (skill) =>  {
             cooldown--;
             holyshieldcooldown--;
             if (dragonHP <= 5000 && state==false) {
-                    dragonHP = dragonHP + 5000;
+                    dragonHP = dragonMaxHP;
                     dragonATK = dragonATK + dragonATK * 0.8;
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
