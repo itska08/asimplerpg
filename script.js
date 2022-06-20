@@ -426,8 +426,6 @@ let castMagic = (skill) =>  {
                     break;
                 case "firerain":
                     magicATK = playerATK*1.5 + 450;
-                    dmgreceive = true;
-                    dmgReceiveIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill2.png')";
                     break;
                 case "thunderstorm":
@@ -471,7 +469,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;               
             }
-            //damage calculation
+            //raw damage calculation
             if (skill == "huntersinstinct") {
                 damagePlayer = 0;
             } else {
@@ -484,16 +482,16 @@ let castMagic = (skill) =>  {
                 shieldState = false;
                 shieldicon.style.display = "none";
             }
-            
             if (dmgreceive == true) {
-                    damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
-                    dragonHP -= damagePlayer;
-                    dmgreceive = false;
-                    dmgReceiveIcon.style.display = "none";
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
+                dragonHP -= damagePlayer;
+                dmgreceive = false;
+                dmgReceiveIcon.style.display = "none";
             } else {
                 damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
             }
+            //check debuff states and calculate debuff dmg
             if (hunteratkcooldown == 0) {
                         hunteratkbuff = false;
                         hunteratkmodifier = 0;
@@ -535,7 +533,6 @@ let castMagic = (skill) =>  {
                     poisonIcon.style.display = "none";
                 }
             }
-            
             if (bleedState == true) {
                 bleedDot = playerATK*1.25;
                 dragonHP = dragonHP - bleedDot;
@@ -563,6 +560,11 @@ let castMagic = (skill) =>  {
                     if (energy >= 100) {
                         energy = 100;
                     }
+                    break;
+                case "firerain":
+                    dmgreceive = true;
+                    dmgReceiveIcon.style.display = "block";
+                    energy = energy - energyCon;
                     break;
                 case "thornvines":
                     poisonState = true;
