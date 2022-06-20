@@ -38,6 +38,8 @@ let hunterIcon = document.getElementById("huntericon");
 let hunterAtkIcon = document.getElementById("hunteratkicon");
 let playerDefText = document.getElementById("def");
 let defbufficon = document.getElementById("defbufficon");
+let playerCritText = document.getElementById("crit");
+let playerCritDMGText = document.getElementById("critdmg");
 /* character and skill stats */
 let skill;
 let energy = 0;
@@ -77,7 +79,14 @@ let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
 let playerDEF = 300;
+let critRate = 10;
+let critHit = false;
+let critDmg = 0.5;
+let critRoll = 0;
+let defaultCrit = 0;
 
+playerCritText.innerHTML = critRate + "%";
+playerCritDMGText.innerHTML = critDmg*100 + "%";
 playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerHealthText.innerHTML = playerHP;
@@ -96,9 +105,15 @@ let switchClass = (playerClass) => {
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerATK = 400;
-            playerDEF = 200;
+            playerDEF = 150;
+            critRate = 20;
+            defaultCrit = critRate;
+            critHit = false;
+            critDmg = 0.7;
+            critRoll = 0;
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "block";
+            
         break;
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
@@ -110,6 +125,11 @@ let switchClass = (playerClass) => {
             playerHP = playerMaxHP;
             playerATK = 300;
             playerDEF = 300;
+            critRate = 10;
+            defaultCrit = critRate;
+            critHit = false;
+            critDmg = 0.5;
+            critRoll = 0;
             document.getElementById("skillactive").style.display = "block";
             document.getElementById("skillactive2").style.display = "none";
             break;
@@ -145,6 +165,7 @@ function resetGame() {
     bleedTurn = 0;
     bleedDot = 0;
     hunteratkmodifier = 0;
+    
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
     atkdebufficon.style.display = "none";
@@ -199,7 +220,8 @@ function resetGame() {
     playerHealth.value = playerHP;
     holyshieldText.innerHTML = holyshieldamount;
     holyshieldbar.value = holyshieldamount;
-    
+    playerCritText.innerHTML = critRate + "%";
+    playerCritDMGText.innerHTML = critDmg*100 + "%";
     effect.style.backgroundImage = "";
 }
 
@@ -459,12 +481,15 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill7.png')";
                     break;
                 case "huntersinstinct":
+                    
                     magicATK = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
                     hunteratkmodifier = 0.5;
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
+                    critRate = critRate+50;
+                    playerCritText.innerHTML = critRate + "%";
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;               
@@ -473,7 +498,20 @@ let castMagic = (skill) =>  {
             if (skill == "huntersinstinct") {
                 damagePlayer = 0;
             } else {
-                damagePlayer = random(50, 100) + magicATK;
+                critRoll = random(1,100);
+               
+                if (critRoll >= 100-critRate) {
+                    critHit=true;
+                } else {
+                    critHit=false;
+                }
+                if (critHit == true) {
+                    damagePlayer = random(50, 100) + magicATK;
+                    damagePlayer = damagePlayer+damagePlayer*critDmg;
+                } else {
+                    damagePlayer = random(50, 100) + magicATK;
+                }
+                
             }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(300, 500) - playerDEF;
@@ -496,6 +534,8 @@ let castMagic = (skill) =>  {
                         hunteratkbuff = false;
                         hunteratkmodifier = 0;
                         hunterAtkIcon.style.display = "none";
+                        critRate = defaultCrit;
+                        playerCritText.innerHTML = critRate + "%";
             } else {
                         hunteratkcooldown--;
             }
@@ -653,7 +693,12 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = playerHP;
-            damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+            if (critHit == false) {
+                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+            } else {
+                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span> critically.";
+                critHit=false;
+            }
             
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
