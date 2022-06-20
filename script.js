@@ -75,11 +75,6 @@ let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
 
-playerEnergyText.innerHTML = energy;
-playerAtkText.innerHTML = playerATK;
-playerHealthText.innerHTML = playerHP;
-
-
 let switchClass = (playerClass) => {
     closeSettings();
     closeTutorial();
