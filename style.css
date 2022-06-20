@@ -436,12 +436,12 @@ button {
 #effect {
 	display: none;
 	position: absolute;
-	top: 280px;
+	top: 330px;
 	left: 50%;
 	margin-left: -50px;
 	width: 192px;
 	height: 192px;
-	background-image: url("/resources/exploda.png");
+	background-image: url("");
 	background-position-x: -512px;
 	background-position-y: 0;
 	transform: scale(2.5);

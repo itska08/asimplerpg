@@ -144,12 +144,14 @@ function resetGame() {
     atkdebufficon.style.display = "none";
     enragedicon.style.display = "none";
     poisonIcon.style.display = "none";
-            dmgReceiveIcon.style.display = "none";
-            healBuffIcon.style.display = "none";
-            hunterIcon.style.display = "none";
-            bleedIcon.style.display = "none";
-            hunterAtkIcon.style.display = "none";
+    dmgReceiveIcon.style.display = "none";
+    healBuffIcon.style.display = "none";
+    hunterIcon.style.display = "none";
+    bleedIcon.style.display = "none";
+    hunterAtkIcon.style.display = "none";
     holyshieldicon.style.display = "none";
+    shieldicon.style.display = "none";
+    doubledmgIcon.style.display = "none";
 
     document.getElementById('buff').style.pointerevents = 'auto';
     document.getElementById('buff').style.cursor = 'pointer';
@@ -314,16 +316,16 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Edge of Eternity</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
             break;
         case "s1":
-            popup.innerHTML = "<h2>Icebolt</h2><img src='images/skill1icon.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Icebolt</h2><img src='images/s1.png' class='icon'><br><p>Deals 110% of ATK (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s2":
-            popup.innerHTML = "<h2>Firerain</h2><img src='images/skill2icon.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Firerain</h2><img src='images/s2.png' class='icon'><br><p>Deals 150% of ATK (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s3":
-            popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/skill3icon.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/s3.png' class='icon'><br><p>Deals 300% of ATK (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;  
         case "s4":
-            popup.innerHTML = "<h2>Thornvines</h2><img src='images/skill4icon.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Thornvines</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
             break;
         case "s5":
             popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% of ATK (+200) to the target. Marks it with a Mark of the Hunter for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -397,8 +399,9 @@ let castMagic = (skill) =>  {
         if (energy < energyCon) {
             popup.style.display = "block";
             popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
+            energy = energy;
+            playerEnergyText.innerHTML = energy;
             magicATK = 0;
-            energyCon = 0;
             skillName = "";
         } else {
             currentFrame = 1;
@@ -406,30 +409,38 @@ let castMagic = (skill) =>  {
                 case "icebolt":
                     magicATK = playerATK*1.1 + 250;
                     effect.style.backgroundImage = "url('images/skill1.png')";
+                    energyCon = 0;
                     break;
                 case "firerain":
                     magicATK = playerATK*1.5 + 450;
                     dmgreceive = true;
                     dmgReceiveIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill2.png')";
+                    energyCon = 30;
                     break;
                 case "thunderstorm":
                     magicATK = playerATK*3 + 1150;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
+                    energyCon = 60;
                     break;
                 case "thornvines":
                     magicATK = playerATK*1.5 + 150;
                     effect.style.backgroundImage = "url('images/skill4.png')";
+                    energyCon = 25;
                     break;
                 case "arrowoflight":
                     magicATK = playerATK + 200;
                     huntermark = true;
                     hunterIcon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill5.png')";
+                    energyCon = 0;
                     break;
                 case "bloodshed":
                     magicATK = playerATK*2 + 470;
+                    effect.style.backgroundImage = "url('images/skill6.png')";
+                    energyCon = 35;
                     break;
                 case "piercingshot":
                     if (huntermark == false) {
@@ -439,6 +450,8 @@ let castMagic = (skill) =>  {
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     }
+                    effect.style.backgroundImage = "url('images/skill7.png')";
+                    energyCon = 60;
                     break;
                 case "huntersinstinct":
                     magicATK = 0;
@@ -448,6 +461,8 @@ let castMagic = (skill) =>  {
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
                     hunterIcon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill8.png')";
+                    energyCon = 40;
                     break;               
             }
             //damage calculation
