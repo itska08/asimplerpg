@@ -153,6 +153,7 @@ function resetGame() {
     shieldicon.style.display = "none";
     doubledmgIcon.style.display = "none";
 
+    document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById('buff').style.pointerevents = 'auto';
     document.getElementById('buff').style.cursor = 'pointer';
     document.getElementById('buff').style.opacity = '1';
@@ -582,14 +583,12 @@ let castMagic = (skill) =>  {
             holyshieldcooldown--;
             if (dragonHP <= 5000) {
                 state = true;
-                if (state == true && enragedicon.style.display == "") {
-                    dragonHP = dragonHP + 5000;
+                dragonHP = dragonHP + 5000;
                     dragonATK = dragonATK + dragonATK * 0.8;
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
                     state = false;
-                }
-            } else {
+             } else {
                 state = false;
             }
 
