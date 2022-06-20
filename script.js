@@ -540,7 +540,7 @@ let castMagic = (skill) =>  {
                     bleedTurn--;
                     bleedTurnText.innerHTML = bleedTurn + " turns left.";
                 } else if (bleedTurn == 0) {
-                    bleedturn = 0;
+                    bleedTurn = 0;
                     bleedDot = 0;
                     bleedState = false;
                     bleedIcon.style.display = "none";
@@ -619,19 +619,19 @@ let castMagic = (skill) =>  {
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/mage.gif'><br><button onClick='window.location.reload();'>Play again</button>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/treasure.gif'><br><button onClick='window.location.reload();'>play again</button>";
 
             } else if (playerHP < 0 && dragonHP > 0) {
                 playerHP = 0;
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>Try again</button>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
                 
             } else if (playerHP < 0 && dragonHP < 0) {
                 playerHP = 0;
                 dragonHP = 0;
                 document.getElementById('dragon').style.visibility = 'hidden';
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>Try again</button>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
                 
             }
             document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
