@@ -328,16 +328,16 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Thornvines</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% of ATK (+150) and another 120% of ATK to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
             break;
         case "s5":
-            popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% of ATK (+200) to the target. Marks it with a Mark of the Hunter for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% of ATK (+200) to the target. Marks it with a Hunter's Mark for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s6":
             popup.innerHTML = "<h2>Bloodshed</h2><img src='images/s6.png' class='icon'><br><p>Deals 200% of ATK (+470) to the target and another 125% of ATK to the target every turn for 3 turns.<br>Energy consumption: 35</p><button onclick='closePopup()'>close</button>";
             break;
         case "s7":
-            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% of ATK (+1050) to the target. If the target is under Mark of the Hunter, deals an additional amount of 150% of ATK.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% of ATK (+1050) to the target. If the target is under Hunter's Mark, deals an additional amount of 150% of ATK.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
-            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 50% for 2 turns and mark the enemy with Mark of the Hunter.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 50% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;     
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
