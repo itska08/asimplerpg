@@ -377,7 +377,7 @@ let helpText = (a) => {
             break;     
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
-            document.getElementById('cast').style.visibility = 'hidden';
+            document.getElementById('cast').style.display = 'none';
             break;
         case "dragonstats":
             popup.innerHTML = "<h2>Fafnir the First King</h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
@@ -657,7 +657,7 @@ let castMagic = (skill) =>  {
             
             if (dragonHP < 0 && playerHP > 0) {
                 dragonHP = 0;
-                document.getElementById('dragon').style.visibility = 'hidden';
+                document.getElementById('dragon').style.display = 'block';
                 document.getElementById("tutorial").style.display = "block";
                 document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/treasure.gif'><br><button onClick='window.location.reload();'>play again</button>";
 
@@ -669,7 +669,7 @@ let castMagic = (skill) =>  {
             } else if (playerHP < 0 && dragonHP < 0) {
                 playerHP = 0;
                 dragonHP = 0;
-                document.getElementById('dragon').style.visibility = 'hidden';
+                document.getElementById('dragon').style.display = 'block';
                 document.getElementById("tutorial").style.display = "block";
                 document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
                 
