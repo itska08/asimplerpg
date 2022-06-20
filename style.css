@@ -100,7 +100,7 @@ body {
 	display: none;
 	font-size: 70px;
 	opacity: 1;
-	transition: all 0.2s;
+	transition: all 0.1s;
 	top: 440px;
 	left: 590px;
 	color: darkred;
@@ -115,7 +115,7 @@ body {
 	top: 380px;
 	left: 340px;
 	opacity: 1;
-	transition: all 0.2s;
+	transition: all 0.1s;
 	color: rgb(0, 139, 86);
 	font-weight: bold;
 	text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
