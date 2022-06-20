@@ -186,6 +186,7 @@ function resetGame() {
     playerHealthText.innerHTML = playerHP;
     playerHealth.value = playerHP;
     holyshieldText.innerHTML = holyshieldamount;
+    holyshieldbar.value = holyshieldamount;
     effect.style.backgroundImage = "";
 }
 
@@ -359,65 +360,34 @@ let castMagic = (skill) =>  {
         //define the skill consumption
         switch (skill) {
             case "icebolt":
-                magicATK = playerATK*1.1 + 250;
                 skillName = "Icebolt";
                 energyCon = 0;
-                effect.style.backgroundImage = "url('images/skill1.png')";
                 break;
             case "firerain":
-                magicATK = playerATK*1.5 + 450;
                 skillName = "Firerain";
-                dmgreceive = true;
-                dmgReceiveIcon.style.display = "block";
                 energyCon = 30;
-                effect.style.backgroundImage = "url('images/skill2.png')";
                 break;
             case "thunderstorm":
-                magicATK = playerATK*3 + 1150;
                 skillName = "Thunderstorm";
-                healBuff = true;
-                healBuffIcon.style.display = "block";
-                effect.style.backgroundImage = "url('images/skill3.png')";
                 energyCon = 60;
                 break;
             case "thornvines":
-                magicATK = playerATK*1.5 + 150;
                 skillName = "Thornvines";
-                
-                effect.style.backgroundImage = "url('images/skill4.png')";
                 energyCon = 25;
                 break;
             case "arrowoflight":
-                magicATK = playerATK + 200;
-                huntermark = true;
-                hunterIcon.style.display = "block";
                 skillName = "Arrow of Light";
                 energyCon = 0;
                 break;
             case "bloodshed":
-                magicATK = playerATK*2 + 470;
                 skillName = "Bloodshed";
                 energyCon = 35;
                 break;
             case "piercingshot":
-                if (huntermark == false) {
-                    magicATK = playerATK*3.8 + 1050;
-                } else {
-                    magicATK = playerATK*5.3 + 1050;
-                    huntermark = false;
-                    hunterIcon.style.display = "none";
-                }
                 skillName = "Piercing Shot";
                 energyCon = 60;
                 break;
             case "huntersinstinct":
-                magicATK = 0;
-                hunteratkbuff = true;
-                hunteratkcooldown = 2;
-                hunteratkmodifier = 0.2;
-                hunterAtkIcon.style.display = "block";
-                huntermark = true;
-                hunterIcon.style.display = "block";
                 skillName = "Hunter's Instinct";
                 energyCon = 40;
                 break;               
@@ -425,29 +395,60 @@ let castMagic = (skill) =>  {
         
         if (energy < energyCon) {
             popup.style.display = "block";
-            popup.innerHTML = "<p>You don't have enough energy to use that!</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
             magicATK = 0;
             energyCon = 0;
-            huntermark = false;
-            dmgreceive = false;
-            healBuff = false;
-            poisonState = false;
-            poisonTurn = 0;
-            bleedState = false;
-            hunteratkbuff = false;
-            hunteratkcooldown = 0;
-            bleedTurn = 0;
-            bleedDot = 0;
-            hunteratkmodifier = 0;
-            poisonIcon.style.display = "none";
-            dmgReceiveIcon.style.display = "none";
-            healBuffIcon.style.display = "none";
-            hunterIcon.style.display = "none";
-            bleedIcon.style.display = "none";
-            hunterAtkIcon.style.display = "none";
-                           
+            skillName = "";
         } else {
             currentFrame = 1;
+            switch (skill) {
+                case "icebolt":
+                    magicATK = playerATK*1.1 + 250;
+                    effect.style.backgroundImage = "url('images/skill1.png')";
+                    break;
+                case "firerain":
+                    magicATK = playerATK*1.5 + 450;
+                    dmgreceive = true;
+                    dmgReceiveIcon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill2.png')";
+                    break;
+                case "thunderstorm":
+                    magicATK = playerATK*3 + 1150;
+                    healBuff = true;
+                    healBuffIcon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill3.png')";
+                    break;
+                case "thornvines":
+                    magicATK = playerATK*1.5 + 150;
+                    effect.style.backgroundImage = "url('images/skill4.png')";
+                    break;
+                case "arrowoflight":
+                    magicATK = playerATK + 200;
+                    huntermark = true;
+                    hunterIcon.style.display = "block";
+                    break;
+                case "bloodshed":
+                    magicATK = playerATK*2 + 470;
+                    break;
+                case "piercingshot":
+                    if (huntermark == false) {
+                        magicATK = playerATK*3.8 + 1050;
+                    } else {
+                        magicATK = playerATK*5.3 + 1050;
+                        huntermark = false;
+                        hunterIcon.style.display = "none";
+                    }
+                    break;
+                case "huntersinstinct":
+                    magicATK = 0;
+                    hunteratkbuff = true;
+                    hunteratkcooldown = 2;
+                    hunteratkmodifier = 0.2;
+                    hunterAtkIcon.style.display = "block";
+                    huntermark = true;
+                    hunterIcon.style.display = "block";
+                    break;               
+            }
             //damage calculation
             damagePlayer = random(50, 100) + magicATK;
             if (shieldState == false) {
