@@ -659,7 +659,7 @@ let castMagic = (skill) =>  {
                 dragonHP = 0;
                 document.getElementById('dragon').style.display = 'block';
                 document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/treasure.gif'><br><button onClick='window.location.reload();'>play again</button>";
+                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon and claimed a chest of gold!</p><br><img src='images/treasure.gif' style='width: 250px;'><br><br><br><button onClick='window.location.reload();'>play again</button>";
 
             } else if (playerHP < 0 && dragonHP > 0) {
                 playerHP = 0;
