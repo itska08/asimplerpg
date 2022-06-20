@@ -46,6 +46,27 @@ body {
 	height: 96.5%;
 
 }
+#hp {
+	font-size: 22px;
+	display: inline-block;
+	color: #fff;
+}
+
+#holyshieldText {
+	font-size: 22px;
+	display: inline-block;
+	color: rgb(68, 68, 68);
+}
+#hpbutton {
+	background-color: #6e3636;
+	height: 45px;
+	color: #fff;
+}
+#shieldbutton {
+	background-color: #cfcaca;
+	height: 45px;
+	color: rgb(68, 68, 68);
+}
 #popup {
 	z-index: 99999999;
 	position: absolute;
