@@ -666,18 +666,18 @@ function playNextFrame() {
 function closePopup() {
     popup.style.display = "none";
 }
-function openTutorial() {
-    document.getElementById("tutorial").style.display = "block";
-}
 function closeTutorial() {
     document.getElementById("tutorial").style.display = "none";
 }
 function openSettings() {
     document.getElementById("settings").style.display = "block";
+    setTimeout(()=>{document.getElementById("settings").style.opacity = 1}, 200);
 }
 
 function closeSettings() {
     document.getElementById("settings").style.display = "none";
+    setTimeout(()=>{document.getElementById("settings").style.opacity = 0}, 200);
+    
 }
 /*
  * RESPONSIVE CODE
