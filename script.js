@@ -576,7 +576,7 @@ let castMagic = (skill) =>  {
                 case "bloodshed":
                     bleedState = true;
                     bleedTurn = 3;
-                    bleedTurnText.innerHTML = poisonTurn + " turns left.";
+                    bleedTurnText.innerHTML = bleedTurn + " turns left.";
                     bleedIcon.style.display = "block";
                     energy = energy - energyCon;
                     break;
