@@ -106,7 +106,7 @@ let switchClass = (playerClass) => {
     switch (playerClass) {
         case "archer":
             switchButtonDefault.setAttribute("id","archerclass");
-            switchButtonDefault.innerHTML = "Archer";
+            switchButtonDefault.innerHTML = "Forest Archer";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = "archer";
