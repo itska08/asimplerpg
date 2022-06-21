@@ -164,10 +164,10 @@ let switchClass = (playerClass) => {
         case "paladin":
             switchButtonDefault.setAttribute("id","paladinclass");
             switchButtonDefault.innerHTML = "Paladin of Light";
-            document.getElementById("playerHealth").setAttribute("max","15000");
-            document.getElementById("playerHealth").setAttribute("value","15000");
+            document.getElementById("playerHealth").setAttribute("max","12000");
+            document.getElementById("playerHealth").setAttribute("value","12000");
             playerClass = "paladin";
-            playerMaxHP = 15000;
+            playerMaxHP = 12000;
             playerHP = playerMaxHP;
             playerATK = 110;
             playerdefaultatk = 110;
@@ -198,6 +198,28 @@ let switchClass = (playerClass) => {
             defaultCrit = critRate;
             critHit = false;
             critDmg = 0.6;
+            defaultCritDMG = critDmg;
+            critRoll = 0;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "none";
+            document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "block";
+            break;
+        case "knight":
+            switchButtonDefault.setAttribute("id","knightclass");
+            switchButtonDefault.innerHTML = "Blood Knight";
+            document.getElementById("playerHealth").setAttribute("max","15000");
+            document.getElementById("playerHealth").setAttribute("value","15000");
+            playerClass = "necromancer";
+            playerMaxHP = 15000;
+            playerHP = playerMaxHP;
+            playerATK = 230;
+            playerdefaultatk = 390;
+            playerDEF = 300;
+            critRate = 10;
+            defaultCrit = critRate;
+            critHit = false;
+            critDmg = 0.5;
             defaultCritDMG = critDmg;
             critRoll = 0;
             document.getElementById("skillactive").style.display = "none";
@@ -369,7 +391,7 @@ function debuffAtk() {
 }
 
 function holyShield() {
-    holyshieldamount = playerMaxHP*0.3 + random(600,1800);
+    holyshieldamount = holyshieldamount + playerMaxHP*0.3;
     holyshieldbar.value = holyshieldamount;
     holyshieldText.innerHTML = holyshieldamount;
     document.getElementById('holyshield').style.pointerevents = 'none';
@@ -492,7 +514,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Judgment</h2><img src='images/s11.png' class='icon'><br><p>Deals 330% DMG (+1315) to the target. For each Light mark on the target, deals an additional 25% of DEF as DMG and removes all Light marks.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s12":
-            popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks. After that, grants a shield of 50% of his Max HP.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s13":
             popup.innerHTML = "<h2>Soul Siphon</h2><img src='images/s13.png' class='icon'><br><p>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 10 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -946,6 +968,13 @@ let castMagic = (skill) =>  {
                     }
                     playerDefText.innerHTML = playerDEF;
                     lightdefbufficon.style.display = "block";  
+                    break;
+                case "honor":
+                    energy = energy - energyCon;
+                    holyshieldstate = true;
+                    holyshieldamount = holyshieldamount + playerMaxHP*0.5;
+                    holyshieldText.innerHTML = holyshieldamount;
+                    holyshieldbar.value = holyshieldamount;
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {

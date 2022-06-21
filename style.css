@@ -93,7 +93,8 @@ body {
 }
 .icon {
 	width: 45px;
-	box-shadow: 0 0 0 2px #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 0 1px rgb(255, 240, 198);
 }
 
 #holyshieldicon {
