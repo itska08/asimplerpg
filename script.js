@@ -723,7 +723,7 @@ let castMagic = (skill) =>  {
                     } else {
                         skillATK = playerATK*3.8 + 1500;
                     }
-                    effect.style.backgroundImage = "url('images/skill5.png')";
+                    effect.style.backgroundImage = "url('images/skill15.png')";
                     break;
                 case "moonlightqueen":
                     skillATK = playerATK*1.5 + 600;
