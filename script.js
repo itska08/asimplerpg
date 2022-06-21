@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "thornvines", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -382,10 +382,10 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Curse of Power</h2><img src='images/atkdebuff.png' class='icon'><br><p>Decrease the Dragon's ATK by 30%</p><button onclick='closePopup()'>close</button>";
             break;
         case "3":
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>Heal yourself by 25% (+100 ~ 500) of your HP. Cooldown: 3 turns.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Earth</h2><img src='images/healicon.png' class='icon'><br><p>Heal yourself by 25% (+100 ~ 500) of your HP. Cooldown: 3 turns.</p><button onclick='closePopup()'>close</button>";
             break;
         case "4":
-            popup.innerHTML = "<h2>Blessing of Earth</h2><img src='images/shield.png' class='icon'><br><p>Nullify 1 instance of attack from the dragon.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/shield.png' class='icon'><br><p>Nullify 1 instance of attack from the dragon.</p><button onclick='closePopup()'>close</button>";
             break;
         case "5":
             popup.innerHTML = "<h2>Heaven's Will</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 30% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
@@ -397,13 +397,13 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Icebolt</h2><img src='images/s1.png' class='icon'><br><p>Deals 110% DMG (+250) to the target and restore 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s2":
-            popup.innerHTML = "<h2>Firerain</h2><img src='images/s2.png' class='icon'><br><p>Deals 150% DMG (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Rain of Fire</h2><img src='images/s2.png' class='icon'><br><p>Deals 150% DMG (+450) to the target and makes it receive 30% more DMG for any subsequent direct attack.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s3":
             popup.innerHTML = "<h2>Thunderstorm</h2><img src='images/s3.png' class='icon'><br><p>Deals 300% DMG (+1150) to the target. Also, increases the amount of healing by 50% for the next heal skill. <br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;  
         case "s4":
-            popup.innerHTML = "<h2>Thornvines</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% DMG (+150) and another 120% DMG to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Bane of Death</h2><img src='images/s4.png' class='icon'><br><p>Deals 150% DMG (+150) and another 120% DMG to the target every turn for 3 turns. <br>Energy consumption: 25</p><button onclick='closePopup()'>close</button>";
             break;
         case "s5":
             popup.innerHTML = "<h2>Arrow of Light</h2><img src='images/s5.png' class='icon'><br><p>Deals 100% DMG (+200) to the target. Marks it with a Hunter's Mark for 1 turn. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -457,15 +457,15 @@ let castMagic = (skill) =>  {
                 energyCon = 0;
                 break;
             case "firerain":
-                skillName = "Firerain";
+                skillName = "Rain of Fire";
                 energyCon = 30;
                 break;
             case "thunderstorm":
                 skillName = "Thunderstorm";
                 energyCon = 60;
                 break;
-            case "thornvines":
-                skillName = "Thornvines";
+            case "bane":
+                skillName = "Bane of Death";
                 energyCon = 25;
                 break;
             case "arrowoflight":
@@ -526,7 +526,7 @@ let castMagic = (skill) =>  {
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
                     break;
-                case "thornvines":
+                case "bane":
                     skillATK = playerATK*1.5 + 150;
                     effect.style.backgroundImage = "url('images/skill4.png')";
                     break;
@@ -751,7 +751,7 @@ let castMagic = (skill) =>  {
                     dmgReceiveIcon.style.display = "block";
                     energy = energy - energyCon;
                     break;
-                case "thornvines":
+                case "bane":
                     poisonState = true;
                     poisonTurn = 3;
                     poisonTurnText.innerHTML = poisonTurn + " turns left.";
