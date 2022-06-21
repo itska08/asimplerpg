@@ -418,13 +418,13 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 60% and Critical Rate by 30% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s9":
-            popup.innerHTML = "<h2>Righteousness</h2><img src='images/s9.png' class='icon'><br><p>Deals 120% DMG (+240) to the target and decreases its ATK by 40% for 2 turns and mark it with a Light mark. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Righteousness</h2><img src='images/s9.png' class='icon'><br><p>Deals 120% DMG (+240) to the target and decreases its ATK by 20% for 2 turns and mark it with a Light mark. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s10":
-            popup.innerHTML = "<h2>Rectitude</h2><img src='images/s10.png' class='icon'><br><p>Deals 140% DMG (+300) to the target and marks it with a Light mark. Also, increases self DEF by 50% for 2 turns.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Rectitude</h2><img src='images/s10.png' class='icon'><br><p>Deals 140% DMG (+300) to the target and marks it with a Light mark. Also, increases self DEF by 30% for 2 turns.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s11":
-            popup.innerHTML = "<h2>Judgment</h2><img src='images/s11.png' class='icon'><br><p>Deals 330% DMG (+1315) to the target. For each Light mark on the target, deals an additional 60% of DEF as DMG and removes all Light marks.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Judgment</h2><img src='images/s11.png' class='icon'><br><p>Deals 330% DMG (+1315) to the target. For each Light mark on the target, deals an additional 25% of DEF as DMG and removes all Light marks.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s12":
             popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
@@ -592,7 +592,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
-                    skillATK = playerATK*3.3 + 1315 + playerDEF*0.6*lightmark;
+                    skillATK = playerATK*3.3 + 1315 + playerDEF*0.25*lightmark;
                     lightmark = 0;
                     lightmarkicon.style.display = "none";
                     effect.style.backgroundImage = "url('images/skill11.png')";
@@ -773,7 +773,7 @@ let castMagic = (skill) =>  {
                     if (lightatkdebuff == false) {
                         lightatkdebuff = true;
                         lightatkdebuffturn = 2;
-                        dragonATK = dragonATK - dragonATK*0.4;
+                        dragonATK = dragonATK - dragonATK*0.2;
                     } else {
                         lightatkdebuff = true;
                         lightatkdebuffturn = 2;
@@ -785,7 +785,7 @@ let castMagic = (skill) =>  {
                     if (lightdefbuff == false) {
                         lightdefbuff = true;
                         lightdefbuffturn = 2;
-                        playerDEF = playerDEF + playerDEF*0.5;
+                        playerDEF = playerDEF + playerDEF*0.3;
                     } else {
                         lightdefbuff = true;
                         lightdefbuffturn = 2;
