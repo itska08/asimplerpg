@@ -2,12 +2,15 @@
 
 Live preview: [[click here]](https://thaykhangne.github.io/a-simple-rpg/)
 
-Current version: 1.3
+Current version: 1.4
 
 ### Changes
 
 
 ```markdown
+# 1.4 - 21/6/2022
+- added a new class - necromancer
+- various skill icon updates
 # 1.3 - 20/6/2022
 - visual update
 - new mechanics - DEF
