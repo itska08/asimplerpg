@@ -592,6 +592,16 @@ li {
 	background-color: #6e3636;
 }
 
-#necromancer {
+#necromancer, #necromancer2, #necromancerclass {
 	background-color: #53223f;
+}
+#s13, #s14, #s15, #s16 {
+	background-color: #53223f;
+}
+
+#skillactive4 {
+	display: none;
+}
+#soulsiphonicon, #mindgleaningicon, #moonicon {
+	display: none;
 }

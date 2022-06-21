@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","moonlightqueen"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -43,6 +43,10 @@ let playerCritDMGText = document.getElementById("critdmg");
 let lightmarkicon = document.getElementById("lighticon");
 let lightatkdebufficon = document.getElementById("lightatkdebufficon");
 let lightdefbufficon = document.getElementById("lightdefbufficon");
+let soulsiphonicon = document.getElementById("soulsiphonicon");
+let mindgleaningicon = document.getElementById("mindgleaningicon");
+let moonbufficon = document.getElementById("moonicon");
+
 /* character and skill stats */
 let skill;
 let energy = 0;
@@ -53,6 +57,7 @@ let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
 let dragonATK = 2400;
 let playerATK = 300;
+let playerdefaultatk = 300;
 let damageDragon;
 let damagePlayer;
 let state = false;
@@ -93,6 +98,12 @@ let lightatkdebuff = false;
 let lightatkdebuffturn = 0;
 let lightdefbuff = false;
 let lightdefbuffturn = 0;
+let soulsiphon = false;
+let mindgleaning = false;
+let moonbuff = false;
+let moonbuffturn = 0;
+let moonbuffamount = 0;
+let moonstate = false;
 
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = critDmg*100 + "%";
@@ -114,6 +125,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerATK = 380;
+            playerdefaultatk = 380;
             playerDEF = 200;
             critRate = 20;
             defaultCrit = critRate;
@@ -124,6 +136,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "block";
             document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "none";
             
         break;
         case "mage":
@@ -135,6 +148,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
             playerATK = 280;
+            playerdefaultatk = 280;
             playerDEF = 250;
             critRate = 10;
             defaultCrit = critRate;
@@ -145,6 +159,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive").style.display = "block";
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "none";
             break;
         case "paladin":
             switchButtonDefault.setAttribute("id","paladinclass");
@@ -155,6 +170,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 15000;
             playerHP = playerMaxHP;
             playerATK = 110;
+            playerdefaultatk = 110;
             playerDEF = 360;
             critRate = 15;
             defaultCrit = critRate;
@@ -165,6 +181,29 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "block";
+            document.getElementById("skillactive4").style.display = "none";
+            break;
+        case "necromancer":
+            switchButtonDefault.setAttribute("id","necromancerclass");
+            switchButtonDefault.innerHTML = "Necromancer";
+            document.getElementById("playerHealth").setAttribute("max","9000");
+            document.getElementById("playerHealth").setAttribute("value","9000");
+            playerClass = "necromancer";
+            playerMaxHP = 9000;
+            playerHP = playerMaxHP;
+            playerATK = 330;
+            playerdefaultatk = 390;
+            playerDEF = 290;
+            critRate = 13;
+            defaultCrit = critRate;
+            critHit = false;
+            critDmg = 0.6;
+            defaultCritDMG = critDmg;
+            critRoll = 0;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "none";
+            document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "block";
             break;
     }
     resetGame();
@@ -180,7 +219,7 @@ function resetGame() {
     holyshieldcooldown = 0;
     dragonHP = dragonMaxHP;
     holyshieldamount = 0;
-    dragonATK = 2100;
+    dragonATK = 2400;
     state = false;
     healBuff = false;
     shieldState = false;
@@ -203,7 +242,12 @@ function resetGame() {
     lightatkdebuffturn = 0;
     lightdefbuff = false;
     lightdefbuffturn = 0;
-
+    soulsiphon = false;
+    mindgleaning = false;
+    moonbuff = false;
+    moonbuffturn = 0;
+    moonbuffamount = 0;
+    moonstate = false;
 
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
@@ -222,6 +266,9 @@ function resetGame() {
     lightmarkicon.style.display = "none";
     lightatkdebufficon.style.display = "none";
     lightdefbufficon.style.display = "none";
+    soulsiphonicon.style.display = "none";
+    mindgleaningicon.style.display = "none";
+    moonbufficon.style.display = "none";
 
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById('buff').style.pointerevents = 'auto';
@@ -267,6 +314,24 @@ function resetGame() {
     effect.style.backgroundImage = "";
 }
 
+let healSkill = (healing) => {
+    if (healBuff == true) {
+        healing = healing + healing*0.5;
+        playerHP = playerHP + healing;
+        healBuff = false;
+        healBuffIcon.style.display = "none";
+        
+        } else {
+        playerHP = playerHP + healing;
+    }
+    if (playerHP >= playerMaxHP) {
+        playerHP = playerMaxHP;
+    }
+    playerHealthText.innerHTML = playerHP;
+    popup.style.display = "block";
+    popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
+    
+}
 
 function buff() {
     let buffAmount = playerATK * 0.3;
@@ -428,7 +493,19 @@ let helpText = (a) => {
             break;     
         case "s12":
             popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s13":
+            popup.innerHTML = "<h2>Soul Siphon</h2><img src='images/s13.png' class='icon'><br><p>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 10 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s14":
+            popup.innerHTML = "<h2>Mind Gleaning</h2><img src='images/s14.png' class='icon'><br><p>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 50% of DMG dealt. Places a Mind Gleaning mark on the enemy.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;     
+        case "s15":
+            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s16":
+            popup.innerHTML = "<h2>Moonlight Queen</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
             document.getElementById('cast').style.display = 'none';
@@ -498,6 +575,22 @@ let castMagic = (skill) =>  {
                 break;
             case "honor":
                 skillName = "Honor";
+                energyCon = 40;
+                break;
+            case "soulsiphon":
+                skillName = "Soul Siphon";
+                energyCon = 0;
+                break;
+            case "mindgleaning":
+                skillName = "Mind Gleaning";
+                energyCon = 30;
+                break;
+            case "painlessdeath":
+                skillName = "Painless Death";
+                energyCon = 80;
+                break;
+            case "moonlightqueen":
+                skillName = "Moonlight Queen";
                 energyCon = 40;
                 break;           
         }
@@ -606,6 +699,50 @@ let castMagic = (skill) =>  {
                         skillATK = playerATK*1.6 + 500;
                     }
                     effect.style.backgroundImage = "url('images/skill12.png')";
+                    break;
+                case "soulsiphon":
+                    skillATK = playerATK*1.1 + 280;
+                    soulsiphon = true;
+                    soulsiphonicon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill13.png')";
+                    break;
+                case "mindgleaning":
+                    
+                    skillATK = playerATK*1.8 + 470;
+                    mindgleaning = true;
+                    mindgleaningicon.style.display = "block";
+                    effect.style.backgroundImage = "url('images/skill14.png')";
+                    break;
+                case "painlessdeath":
+                    if (soulsiphon == true && mindgleaning == true) {
+                        skillATK = playerATK*5.8 + 1500;
+                    } else if (soulsiphon == true && mindgleaning == false) {
+                        skillATK = playerATK*4.7 + 1500;
+                    } else if (soulsiphon == false && mindgleaning == true) {
+                        skillATK = playerATK*4.6 + 1500;
+                    } else {
+                        skillATK = playerATK*3.8 + 1500;
+                    }
+                    effect.style.backgroundImage = "url('images/skill5.png')";
+                    break;
+                case "moonlightqueen":
+                    skillATK = playerATK*1.5 + 600;
+                    if (soulsiphon==true || mindgleaning==true) {
+                        if (moonstate==false) {                     
+                            moonbuff = true;
+                            moonbufficon.style.display = "block";
+                            moonbuffturn = 2;
+                            moonbuffamount = playerATK*0.5;
+                            playerATK = playerATK + moonbuffamount;
+                            moonstate = true;
+                        } else {
+                            moonbuff = true;
+                            moonbufficon.style.display = "block";
+                            moonbuffturn = 2;
+                            moonstate = true;
+                        }
+                    }
+                    effect.style.backgroundImage = "url('images/skill6.png')"; 
                     break;               
             }
             //raw damage calculation
@@ -715,7 +852,7 @@ let castMagic = (skill) =>  {
                 if (lightatkdebuffturn > 0) {
                     lightatkdebuffturn--;
                 } else if (lightatkdebuffturn == 0) {
-                    dragonATK = 2100;
+                    dragonATK = 2400;
                     lightatkdebuffturn=0;
                     lightatkdebuff=false;
                     lightatkdebufficon.style.display="none";
@@ -732,6 +869,17 @@ let castMagic = (skill) =>  {
                     playerDefText.innerHTML = playerDEF;
                 }
             }
+            if (moonbuff == true) {
+                if (moonbuffturn > 0) {
+                    moonbuffturn--;
+                } else if (moonbuffturn == 0) {
+                    moonbuffturn=0;
+                    playerATK = playerdefaultatk;
+                    moonbuff = false;
+                    moonstate = false;
+                    moonbufficon.style.display="none";
+                }
+            }
             //energy calculation and effect application
             switch (skill) {
                 case "icebolt":
@@ -745,6 +893,12 @@ let castMagic = (skill) =>  {
                     if (energy >= 100) {
                         energy = 100;
                     }
+                    break;
+                case "soulsiphon":
+                        energy = energy + 10;
+                        if (energy >= 100) {
+                            energy = 100;
+                        }
                     break;
                 case "firerain":
                     dmgreceive = true;
@@ -792,6 +946,30 @@ let castMagic = (skill) =>  {
                     }
                     playerDefText.innerHTML = playerDEF;
                     lightdefbufficon.style.display = "block";  
+                    break;
+                case "mindgleaning":
+                    if (soulsiphon == true) {
+                        healSkill(damagePlayer*0.5);
+                    }
+                    energy = energy - energyCon;
+                    break;
+                case "painlessdeath":
+                    energy = energy - energyCon;
+                    if (soulsiphon == true && mindgleaning == true) {
+                        healSkill(999999);
+                        energy = 100;
+                    } else if (soulsiphon == true && mindgleaning == false) {
+                        healSkill(damagePlayer*0.7);
+                    } else if (soulsiphon == false && mindgleaning == true) {
+                        energy = energy+50;
+                        if (energy >=100) {
+                            energy=100;
+                        }
+                    }
+                    soulsiphon = false;
+                    mindgleaning = false;
+                    soulsiphonicon.style.display = "none";
+                    mindgleaningicon.style.display = "none";
                     break;
                 default:
                     energy = energy - energyCon;
