@@ -109,7 +109,7 @@ playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = critDmg*100 + "%";
 playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
-    playerHealthText.innerHTML = playerHP;
+    playerHealthText.innerHTML = parseInt(playerHP);
     playerDefText.innerHTML = playerDEF;
 
 let switchClass = (playerClass) => {
@@ -305,7 +305,7 @@ function resetGame() {
     playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerDefText.innerHTML = playerDEF;
-    playerHealthText.innerHTML = playerHP;
+    playerHealthText.innerHTML = parseInt(playerHP);
     playerHealth.value = playerHP;
     holyshieldText.innerHTML = holyshieldamount;
     holyshieldbar.value = holyshieldamount;
@@ -327,7 +327,7 @@ let healSkill = (healing) => {
     if (playerHP >= playerMaxHP) {
         playerHP = playerMaxHP;
     }
-    playerHealthText.innerHTML = playerHP;
+    playerHealthText.innerHTML = parseInt(playerHP);
     popup.style.display = "block";
     popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
     
@@ -393,13 +393,13 @@ function heal() {
     if (playerHP >= playerMaxHP) {
         playerHP = playerMaxHP;
         playerHealth.value = playerHP;
-        playerHealthText.innerHTML = playerHP;
+        playerHealthText.innerHTML = parseInt(playerHP);
         popup.style.display = "block";
         popup.innerHTML = "<p>Your HP is already at maximum!</p><button onclick='closePopup()'>close</button>";
     } else if (playerHP == 0) {
         playerHP = 0;
         playerHealth.value = playerHP;
-        playerHealthText.innerHTML = playerHP;
+        playerHealthText.innerHTML = parseInt(playerHP);
         popup.style.display = "block";
         popup.innerHTML = "<p>You are already dead.</p><button onclick='closePopup()'>close</button>";
     } else {
@@ -409,18 +409,18 @@ function heal() {
             healBuff = false;
             healBuffIcon.style.display = "none";
             popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25% of Max HP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
-            playerHealthText.innerHTML = playerHP;
+            playerHealthText.innerHTML = parseInt(playerHP);
             healAmount = playerMaxHP * 0.25 + random(100, 500);
         } else {
             playerHP = playerHP + healAmount;
             popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
-            playerHealthText.innerHTML = playerHP;
+            playerHealthText.innerHTML = parseInt(playerHP);
         }
         if (playerHP >= playerMaxHP) {
             playerHP = playerMaxHP;
         }
         playerHealth.value = playerHP;
-        playerHealthText.innerHTML = playerHP;
+        playerHealthText.innerHTML = parseInt(playerHP);
         document.getElementById('heal').style.pointerevents = 'none';
         document.getElementById('heal').style.cursor = 'not-allowed';
         document.getElementById('heal').style.opacity = '0.6';
@@ -821,7 +821,7 @@ let castMagic = (skill) =>  {
             if (holyshieldamount==0 && holyshieldicon.style.display=="block") {
                 holyshieldicon.style.display = "none";
             }
-             playerHealthText.innerHTML = playerHP;
+             playerHealthText.innerHTML = parseInt(playerHP);
              if (poisonState == true) {
                 poisonDot = playerATK*1.2;
                 dragonHP = dragonHP - poisonDot;
@@ -949,7 +949,7 @@ let castMagic = (skill) =>  {
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {
-                        healSkill(damagePlayer*0.5);
+                        healSkill(damagePlayer.toFixed(0)*0.5);
                     }
                     energy = energy - energyCon;
                     break;
@@ -959,7 +959,7 @@ let castMagic = (skill) =>  {
                         healSkill(999999);
                         energy = 100;
                     } else if (soulsiphon == true && mindgleaning == false) {
-                        healSkill(damagePlayer*0.7);
+                        healSkill(damagePlayer.toFixed(0)*0.7);
                     } else if (soulsiphon == false && mindgleaning == true) {
                         energy = energy+50;
                         if (energy >=100) {
@@ -1030,7 +1030,7 @@ let castMagic = (skill) =>  {
             
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
-            playerHealthText.innerHTML = playerHP;
+            playerHealthText.innerHTML = parseInt(playerHP);
             let totalDot = bleedDot + poisonDot;
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
