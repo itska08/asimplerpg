@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","moonlightqueen"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -14,7 +14,7 @@ let playerHealthText = document.getElementById("hp");
 let alertText = document.getElementById("alert");
 let alertHealText = document.getElementById("healalert");
 let playerEnergyText = document.getElementById("ene");
-let damageText = document.querySelector("h2");
+let damageText = document.getElementById("welcomemessage");
 let turnText = document.getElementById("turn");
 let atkbufficon = document.getElementById("atkbufficon");
 let atkdebufficon = document.getElementById("atkdebufficon");
@@ -300,7 +300,7 @@ function resetGame() {
     document.getElementById('doubledmg').style.cursor = 'pointer';
     document.getElementById('doubledmg').style.opacity = '1';
     document.getElementById('doubledmg').setAttribute("onclick", "doubledmg()");
-    document.getElementById('welcomemessage').innerHTML = "You have entered the lair of the big bad <span class='damage'>Fafnir</span>.<br>Defeat it and claim your <span class='damage'>treasure!</span>";
+    damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Fafnir</span>.<br>Defeat it and claim your <span class='damage'>treasure!</span>";
     dragonHealth.value = dragonHP;
     playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
@@ -504,7 +504,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
             break;
         case "s16":
-            popup.innerHTML = "<h2>Moonlight Queen</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -589,8 +589,8 @@ let castMagic = (skill) =>  {
                 skillName = "Painless Death";
                 energyCon = 80;
                 break;
-            case "moonlightqueen":
-                skillName = "Moonlight Queen";
+            case "songofmoonlight":
+                skillName = "Song of Moonlight";
                 energyCon = 40;
                 break;           
         }
@@ -725,7 +725,7 @@ let castMagic = (skill) =>  {
                     }
                     effect.style.backgroundImage = "url('images/skill15.png')";
                     break;
-                case "moonlightqueen":
+                case "songofmoonlight":
                     skillATK = playerATK*1.5 + 600;
                     if (soulsiphon==true || mindgleaning==true) {
                         if (moonstate==false) {                     
