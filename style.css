@@ -43,6 +43,9 @@ body {
 #lightdebufficon {
 	display: none;
 }
+#lightatkdebufficon {
+	display: none;
+}
 #lightdefbufficon {
 	display: none;
 }
