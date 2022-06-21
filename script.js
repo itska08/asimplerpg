@@ -47,7 +47,7 @@ let lightdefbufficon = document.getElementById("lightdefbufficon");
 let skill;
 let energy = 0;
 let energyCon = 0;
-let dragonMaxHP = 15000;
+let dragonMaxHP = 20000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
@@ -57,7 +57,7 @@ let damageDragon;
 let damagePlayer;
 let state = false;
 let turn = 0;
-let magicATK = 0;
+let skillATK = 0;
 let cooldown = 0;
 let shieldState = false;
 let healAmount = playerMaxHP * 0.25 + random(100, 500);
@@ -87,6 +87,7 @@ let critHit = false;
 let critDmg = 0.5;
 let critRoll = 0;
 let defaultCrit = 0;
+let defaultCritDMG = 0.5;
 let lightmark = 0;
 let lightatkdebuff = false;
 let lightatkdebuffturn = 0;
@@ -112,12 +113,13 @@ let switchClass = (playerClass) => {
             playerClass = "archer";
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
-            playerATK = 360;
-            playerDEF = 220;
+            playerATK = 380;
+            playerDEF = 200;
             critRate = 20;
             defaultCrit = critRate;
             critHit = false;
             critDmg = 0.7;
+            defaultCritDMG = critDmg;
             critRoll = 0;
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "block";
@@ -132,12 +134,13 @@ let switchClass = (playerClass) => {
             playerClass = "mage";
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
-            playerATK = 290;
-            playerDEF = 270;
+            playerATK = 280;
+            playerDEF = 250;
             critRate = 10;
             defaultCrit = critRate;
             critHit = false;
             critDmg = 0.5;
+            defaultCritDMG = critDmg;
             critRoll = 0;
             document.getElementById("skillactive").style.display = "block";
             document.getElementById("skillactive2").style.display = "none";
@@ -151,12 +154,13 @@ let switchClass = (playerClass) => {
             playerClass = "paladin";
             playerMaxHP = 15000;
             playerHP = playerMaxHP;
-            playerATK = 120;
+            playerATK = 110;
             playerDEF = 360;
             critRate = 15;
             defaultCrit = critRate;
             critHit = false;
             critDmg = 0.4;
+            defaultCritDMG = critDmg;
             critRoll = 0;
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "none";
@@ -171,7 +175,7 @@ function resetGame() {
     energyCon = 0;
     turn = 0;
     cooldown = 0;
-    magicATK = 0;
+    skillATK = 0;
     energyCon = 0;
     holyshieldcooldown = 0;
     dragonHP = dragonMaxHP;
@@ -411,7 +415,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, deals an additional amount of 150% DMG.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
-            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases DMG by 20% and Critical Rate by 50% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 60% and Critical Rate by 30% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s9":
             popup.innerHTML = "<h2>Righteousness</h2><img src='images/s9.png' class='icon'><br><p>Deals 120% DMG (+240) to the target and decreases its ATK by 40% for 2 turns and mark it with a Light mark. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -420,10 +424,10 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Rectitude</h2><img src='images/s10.png' class='icon'><br><p>Deals 140% DMG (+300) to the target and marks it with a Light mark. Also, increases self DEF by 50% for 2 turns.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;
         case "s11":
-            popup.innerHTML = "<h2>Judgment</h2><img src='images/s11.png' class='icon'><br><p>Deals 280% DMG (+915) to the target. For each Light mark on the target, deals an additional 120% DMG and removes all Light marks.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Judgment</h2><img src='images/s11.png' class='icon'><br><p>Deals 330% DMG (+1315) to the target. For each Light mark on the target, deals an additional 60% of DEF as DMG and removes all Light marks.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s12":
-            popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 200% DMG (+700) and another 12% of Max HP as DMG.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;     
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -503,44 +507,44 @@ let castMagic = (skill) =>  {
             popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
             energy = energy;
             playerEnergyText.innerHTML = energy;
-            magicATK = 0;
+            skillATK = 0;
             skillName = "";
         } else {
             currentFrame = 1;
             switch (skill) {
                 case "icebolt":
-                    magicATK = playerATK*1.1 + 250;
+                    skillATK = playerATK*1.1 + 250;
                     effect.style.backgroundImage = "url('images/skill1.png')";
                     break;
                 case "firerain":
-                    magicATK = playerATK*1.5 + 450;
+                    skillATK = playerATK*1.5 + 450;
                     effect.style.backgroundImage = "url('images/skill2.png')";
                     break;
                 case "thunderstorm":
-                    magicATK = playerATK*3 + 1150;
+                    skillATK = playerATK*3 + 1150;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
                     break;
                 case "thornvines":
-                    magicATK = playerATK*1.5 + 150;
+                    skillATK = playerATK*1.5 + 150;
                     effect.style.backgroundImage = "url('images/skill4.png')";
                     break;
                 case "arrowoflight":
-                    magicATK = playerATK + 200;
+                    skillATK = playerATK + 200;
                     huntermark = true;
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill5.png')";
                     break;
                 case "bloodshed":
-                    magicATK = playerATK*2 + 470;
+                    skillATK = playerATK*2 + 470;
                     effect.style.backgroundImage = "url('images/skill6.png')";
                     break;
                 case "piercingshot":
                     if (huntermark == false) {
-                        magicATK = playerATK*3.8 + 1050;
+                        skillATK = playerATK*3.8 + 1050;
                     } else {
-                        magicATK = playerATK*5.3 + 1050;
+                        skillATK = playerATK*5.3 + 1050;
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     }
@@ -548,19 +552,21 @@ let castMagic = (skill) =>  {
                     break;
                 case "huntersinstinct":
                     
-                    magicATK = 0;
+                    skillATK = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
                     hunteratkmodifier = 0.2;
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
-                    critRate = critRate+50;
+                    critRate = critRate+30;
+                    critDmg = critDmg+0.5;
                     playerCritText.innerHTML = critRate + "%";
+                    playerCritDMGText.innerHTML = critDmg*100 + "%";
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;
                 case "righteousness":
-                    magicATK = playerATK*1.2 + 240;
+                    skillATK = playerATK*1.2 + 240;
                     if (lightmark < 10) {
                         lightmark = lightmark+1;
                         lightmarkicon.style.display = "block";
@@ -573,7 +579,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill9.png')";
                     break;
                 case "rectitude":
-                    magicATK = playerATK*1.4 + 300;
+                    skillATK = playerATK*1.4 + 300;
                     if (lightmark < 10) {
                         lightmark++;
                         lightmarkicon.style.display = "block";
@@ -586,13 +592,19 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
-                    magicATK = playerATK*2.8 + 915 + playerATK*1.2*lightmark;
+                    skillATK = playerATK*3.3 + 1315 + playerDEF*0.6*lightmark;
                     lightmark = 0;
                     lightmarkicon.style.display = "none";
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
-                    magicATK = playerATK*2.0 + 700 + playerMaxHP*0.12;
+                    if (lightmark >= 5) {
+                        skillATK = playerATK*1.6 + 500 + playerMaxHP*0.12;
+                        lightmark = lightmark-2;
+                        document.getElementById("lightText").innerHTML = lightmark + " stacks.";
+                    } else {
+                        skillATK = playerATK*1.6 + 500;
+                    }
                     effect.style.backgroundImage = "url('images/skill12.png')";
                     break;               
             }
@@ -604,13 +616,14 @@ let castMagic = (skill) =>  {
                 critRoll = random(1,100);
                 if (critRoll >= 100-critRate) {
                     critHit=true;
-                    damagePlayer = random(50, 100) + magicATK;
+                    damagePlayer = random(50, 100) + skillATK;
                     damagePlayer = damagePlayer+damagePlayer*critDmg;
                 } else {
                     critHit=false;
-                    damagePlayer = random(50, 100) + magicATK;
+                    damagePlayer = random(50, 100) + skillATK;
                 }
                 playerCritText.innerHTML = critRate + "%";
+                playerCritDMGText.innerHTML = critDmg*100 + "%";
             }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(300, 500) - playerDEF;
@@ -633,12 +646,14 @@ let castMagic = (skill) =>  {
                         hunteratkbuff = false;
                         hunteratkmodifier = 0;
                         hunterAtkIcon.style.display = "none";
+                        critDmg = defaultCritDMG;
                         critRate = critRate+5;
             } else if (hunteratkcooldown == 0 && critHit == true) {
                     hunteratkbuff = false;
                     hunteratkmodifier = 0;
                     hunterAtkIcon.style.display = "none";
                     critRate = defaultCrit;
+                    CritDmg = defaultCritDMG;
             } else if (hunteratkcooldown > 0 && critHit == true) {
                     hunteratkcooldown--;
                     critRate = defaultCrit;
@@ -648,6 +663,7 @@ let castMagic = (skill) =>  {
             }
                 
             playerCritText.innerHTML = critRate + "%";
+            playerCritDMGText.innerHTML = critDmg*100. + "%";
             if (doubledmgState = true) {
                 doubledmgState = false;
                 doubledmgIcon.style.display = "none";
@@ -832,10 +848,26 @@ let castMagic = (skill) =>  {
                 document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
                 
             }
-            document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
-            document.getElementById("playerdmgtext").style.display = "block";
-            setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
-            document.getElementById("playerdmgtext").style.opacity = 1;
+            
+            
+            playerHealth.value = playerHP;
+            dragonHealth.value = dragonHP;
+            playerHealthText.innerHTML = playerHP;
+            let totalDot = bleedDot + poisonDot;
+            if (critHit == false) {
+                document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
+                document.getElementById("playerdmgtext").style.display = "block";
+                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
+                document.getElementById("playerdmgtext").style.opacity = 1;
+                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+            } else {
+                document.getElementById("playerdmgtext").innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
+                document.getElementById("playerdmgtext").style.display = "block";
+                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
+                document.getElementById("playerdmgtext").style.opacity = 1;
+                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                critHit=false;
+            }
             if (poisonDot > 0) {
                 document.getElementById("playerpoisontext").innerHTML = poisonDot.toFixed(0);
                 document.getElementById("playerpoisontext").style.display = "block";
@@ -847,15 +879,6 @@ let castMagic = (skill) =>  {
                 document.getElementById("playerbleedtext").style.display = "block";
                 setTimeout(()=>{document.getElementById("playerbleedtext").style.opacity = 0}, 1000);
                 document.getElementById("playerbleedtext").style.opacity = 1;
-            }
-            playerHealth.value = playerHP;
-            dragonHealth.value = dragonHP;
-            playerHealthText.innerHTML = playerHP;
-            if (critHit == false) {
-                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
-            } else {
-                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +poisonDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span> critically.";
-                critHit=false;
             }
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 70);
