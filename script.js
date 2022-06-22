@@ -519,7 +519,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Bloodshed</h2><img src='images/s6.png' class='icon'><br><p>Deals 200% DMG (+470) to the target and another 125% DMG to the target every turn for 3 turns.<br>Energy consumption: 35</p><button onclick='closePopup()'>close</button>";
             break;
         case "s7":
-            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, deals an additional amount of 150% DMG.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, removes the mark and deals an additional amount of 150% DMG.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
             popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 60% and Critical Rate by 30% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
