@@ -208,9 +208,10 @@ let switchClass = (playerClass) => {
             playerClass = "necromancer";
             playerMaxHP = 9000;
             playerHP = playerMaxHP;
-            playerATK = 330;
-            playerdefaultatk = 390;
-            playerDEF = 290;
+            playerMaxHPDefault = playerMaxHP;
+            playerATK = 290;
+            playerdefaultatk = 300;
+            playerDEF = 300;
             critRate = 13;
             defaultCrit = critRate;
             critHit = false;
@@ -231,6 +232,7 @@ let switchClass = (playerClass) => {
             playerClass = "knight";
             playerMaxHP = 15000;
             playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
             playerATK = 230;
             playerdefaultatk = 390;
             playerDEF = 300;
@@ -531,7 +533,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, removes the mark and deals an additional amount of 150% DMG.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
-            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 60% and Critical Rate by 30% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 120% and Critical Rate by 30% for 2 turns and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s9":
             popup.innerHTML = "<h2>Righteousness</h2><img src='images/s9.png' class='icon'><br><p>Deals 120% DMG (+240) to the target and decreases its ATK by 20% for 2 turns and mark it with a Light mark. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -579,10 +581,10 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Grace - Passive</h2><img src='images/p3.png' class='icon'><br><p>Each Lightmark removed restores 5~10 Energy.</p><button onclick='closePopup()'>close</button>";
             break;     
         case "p4":
-            popup.innerHTML = "<h2>Forbidden Practice - Passive</h2><img src='images/p4.png' class='icon'><br><p>When both Marks are active, increases Critical DMG by 50%.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Forbidden Practice - Passive</h2><img src='images/p4.png' class='icon'><br><p>When both Marks are active, increases Critical Rate by 40% and Critical DMG by 100%.</p><button onclick='closePopup()'>close</button>";
             break;
         case "p5":
-            popup.innerHTML = "<h2>Hardened Will - Passive</h2><img src='images/p5.png' class='icon'><br><p>Each Blood Sigil will increase his DMG by 5% (up to 50%).</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hardened Will - Passive</h2><img src='images/p5.png' class='icon'><br><p>Each Blood Sigil will decrease his incoming DMG by 5% (up to 50%) and increases his DMG by 3% (up to 30%).</p><button onclick='closePopup()'>close</button>";
             break;
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -738,7 +740,6 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill7.png')";
                     break;
                 case "huntersinstinct":
-                    
                     skillATK = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
@@ -746,7 +747,7 @@ let castMagic = (skill) =>  {
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
                     critRate = critRate+30;
-                    critDmg = critDmg+0.6;
+                    critDmg = critDmg+1.2;
                     playerCritText.innerHTML = critRate + "%";
                     playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
                     hunterIcon.style.display = "block";
@@ -874,6 +875,7 @@ let castMagic = (skill) =>  {
             }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(300, 500) - playerDEF;
+                damageDragon = damageDragon - damageDragon*0.05*bloodsigil;
             } else {
                 damageDragon = 0;
                 shieldState = false;
@@ -881,12 +883,12 @@ let castMagic = (skill) =>  {
             }
   
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.05*bloodsigil;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil;
                 dragonHP -= damagePlayer;
                 dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.05*bloodsigil;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil;
                 dragonHP -= damagePlayer.toFixed(0);
             }
             //check debuff states and calculate debuff dmg
@@ -900,8 +902,8 @@ let castMagic = (skill) =>  {
                     hunteratkbuff = false;
                     hunteratkmodifier = 0;
                     hunterAtkIcon.style.display = "none";
-                    critRate = defaultCrit;
                     critDmg = defaultCritDMG;
+                    critRate = defaultCrit;
             } else if (hunteratkcooldown > 0 && critHit == true) {
                     hunteratkcooldown--;
                     critRate = defaultCrit;
@@ -909,9 +911,8 @@ let castMagic = (skill) =>  {
                     hunteratkcooldown--;
                     critRate = critRate+5;
             }
-                
+
             playerCritText.innerHTML = critRate + "%";
-            playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 
 
             if (doubledmgState = true) {
@@ -1194,14 +1195,15 @@ let castMagic = (skill) =>  {
                     break;
                 
             }
+            critDmgTemp = critDmg;
+            critTemp = critRate;
             if (soulsiphon == true && mindgleaning == true) {
-                critDmg = critDmg + critDmg*0.5;
+                critDmg = critDmg + 1;
+                critRate = critRate + 40;
             } else {
-                critDmg = defaultCritDMG;
+                critDmg = critDmgTemp;
+                critRate = critTemp;
             }
-
-            
-            playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             playerEnergyText.innerHTML = energy;
             
             turn++;
@@ -1209,6 +1211,7 @@ let castMagic = (skill) =>  {
             cooldown--;
             holyshieldcooldown--;
             playerCritText.innerHTML = parseInt(critRate) + "%";
+            playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             if (dragonHP <= 5000 && state==false) {
                     dragonHP = dragonMaxHP;
                     dragonATK = dragonATK + dragonATK * 0.8;

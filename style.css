@@ -235,6 +235,7 @@ progress {
 	z-index: 99999;
 	position: relative;
 	width: 500px;
+	padding-bottom: 15px;
 	background-color: #00000000;
 	box-shadow: 0 0px 0px #212324;
 	
@@ -592,11 +593,11 @@ li {
 }
 
 #s7 {
-	background-color: #77286a;
+	background-color: #773a28;
 }
 
 #s8 {
-	background-color: #2a397e;
+	background-color: #2a7e50;
 }
 
 #s9, #s10, #s11, #s12 {
