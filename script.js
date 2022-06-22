@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -46,7 +46,9 @@ let lightdefbufficon = document.getElementById("lightdefbufficon");
 let soulsiphonicon = document.getElementById("soulsiphonicon");
 let mindgleaningicon = document.getElementById("mindgleaningicon");
 let moonbufficon = document.getElementById("moonicon");
-
+let bloodsigilicon = document.getElementById("bloodsigilicon");
+let crimsonicon = document.getElementById("crimsonicon");
+let playerMaxHPText = document.getElementById("maxhp");
 /* character and skill stats */
 let skill;
 let energy = 0;
@@ -55,6 +57,7 @@ let dragonMaxHP = 20000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
+let playerMaxHPDefault = playerMaxHP;
 let dragonATK = 2400;
 let playerATK = 300;
 let playerdefaultatk = 300;
@@ -104,12 +107,17 @@ let moonbuff = false;
 let moonbuffturn = 0;
 let moonbuffamount = 0;
 let moonstate = false;
+let bloodsigil = 0;
+let crimsonbuff = false;
+let crimsonturn = 0;
+let hploss = playerMaxHP - playerHP;
 
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = critDmg*100 + "%";
 playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerHealthText.innerHTML = parseInt(playerHP);
+    playerMaxHPText.innerHTML = parseInt(playerMaxHP);
     playerDefText.innerHTML = playerDEF;
 
 let switchClass = (playerClass) => {
@@ -124,6 +132,7 @@ let switchClass = (playerClass) => {
             playerClass = "archer";
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
             playerATK = 380;
             playerdefaultatk = 380;
             playerDEF = 200;
@@ -137,7 +146,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive2").style.display = "block";
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "none";
-            
+            document.getElementById("skillactive5").style.display = "none";
         break;
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
@@ -147,6 +156,7 @@ let switchClass = (playerClass) => {
             playerClass = "mage";
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
             playerATK = 280;
             playerdefaultatk = 280;
             playerDEF = 250;
@@ -160,6 +170,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "none";
             break;
         case "paladin":
             switchButtonDefault.setAttribute("id","paladinclass");
@@ -169,6 +180,7 @@ let switchClass = (playerClass) => {
             playerClass = "paladin";
             playerMaxHP = 12000;
             playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
             playerATK = 110;
             playerdefaultatk = 110;
             playerDEF = 360;
@@ -182,6 +194,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "block";
             document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "none";
             break;
         case "necromancer":
             switchButtonDefault.setAttribute("id","necromancerclass");
@@ -204,13 +217,14 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "block";
+            document.getElementById("skillactive5").style.display = "none";
             break;
         case "knight":
             switchButtonDefault.setAttribute("id","knightclass");
             switchButtonDefault.innerHTML = "Blood Knight";
             document.getElementById("playerHealth").setAttribute("max","15000");
             document.getElementById("playerHealth").setAttribute("value","15000");
-            playerClass = "necromancer";
+            playerClass = "knight";
             playerMaxHP = 15000;
             playerHP = playerMaxHP;
             playerATK = 230;
@@ -225,7 +239,8 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive").style.display = "none";
             document.getElementById("skillactive2").style.display = "none";
             document.getElementById("skillactive3").style.display = "none";
-            document.getElementById("skillactive4").style.display = "block";
+            document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "block";
             break;
     }
     resetGame();
@@ -270,6 +285,8 @@ function resetGame() {
     moonbuffturn = 0;
     moonbuffamount = 0;
     moonstate = false;
+    bloodsigil = 0;
+    crimsonbuff = false;
 
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
@@ -291,6 +308,7 @@ function resetGame() {
     soulsiphonicon.style.display = "none";
     mindgleaningicon.style.display = "none";
     moonbufficon.style.display = "none";
+    bloodsigilicon.style.display = "none";
 
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById('buff').style.pointerevents = 'auto';
@@ -329,6 +347,8 @@ function resetGame() {
     playerDefText.innerHTML = playerDEF;
     playerHealthText.innerHTML = parseInt(playerHP);
     playerHealth.value = playerHP;
+    playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+    playerHealth.max = playerMaxHP;
     holyshieldText.innerHTML = holyshieldamount;
     holyshieldbar.value = holyshieldamount;
     playerCritText.innerHTML = critRate + "%";
@@ -391,7 +411,7 @@ function debuffAtk() {
 }
 
 function holyShield() {
-    holyshieldamount = holyshieldamount + playerMaxHP*0.3;
+    holyshieldamount = holyshieldamount + playerMaxHP*0.5;
     holyshieldbar.value = holyshieldamount;
     holyshieldText.innerHTML = holyshieldamount;
     document.getElementById('holyshield').style.pointerevents = 'none';
@@ -475,7 +495,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/shield.png' class='icon'><br><p>Nullify 1 instance of attack from the dragon.</p><button onclick='closePopup()'>close</button>";
             break;
         case "5":
-            popup.innerHTML = "<h2>Heaven's Will</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 30% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Heaven's Will</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 50% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
             break;
         case "6":
             popup.innerHTML = "<h2>Edge of Eternity</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
@@ -517,7 +537,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Honor</h2><img src='images/s12.png' class='icon'><br><p>Deals 160% DMG (+500) and another 12% of Max HP as DMG if more than 5 Light Marks are present. After use, removes 2 Light Marks. After that, grants a shield of 50% of his Max HP.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s13":
-            popup.innerHTML = "<h2>Soul Siphon</h2><img src='images/s13.png' class='icon'><br><p>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 10 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Soul Siphon</h2><img src='images/s13.png' class='icon'><br><p>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 20 energy if Moon buff is on, else restores 10 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s14":
             popup.innerHTML = "<h2>Mind Gleaning</h2><img src='images/s14.png' class='icon'><br><p>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 50% of DMG dealt. Places a Mind Gleaning mark on the enemy.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
@@ -527,6 +547,18 @@ let helpText = (a) => {
             break;
         case "s16":
             popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s17":
+            popup.innerHTML = "<h2>Blood Embrace</h2><img src='images/s17.png' class='icon'><br><p>Deals 120% DMG (+310) to the target. If his HP is less than 50%, gain 1 Blood Sigil. Restores 15 Energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s18":
+            popup.innerHTML = "<h2>Rosemary's Gift</h2><img src='images/s18.png' class='icon'><br><p>Deals 160% DMG (+670) to the target. Deals an additional amount of 10% of his loss HP as DMG. Gain 1 Blood Sigil.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            break;     
+        case "s19":
+            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s19.png' class='icon'><br><p>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 30% of his Max HP.<br>Energy consumption: 90</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s20":
+            popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s20.png' class='icon'><br><p>Increases his Max HP by 50% for 3 turns. Also, grants a shield of 30% of his loss HP.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -614,7 +646,23 @@ let castMagic = (skill) =>  {
             case "songofmoonlight":
                 skillName = "Song of Moonlight";
                 energyCon = 40;
-                break;           
+                break;
+            case "bloodembrace":
+                skillName = "Blood Embrace";
+                energyCon = 0;
+                break;
+            case "rosemarysgift":
+                skillName = "Rosemary's Gift";
+                energyCon = 30;
+                break;
+            case "ichorretaliation":
+                skillName = "Ichor Retaliation";
+                energyCon = 90;
+                break;
+            case "crimsonvitality":
+                skillName = "Crimson Vitality";
+                energyCon = 40;
+                break;                      
         }
         
         if (energy < energyCon) {
@@ -765,10 +813,27 @@ let castMagic = (skill) =>  {
                         }
                     }
                     effect.style.backgroundImage = "url('images/skill16.png')"; 
+                    break;
+                case "bloodembrace":
+                    skillATK = playerATK*1.2 + 310;    
+                    effect.style.backgroundImage = "url('images/skill17.png')";
+                    break;
+                case "rosemarysgift":
+                    hploss=playerMaxHP-playerHP;
+                    skillATK = playerATK*1.6 + 670 + hploss*0.1;
+                    effect.style.backgroundImage = "url('images/skill18.png')";
+                    break;
+                case "ichorretaliation":
+                    skillATK = playerATK*4.1 + 1800 + playerATK*0.5*bloodsigil + playerMaxHP*0.03*bloodsigil;
+                    effect.style.backgroundImage = "url('images/skill19.png')";
+                    break;
+                case "crimsonvitality":
+                    skillATK = 0;
+                    effect.style.backgroundImage = "url('images/skill20.png')";
                     break;               
             }
             //raw damage calculation
-            if (skill == "huntersinstinct") {
+            if (skill == "huntersinstinct" || skill == "crimsonvitality") {
                 damagePlayer = 0;
             } else {
                 
@@ -902,6 +967,18 @@ let castMagic = (skill) =>  {
                     moonbufficon.style.display="none";
                 }
             }
+            if (crimsonbuff == true) {
+                if (crimsonturn > 0) {
+                    crimsonturn--;
+                } else if (crimsonturn == 0) {
+                    crimsonturn = 0;
+                    playerMaxHP = playerMaxHPDefault;
+                    crimsonbuff = false;
+                    crimsonicon.style.display = "none";
+                }
+            }
+            playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+            playerHealth.max = playerMaxHP;
             //energy calculation and effect application
             switch (skill) {
                 case "icebolt":
@@ -910,6 +987,7 @@ let castMagic = (skill) =>  {
                         energy = 100;
                     }
                     break;
+                
                 case "arrowoflight":
                     energy = energy + random(10, 20);
                     if (energy >= 100) {
@@ -917,7 +995,11 @@ let castMagic = (skill) =>  {
                     }
                     break;
                 case "soulsiphon":
-                        energy = energy + 10;
+                    if (moonbuff==true) {
+                        energy = energy+20;
+                    } else {
+                        energy = energy+10;
+                    }
                         if (energy >= 100) {
                             energy = 100;
                         }
@@ -985,7 +1067,7 @@ let castMagic = (skill) =>  {
                 case "painlessdeath":
                     energy = energy - energyCon;
                     if (soulsiphon == true && mindgleaning == true) {
-                        healSkill(999999);
+                        healSkill(playerMaxHP);
                         energy = 100;
                     } else if (soulsiphon == true && mindgleaning == false) {
                         healSkill(damagePlayer.toFixed(0)*0.7);
@@ -999,6 +1081,58 @@ let castMagic = (skill) =>  {
                     mindgleaning = false;
                     soulsiphonicon.style.display = "none";
                     mindgleaningicon.style.display = "none";
+                    break;
+                case "bloodembrace":
+                        energy = energy + random(10, 20);
+                        if (energy >= 100) {
+                            energy = 100;
+                        }
+                        if (playerHP <= playerMaxHP*0.5) {
+                            if (bloodsigil < 10) {
+                            bloodsigil++;
+                            } else {
+                                bloodsigil=10;
+                            }
+                            bloodsigilicon.style.display = "block";
+                            document.getElementById("bloodsigilText").innerHTML = bloodsigil + " stacks.";
+                        }
+                        break;
+                case "rosemarysgift":
+                        energy = energy - energyCon;
+                        if (bloodsigil < 10) {
+                            bloodsigil=bloodsigil+1;
+                            } else {
+                                bloodsigil=10;
+                            }
+                        bloodsigilicon.style.display = "block";
+                        document.getElementById("bloodsigilText").innerHTML = bloodsigil + " stacks.";
+                        break;
+                case "ichorretaliation":
+                    energy = energy - energyCon;
+                    holyshieldstate = true;
+                    holyshieldamount = holyshieldamount + playerMaxHP*0.15*bloodsigil;
+                    holyshieldText.innerHTML = holyshieldamount;
+                    holyshieldbar.value = holyshieldamount;
+                    bloodsigil=0;
+                    bloodsigilicon.style.display = "none";
+                    break;
+                case "crimsonvitality":
+                    energy = energy - energyCon;
+                    crimsonicon.style.display = "block";
+                    if (crimsonbuff == false) {
+                        crimsonbuff = true;
+                        crimsonturn = 3;
+                        playerMaxHP = playerMaxHP + playerMaxHP*0.5;
+                    } else {
+                        crimsonbuff = true;
+                        crimsonturn = 3;
+                    }
+                    holyshieldstate = true;
+                    holyshieldamount = holyshieldamount + hploss*0.3;
+                    holyshieldText.innerHTML = holyshieldamount;
+                    holyshieldbar.value = holyshieldamount;
+                    playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+                    playerHealth.max = playerMaxHP;
                     break;
                 default:
                     energy = energy - energyCon;
@@ -1060,6 +1194,8 @@ let castMagic = (skill) =>  {
             playerHealth.value = playerHP;
             dragonHealth.value = dragonHP;
             playerHealthText.innerHTML = parseInt(playerHP);
+            playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+            playerHealth.max = playerMaxHP;
             let totalDot = bleedDot + poisonDot;
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);

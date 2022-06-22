@@ -16,7 +16,7 @@
             <li><button id="archer" class="classchange" onclick="switchClass('archer')">Forest Archer</button></li>
             <li><button id="paladin" class="classchange" onclick="switchClass('paladin')">Paladin of Light</button></li>
             <li><button id="necromancer" class="classchange" onclick="switchClass('necromancer')">Necromancer</button></li>
-            <li><button id="knight" class="classchange">Blood Knight (Soon)</button></li>
+            <li><button id="knight" class="classchange" onclick="switchClass('knight')">Blood Knight</button></li>
         </ul>
         <br><br><br><br><br><br>
         <ul id="ulsettings">
@@ -59,7 +59,7 @@
         <li><button id="necromancer" class="classchange">Necromancer</button></li><br>
         <li>
             <h2 style="font-size: 15px; background-color: #ffffff00; border: 0px;">
-            <a href="#"><img src="images/s13.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 151); font-size: 23px;">Soul Siphon - 0</h3><br>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 10 energy.</span></a>
+            <a href="#"><img src="images/s13.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 151); font-size: 23px;">Soul Siphon - 0</h3><br>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 20 energy if Moon buff is on, else restores 10 energy.</span></a>
             <a href="#"><img src="images/s14.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 151); font-size: 23px;">Mind Gleaning - 30</h3><br>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 50% of DMG dealt. Places a Mind Gleaning mark on the enemy.</span></a>
             <a href="#"><img src="images/s15.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 151); font-size: 23px;">Painless Death - 80</h3><br>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.</span></a>
             <a href="#"><img src="images/s16.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 151); font-size: 23px;">Song of Moonlight - 40</h3><br>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.</span></a>
@@ -71,8 +71,8 @@
         <li>
             <h2 style="font-size: 15px; background-color: #ffffff00; border: 0px;">
             <a href="#"><img src="images/s17.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Blood Embrace - 0</h3><br>Deals 120% DMG (+310) to the target. If his HP is less than 50%, gain 1 Blood Sigil. Restores 15 Energy.</span></a>
-            <a href="#"><img src="images/s18.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Rosemary's Gift - 30</h3><br>Deals 160% DMG (+670) to the target. Deals an additional amount of 100% of his loss HP as DMG. Gain 1 Blood Sigil.</span></a>
-            <a href="#"><img src="images/s19.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Ichor Retaliation - 80</h3><br>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 15% of his Max HP.</span></a>
+            <a href="#"><img src="images/s18.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Rosemary's Gift - 30</h3><br>Deals 160% DMG (+670) to the target. Deals an additional amount of 10% of his loss HP as DMG. Gain 1 Blood Sigil.</span></a>
+            <a href="#"><img src="images/s19.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Ichor Retaliation - 90</h3><br>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 15% of his Max HP.</span></a>
             <a href="#"><img src="images/s20.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(156, 52, 52); font-size: 23px;">Crimson Vitality - 40</h3><br>Increases his Max HP by 50% for 3 turns. Also, grants a shield of 30% of his loss HP.</span></a>
             </h2>
         </li><br>
@@ -147,11 +147,13 @@
             <a href="#" id="defbufficon"><img src="images/defbuff.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blessing of Ice</h3><br>Your DEF is increased by 30%.</span></a>
             <a href="#" id="shieldicon"><img src="images/shield.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blessing of Light</h3><br>You are immune to attack for 1 turn.</span></a>
             <a href="#" id="healbufficon"><img src="images/healbuff.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blessing of Gaia</h3><br>Increases heal amount for the next heal by 50%.</span></a>
-            <a href="#" id="holyshieldicon"><img src="images/holyshield.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Heaven's Will</h3><br>Grants a shield of 30% of Max HP.</span></a>
+            <a href="#" id="holyshieldicon"><img src="images/holyshield.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Heaven's Will</h3><br>A shield to protect yourself from harm.</span></a>
             <a href="#" id="doubledmgicon"><img src="images/doubledmg.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Edge of Eternity</h3><br>Doubles the next direct DMG.</span></a>
             <a href="#" id="hunteratkicon"><img src="images/s8.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Hunter's Instinct</h3><br>Increases Critical DMG by 60% and Critical Rate by 30% for 2 turns.</span></a>
             <a href="#" id="lightdefbufficon"><img src="images/s10.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Rectitude</h3><br>Increases DEF by 30% for 2 turns.</span></a>
             <a href="#" id="moonicon"><img src="images/moon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Song of Moonlight</h3><br>Increases DMG by 30% for 2 turns.</span></a>
+            <a href="#" id="bloodsigilicon"><img src="images/bloodsigil.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blood Sigil</h3><br>Oath of Blood shall be fulfilled.<br><br><p id="bloodsigilText">0 stacks.</p></span></a>
+            <a href="#" id="crimsonicon"><img src="images/crimson.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Crimson Vitality</h3><br>Increases Max HP by 50% for 3 turns.</span></a>
         </div>
             <ul>
               
@@ -159,7 +161,7 @@
             <li><progress id="holyshieldbar" value="0" max="20000"></progress></li><br>
             <li><button class="classchange" id="mageclass" style="width: 250px; height: 45px; font-size: 24px;">Elemental Mage</button></li>
             
-            <li><button class="support" id="hpbutton">HP: <p id="hp">0</p></button></li>
+            <li><button class="support" id="hpbutton">HP: <p id="hp">0</p>/<p id="maxhp">0</p></button></li>
             <li><button class="support" id="shieldbutton">Holy Shield: <p id="holyshieldText">0</p></button></li><br>
             <li><h3>Energy</h3></li>
              <li><p id="ene">0</p></li>
@@ -224,8 +226,32 @@
                 <li><button id="s16" class="spellbutton" onclick="castMagic('songofmoonlight')">Song of Moonlight</button></li>
                 <li><button class="help" onclick="helpText('s16')">i</button></li>
             </ul>
-            
-            
+            <ul id="skillactive4">
+                <li><button id="s13" class="spellbutton" onclick="castMagic('soulsiphon')">Soul Siphon</button></li>
+                <li><button class="help" onclick="helpText('s13')">i</button></li>
+                
+                <li><button id="s14" class="spellbutton" onclick="castMagic('mindgleaning')">Mind Gleaning</button></li>
+                <li><button class="help" onclick="helpText('s14')">i</button></li><br><br>
+                
+                <li><button id="s15" class="spellbutton" onclick="castMagic('painlessdeath')">Painless Death</button></li>
+                <li><button class="help" onclick="helpText('s15')">i</button></li>
+
+                <li><button id="s16" class="spellbutton" onclick="castMagic('songofmoonlight')">Song of Moonlight</button></li>
+                <li><button class="help" onclick="helpText('s16')">i</button></li>
+            </ul>
+            <ul id="skillactive5">
+                <li><button id="s17" class="spellbutton" onclick="castMagic('bloodembrace')">Blood Embrace</button></li>
+                <li><button class="help" onclick="helpText('s17')">i</button></li>
+                
+                <li><button id="s18" class="spellbutton" onclick="castMagic('rosemarysgift')">Rosemary's Gift</button></li>
+                <li><button class="help" onclick="helpText('s18')">i</button></li><br><br>
+                
+                <li><button id="s19" class="spellbutton" onclick="castMagic('ichorretaliation')">Ichor Retaliation</button></li>
+                <li><button class="help" onclick="helpText('s19')">i</button></li>
+
+                <li><button id="s20" class="spellbutton" onclick="castMagic('crimsonvitality')">Crimson Vitality</button></li>
+                <li><button class="help" onclick="helpText('s20')">i</button></li>
+            </ul>
             <ul id="supportactive">
                 <li><button id="buff" class="support" onclick="buff()">Song of Fire and Ice</button></li>
                 <li><button id="help1" class="help" onclick="helpText('1')">i</button></li>
