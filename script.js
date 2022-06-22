@@ -546,7 +546,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
             break;
         case "s16":
-            popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase DMG by 30%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase ATK by 50%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s17":
             popup.innerHTML = "<h2>Blood Embrace</h2><img src='images/s17.png' class='icon'><br><p>Deals 120% DMG (+310) to the target. If his HP is less than 50%, gain 1 Blood Sigil. Restores 15 Energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -555,7 +555,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Rosemary's Gift</h2><img src='images/s18.png' class='icon'><br><p>Deals 160% DMG (+670) to the target. Deals an additional amount of 10% of his loss HP as DMG. Gain 1 Blood Sigil.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s19":
-            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s19.png' class='icon'><br><p>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 30% of his Max HP.<br>Energy consumption: 90</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s19.png' class='icon'><br><p>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 7% of his Max HP.<br>Energy consumption: 90</p><button onclick='closePopup()'>close</button>";
             break;
         case "s20":
             popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s20.png' class='icon'><br><p>Increases his Max HP by 50% for 3 turns. Also, grants a shield of 30% of his loss HP.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
@@ -804,6 +804,7 @@ let castMagic = (skill) =>  {
                             moonbuffturn = 2;
                             moonbuffamount = playerATK*0.5;
                             playerATK = playerATK + moonbuffamount;
+                            playerAtkText.innerHTML = playerATK.toFixed(0);
                             moonstate = true;
                         } else {
                             moonbuff = true;
@@ -1110,7 +1111,7 @@ let castMagic = (skill) =>  {
                 case "ichorretaliation":
                     energy = energy - energyCon;
                     holyshieldstate = true;
-                    holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.15*bloodsigil;
+                    holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.07*bloodsigil;
                     holyshieldText.innerHTML = parseInt(holyshieldamount);
                     holyshieldbar.value = parseInt(holyshieldamount);
                     bloodsigil=0;
