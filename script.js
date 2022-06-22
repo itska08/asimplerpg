@@ -31,7 +31,7 @@ let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 let poisonIcon = document.getElementById("poisonicon");
 let doubledmgIcon = document.getElementById("doubledmgicon");
-let playerClass;
+let playerClass = "mage";
 let switchButtonDefault = document.getElementById("mageclass");
 let bleedIcon = document.getElementById("bleedicon");
 let hunterIcon = document.getElementById("huntericon");
@@ -111,6 +111,10 @@ let bloodsigil = 0;
 let crimsonbuff = false;
 let crimsonturn = 0;
 let hploss = playerMaxHP - playerHP;
+let dragonATKTemp = 0;
+let critDmgTemp = 0;
+let critTemp = 0;
+let bloodsigilmodifier = 0;
 
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
@@ -287,6 +291,10 @@ function resetGame() {
     moonstate = false;
     bloodsigil = 0;
     crimsonbuff = false;
+    dragonATKTemp = 0;
+    critDmgTemp = 0;
+    critTemp = 0;
+    bloodsigilmodifier = 0;
 
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
@@ -403,6 +411,7 @@ function doubledmg() {
 function debuffAtk() {
     let debuffAmount = dragonATK * 0.3;
     dragonATK = dragonATK - debuffAmount;
+    debuffatkstate = true;
     document.getElementById('debuff').style.pointerevents = 'none';
     document.getElementById('debuff').style.cursor = 'not-allowed';
     document.getElementById('debuff').style.opacity = '0.6';
@@ -543,7 +552,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Mind Gleaning</h2><img src='images/s14.png' class='icon'><br><p>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 50% of DMG dealt. Places a Mind Gleaning mark on the enemy.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s15":
-            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br><br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br><br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br><br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
             break;
         case "s16":
             popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase ATK by 50%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
@@ -559,6 +568,21 @@ let helpText = (a) => {
             break;
         case "s20":
             popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s20.png' class='icon'><br><p>Increases his Max HP by 50% for 3 turns. Also, grants a shield of 30% of his loss HP.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "p1":
+            popup.innerHTML = "<h2>Arcane Erudition - Passive</h2><img src='images/p1.png' class='icon'><br><p>If Bane of Death effect is active, reduces the target's ATK by 35%.</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "p2":
+            popup.innerHTML = "<h2>Forest's Favor - Passive</h2><img src='images/p2.png' class='icon'><br><p>After Hunter's Mark is removed, heals self by 50% of Max HP.</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "p3":
+            popup.innerHTML = "<h2>Grace - Passive</h2><img src='images/p3.png' class='icon'><br><p>Each Lightmark removed restores 5~10 Energy.</p><button onclick='closePopup()'>close</button>";
+            break;     
+        case "p4":
+            popup.innerHTML = "<h2>Forbidden Practice - Passive</h2><img src='images/p4.png' class='icon'><br><p>When both Marks are active, increases Critical DMG by 50%.</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "p5":
+            popup.innerHTML = "<h2>Hardened Will - Passive</h2><img src='images/p5.png' class='icon'><br><p>Each Blood Sigil will increase his DMG by 5% (up to 50%).</p><button onclick='closePopup()'>close</button>";
             break;
         case "chest":
             popup.innerHTML = "<h2>Congrats!</h2><p>You've killed the dragon and received a bunch of gold!</p><button onclick='closePopup()'>close</button>";
@@ -576,7 +600,6 @@ let helpText = (a) => {
             break;
     }
 }
-
 
 let castMagic = (skill) =>  {
     if (magicArray.indexOf(skill) > -1) {
@@ -708,6 +731,7 @@ let castMagic = (skill) =>  {
                         skillATK = playerATK*3.8 + 1050;
                     } else {
                         skillATK = playerATK*5.3 + 1050;
+                        healSkill(playerMaxHP*0.5);
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     }
@@ -756,8 +780,6 @@ let castMagic = (skill) =>  {
                     break;
                 case "judgment":
                     skillATK = playerATK*3.3 + 1315 + playerDEF*0.25*lightmark;
-                    lightmark = 0;
-                    lightmarkicon.style.display = "none";
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
@@ -857,13 +879,14 @@ let castMagic = (skill) =>  {
                 shieldState = false;
                 shieldicon.style.display = "none";
             }
+  
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.05*bloodsigil;
                 dragonHP -= damagePlayer;
                 dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.05*bloodsigil;
                 dragonHP -= damagePlayer.toFixed(0);
             }
             //check debuff states and calculate debuff dmg
@@ -878,7 +901,7 @@ let castMagic = (skill) =>  {
                     hunteratkmodifier = 0;
                     hunterAtkIcon.style.display = "none";
                     critRate = defaultCrit;
-                    CritDmg = defaultCritDMG;
+                    critDmg = defaultCritDMG;
             } else if (hunteratkcooldown > 0 && critHit == true) {
                     hunteratkcooldown--;
                     critRate = defaultCrit;
@@ -889,6 +912,8 @@ let castMagic = (skill) =>  {
                 
             playerCritText.innerHTML = critRate + "%";
             playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
+
+
             if (doubledmgState = true) {
                 doubledmgState = false;
                 doubledmgIcon.style.display = "none";
@@ -915,14 +940,16 @@ let castMagic = (skill) =>  {
                 dragonHP = dragonHP - poisonDot;
                 if (poisonTurn > 0) {
                     poisonTurn--;
-                    poisonTurnText.innerHTML = poisonTurn + " turns left.";
+                    poisonTurnText.innerHTML = poisonTurn + " turns left.<br>Passive: Decreases ATK by 35%.";
                 } else if (poisonTurn == 0) {
                     poisonTurn = 0;
                     poisonDot = 0;
                     poisonState = false;
                     poisonIcon.style.display = "none";
-                }
+                    dragonATK = dragonATKTemp;
+                } 
             }
+
             if (bleedState == true) {
                 bleedDot = playerATK*1.25;
                 dragonHP = dragonHP - bleedDot;
@@ -1011,9 +1038,17 @@ let castMagic = (skill) =>  {
                     energy = energy - energyCon;
                     break;
                 case "bane":
-                    poisonState = true;
-                    poisonTurn = 3;
-                    poisonTurnText.innerHTML = poisonTurn + " turns left.";
+                    if (poisonState==false) {
+                        poisonState = true;
+                        poisonTurn = 3;
+                        dragonATKTemp = dragonATK;
+                        dragonATK = dragonATK - dragonATK*0.35;
+                    } else {
+                        poisonState = true;
+                        poisonTurn = 3;
+                    }
+                    
+                    poisonTurnText.innerHTML = poisonTurn + " turns left.<br><br>Passive: Decreases ATK by 35%.";
                     poisonIcon.style.display = "block";
                     energy = energy - energyCon;
                     break;
@@ -1023,6 +1058,15 @@ let castMagic = (skill) =>  {
                     bleedTurnText.innerHTML = bleedTurn + " turns left.";
                     bleedIcon.style.display = "block";
                     energy = energy - energyCon;
+                    break;
+                case "piercingshot":
+                    energy = energy - energyCon;
+                    if (huntermark == true) {
+                        skillATK = playerATK*5.3 + 1050;
+                        healSkill(playerMaxHP*0.5);
+                        huntermark = false;
+                        hunterIcon.style.display = "none";
+                    }
                     break;
                 case "righteousness":
                     energy = energy + random(10, 20);
@@ -1058,6 +1102,15 @@ let castMagic = (skill) =>  {
                     holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.5;
                     holyshieldText.innerHTML = parseInt(holyshieldamount);
                     holyshieldbar.value = parseInt(holyshieldamount);
+                    break;
+                case "judgment":
+                    energy = energy - energyCon;
+                    energy = energy + lightmark*random(5,10);
+                    if (energy >=100) {
+                        energy=100;
+                    }
+                    lightmark = 0;
+                    lightmarkicon.style.display = "none";
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {
@@ -1141,12 +1194,21 @@ let castMagic = (skill) =>  {
                     break;
                 
             }
+            if (soulsiphon == true && mindgleaning == true) {
+                critDmg = critDmg + critDmg*0.5;
+            } else {
+                critDmg = defaultCritDMG;
+            }
+
+            
+            playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             playerEnergyText.innerHTML = energy;
             
             turn++;
             turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
             cooldown--;
             holyshieldcooldown--;
+            playerCritText.innerHTML = parseInt(critRate) + "%";
             if (dragonHP <= 5000 && state==false) {
                     dragonHP = dragonMaxHP;
                     dragonATK = dragonATK + dragonATK * 0.8;

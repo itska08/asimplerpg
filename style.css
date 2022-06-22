@@ -96,7 +96,7 @@ body {
 	display: none;
 }
 .icon {
-	width: 45px;
+	width: 60px;
 	border-radius: 5px;
 	box-shadow: 0 0 0 1px rgb(255, 240, 198);
 }
@@ -155,10 +155,10 @@ body {
 	margin-top: -100px;
 }
 .spellbutton {
-	width: 265px;
+	width: 255px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 24px;
 }
 #healbufficon {
 	display: none;
@@ -166,15 +166,15 @@ body {
 #imgcontainer {
 	display: flex;
 	justify-content: center;
-	height: 55px;
-	margin-top: -40px;
+	height: 70px;
+	margin-top: -54px;
 }
 
 #imgcontainer2 {
 	display: flex;
 	justify-content: center;
-	height: 55px;
-	margin-top: -15px;
+	height: 70px;
+	margin-top: -9px;
 }
 a span {
 	z-index: 99999999;
@@ -233,9 +233,7 @@ progress {
 #holyshieldbar {
 	
 	z-index: 99999;
-	position: absolute;
-	left: 290px;
-	top: 1107px;
+	position: relative;
 	width: 500px;
 	background-color: #00000000;
 	box-shadow: 0 0px 0px #212324;
