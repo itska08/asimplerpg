@@ -674,7 +674,7 @@ let castMagic = (skill) =>  {
                     hunterAtkIcon.style.display = "block";
                     huntermark = true;
                     critRate = critRate+30;
-                    critDmg = critDmg+0.5;
+                    critDmg = critDmg+0.6;
                     playerCritText.innerHTML = critRate + "%";
                     playerCritDMGText.innerHTML = critDmg*100 + "%";
                     hunterIcon.style.display = "block";
@@ -764,7 +764,7 @@ let castMagic = (skill) =>  {
                             moonstate = true;
                         }
                     }
-                    effect.style.backgroundImage = "url('images/skill6.png')"; 
+                    effect.style.backgroundImage = "url('images/skill16.png')"; 
                     break;               
             }
             //raw damage calculation
