@@ -113,7 +113,7 @@ let crimsonturn = 0;
 let hploss = playerMaxHP - playerHP;
 
 playerCritText.innerHTML = critRate + "%";
-playerCritDMGText.innerHTML = critDmg*100 + "%";
+playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerHealthText.innerHTML = parseInt(playerHP);
@@ -349,10 +349,10 @@ function resetGame() {
     playerHealth.value = playerHP;
     playerMaxHPText.innerHTML = parseInt(playerMaxHP);
     playerHealth.max = playerMaxHP;
-    holyshieldText.innerHTML = holyshieldamount;
-    holyshieldbar.value = holyshieldamount;
+    holyshieldText.innerHTML = parseInt(holyshieldamount);
+    holyshieldbar.value = parseInt(holyshieldamount);
     playerCritText.innerHTML = critRate + "%";
-    playerCritDMGText.innerHTML = critDmg*100 + "%";
+    playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
     effect.style.backgroundImage = "";
 }
 
@@ -411,9 +411,9 @@ function debuffAtk() {
 }
 
 function holyShield() {
-    holyshieldamount = holyshieldamount + playerMaxHP*0.5;
-    holyshieldbar.value = holyshieldamount;
-    holyshieldText.innerHTML = holyshieldamount;
+    holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.5;
+    holyshieldbar.value = parseInt(holyshieldamount);
+    holyshieldText.innerHTML = parseInt(holyshieldamount);
     document.getElementById('holyshield').style.pointerevents = 'none';
     document.getElementById('holyshield').style.cursor = 'not-allowed';
     document.getElementById('holyshield').style.opacity = '0.6';
@@ -724,7 +724,7 @@ let castMagic = (skill) =>  {
                     critRate = critRate+30;
                     critDmg = critDmg+0.6;
                     playerCritText.innerHTML = critRate + "%";
-                    playerCritDMGText.innerHTML = critDmg*100 + "%";
+                    playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;
@@ -847,7 +847,7 @@ let castMagic = (skill) =>  {
                     damagePlayer = random(50, 100) + skillATK;
                 }
                 playerCritText.innerHTML = critRate + "%";
-                playerCritDMGText.innerHTML = critDmg*100 + "%";
+                playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             }
             if (shieldState == false) {
                 damageDragon = dragonATK + random(300, 500) - playerDEF;
@@ -887,7 +887,7 @@ let castMagic = (skill) =>  {
             }
                 
             playerCritText.innerHTML = critRate + "%";
-            playerCritDMGText.innerHTML = critDmg*100. + "%";
+            playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             if (doubledmgState = true) {
                 doubledmgState = false;
                 doubledmgIcon.style.display = "none";
@@ -900,8 +900,8 @@ let castMagic = (skill) =>  {
                     holyshieldamount = 0;
                     holyshieldstate = false;
                 }
-                holyshieldbar.value = holyshieldamount;
-                holyshieldText.innerHTML = holyshieldamount;
+                holyshieldbar.value = parseInt(holyshieldamount);
+                holyshieldText.innerHTML = parseInt(holyshieldamount);
             } else {
                 playerHP -= damageDragon.toFixed(0);
             }
@@ -1054,9 +1054,9 @@ let castMagic = (skill) =>  {
                 case "honor":
                     energy = energy - energyCon;
                     holyshieldstate = true;
-                    holyshieldamount = holyshieldamount + playerMaxHP*0.5;
-                    holyshieldText.innerHTML = holyshieldamount;
-                    holyshieldbar.value = holyshieldamount;
+                    holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.5;
+                    holyshieldText.innerHTML = parseInt(holyshieldamount);
+                    holyshieldbar.value = parseInt(holyshieldamount);
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {
@@ -1110,14 +1110,15 @@ let castMagic = (skill) =>  {
                 case "ichorretaliation":
                     energy = energy - energyCon;
                     holyshieldstate = true;
-                    holyshieldamount = holyshieldamount + playerMaxHP*0.15*bloodsigil;
-                    holyshieldText.innerHTML = holyshieldamount;
-                    holyshieldbar.value = holyshieldamount;
+                    holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.15*bloodsigil;
+                    holyshieldText.innerHTML = parseInt(holyshieldamount);
+                    holyshieldbar.value = parseInt(holyshieldamount);
                     bloodsigil=0;
                     bloodsigilicon.style.display = "none";
                     break;
                 case "crimsonvitality":
                     energy = energy - energyCon;
+                    hploss = playerMaxHP - playerHP;
                     crimsonicon.style.display = "block";
                     if (crimsonbuff == false) {
                         crimsonbuff = true;
@@ -1128,9 +1129,9 @@ let castMagic = (skill) =>  {
                         crimsonturn = 3;
                     }
                     holyshieldstate = true;
-                    holyshieldamount = holyshieldamount + hploss*0.3;
-                    holyshieldText.innerHTML = holyshieldamount;
-                    holyshieldbar.value = holyshieldamount;
+                    holyshieldamount = parseInt(holyshieldamount) + hploss*0.3;
+                    holyshieldText.innerHTML = parseInt(holyshieldamount);
+                    holyshieldbar.value = parseInt(holyshieldamount);
                     playerMaxHPText.innerHTML = parseInt(playerMaxHP);
                     playerHealth.max = playerMaxHP;
                     break;
