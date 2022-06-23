@@ -119,7 +119,7 @@ let bloodsigilmodifier = 0;
 let dragonDEFTemp = 0;
 let dragonDEFmodifier = 0;
 let playerDEFTemp = 0;
-
+let playerATKTemp = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -305,7 +305,7 @@ function resetGame() {
     dragonDEFTemp = 0;
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
-
+    playerATKTemp = 0;
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
     atkdebufficon.style.display = "none";
@@ -562,7 +562,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Soul Siphon</h2><img src='images/s13.png' class='icon'><br><p>Deals 110% DMG (+280) to the target and marks it with a Soul Siphon mark. Restores 20 energy if Moon buff is on, else restores 10 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s14":
-            popup.innerHTML = "<h2>Mind Gleaning</h2><img src='images/s14.png' class='icon'><br><p>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 50% of DMG dealt. Places a Mind Gleaning mark on the enemy.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Mind Gleaning</h2><img src='images/s14.png' class='icon'><br><p>Deals 180% DMG (+700) to the target. If the target is under Soul Siphon mark, restores HP by 100% of DMG dealt. Places a Mind Gleaning mark on the enemy.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s15":
             popup.innerHTML = "<h2>Painless Death</h2><img src='images/s15.png' class='icon'><br><p>Deals 380% DMG (+1500) to the target. If: <br>-the target is under Soul Siphon, deals an additional 90% DMG and restores HP by 70% of DMG dealt. Then, removes the mark.<br><br>-the target is under Mind Gleaning, deals an additional 80% DMG and restores 50 energy. Then, removes the mark.<br><br>-the target is under both marks, deals an additional 200% DMG and restores both HP and energy to full. Then, removes all marks.<br><br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
@@ -845,8 +845,10 @@ let castMagic = (skill) =>  {
                     break;
                 case "songofmoonlight":
                     skillATK = playerATK*1.5 + 600;
+
                     if (soulsiphon==true || mindgleaning==true) {
-                        if (moonstate==false) {                     
+                        if (moonstate==false) {     
+                            playerATKTemp = playerATK;          
                             moonbuff = true;
                             moonbufficon.style.display = "block";
                             moonbuffturn = 2;
@@ -1017,7 +1019,8 @@ let castMagic = (skill) =>  {
                     moonbuffturn--;
                 } else if (moonbuffturn == 0) {
                     moonbuffturn=0;
-                    playerATK = playerdefaultatk;
+                    playerATK = playerATKTemp;
+                    playerAtkText.innerHTML = playerATK;
                     moonbuff = false;
                     moonstate = false;
                     moonbufficon.style.display="none";
@@ -1143,7 +1146,7 @@ let castMagic = (skill) =>  {
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {
-                        healSkill(damagePlayer.toFixed(0)*0.5);
+                        healSkill(damagePlayer.toFixed(0)*1);
                     }
                     energy = energy - energyCon;
                     break;
