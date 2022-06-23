@@ -62,7 +62,7 @@ body {
 	color: #fff;
 }
 
-#holyshieldText {
+#holyshieldText, #ene {
 	font-size: 22px;
 	display: inline-block;
 	color: rgb(68, 68, 68);
@@ -70,11 +70,17 @@ body {
 #hpbutton {
 	background-color: #6e3636;
 	height: 45px;
-	width: 280px;
+	width: 250px;
 	color: #fff;
 }
 #shieldbutton {
 	background-color: #cfcaca;
+	height: 45px;
+	color: rgb(68, 68, 68);
+
+}
+#energybutton {
+	background-color: #e9a070;
 	height: 45px;
 	color: rgb(68, 68, 68);
 
@@ -306,10 +312,6 @@ progress#dragonHealth {
 	right: 85px;
 	top: 1180px;
 	transform: scaleX(-1);
-}
-#ene {
-	color: #ffffff;
-	text-align: center;
 }
 #learnmore {
 	width: 75px;

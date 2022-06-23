@@ -571,13 +571,13 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Song of Moonlight</h2><img src='images/s16.png' class='icon'><br><p>Deals 150% DMG (+600) to the target. If it has any mark, gains a Moon buff for 2 turns to increase ATK by 50%.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s17":
-            popup.innerHTML = "<h2>Blood Embrace</h2><img src='images/s17.png' class='icon'><br><p>Deals 120% DMG (+310) to the target. If his HP is less than 50%, gain 1 Blood Sigil. Restores 15 Energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blood Embrace</h2><img src='images/s17.png' class='icon'><br><p>Deals 120% DMG (+310) to the target. If his HP is less than 50%, gain 1 Blood Sigil. Restores 10~13 Energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
             break;
         case "s18":
-            popup.innerHTML = "<h2>Rosemary's Gift</h2><img src='images/s18.png' class='icon'><br><p>Deals 160% DMG (+670) to the target. Deals an additional amount of 10% of his loss HP as DMG. Gain 1 Blood Sigil.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Rosemary's Gift</h2><img src='images/s18.png' class='icon'><br><p>Deals 160% DMG (+670) to the target. Deals an additional amount of 10% of his loss HP as DMG. Gain 2 Blood Sigils.<br>Energy consumption: 30</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s19":
-            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s19.png' class='icon'><br><p>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 2% of his Max HP.<br>Energy consumption: 90</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Painless Death</h2><img src='images/s19.png' class='icon'><br><p>Deals 410% DMG (+1800) to the target. For each Blood Sigil, deals an additional of 50% DMG and 3% of Max HP. Removes all Blood Sigils after that. For each removed Blood Sigil, grants a shield of 2% of his Max HP.<br>Energy consumption: 70</p><button onclick='closePopup()'>close</button>";
             break;
         case "s20":
             popup.innerHTML = "<h2>Crimson Vitality</h2><img src='images/s20.png' class='icon'><br><p>Increases his Max HP by 30% for 3 turns. Also, grants a shield of 30% of his loss HP.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
@@ -693,7 +693,7 @@ let castMagic = (skill) =>  {
                 break;
             case "ichorretaliation":
                 skillName = "Ichor Retaliation";
-                energyCon = 90;
+                energyCon = 70;
                 break;
             case "crimsonvitality":
                 skillName = "Crimson Vitality";
@@ -1166,7 +1166,7 @@ let castMagic = (skill) =>  {
                     mindgleaningicon.style.display = "none";
                     break;
                 case "bloodembrace":
-                        energy = energy + random(10, 20);
+                        energy = energy + random(10, 13);
                         if (energy >= 100) {
                             energy = 100;
                         }
@@ -1183,7 +1183,7 @@ let castMagic = (skill) =>  {
                 case "rosemarysgift":
                         energy = energy - energyCon;
                         if (bloodsigil < 10) {
-                            bloodsigil=bloodsigil+1;
+                            bloodsigil=bloodsigil+2;
                             } else {
                                 bloodsigil=10;
                             }
@@ -1297,6 +1297,8 @@ let castMagic = (skill) =>  {
             playerHealthText.innerHTML = parseInt(playerHP);
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
             playerHealth.max = playerMaxHP;
+            document.getElementById("sigilnumber").innerHTML = bloodsigil;
+            document.getElementById("lightnumber").innerHTML = lightmark;
             let totalDot = bleedDot + poisonDot;
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
