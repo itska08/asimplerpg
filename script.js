@@ -118,6 +118,7 @@ let critTemp = 0;
 let bloodsigilmodifier = 0;
 let dragonDEFTemp = 0;
 let dragonDEFmodifier = 0;
+let playerDEFTemp = 0;
 
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
@@ -302,6 +303,7 @@ function resetGame() {
     bloodsigilmodifier = 0;
     dragonDEFTemp = 0;
     dragonDEFmodifier = 0;
+    playerDEFTemp = 0;
 
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
     atkbufficon.style.display = "none";
@@ -1001,6 +1003,7 @@ let castMagic = (skill) =>  {
                 } else if (lightdefbuffturn == 0) {
                     lightdefbuffturn=0;
                     lightdefbuff=false;
+                    playerDEF = playerDEFTemp;
                     lightdefbufficon.style.display="none";
                     playerDefText.innerHTML = playerDEF;
                 }
@@ -1107,6 +1110,7 @@ let castMagic = (skill) =>  {
                 case "rectitude":
                     energy = energy - energyCon;
                     if (lightdefbuff == false) {
+                        playerDEFTemp = playerDEF;
                         lightdefbuff = true;
                         lightdefbuffturn = 2;
                         playerDEF = playerDEF + playerDEF*0.3;
