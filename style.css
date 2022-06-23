@@ -80,7 +80,7 @@ body {
 
 }
 #energybutton {
-	background-color: #e9a070;
+	background-color: #cca185;
 	height: 45px;
 	color: rgb(68, 68, 68);
 
@@ -254,15 +254,16 @@ progress#holyshieldbar::-webkit-progress-bar {
 /* for firefox */
 progress#holyshieldbar::-moz-progress-bar {
 	background-color: #cfcfcf;
-	height: 0.25rem;
-	border-radius: 10px;
+	height: 0.6rem;
 	position: absolute;
+	top: -5px;
 }
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
-	height: 0.5rem;
+	height: 0.6rem;
 	position: absolute;
+	top: -5px;
 }
 /* for firefox */
 progress#playerHealth::-moz-progress-bar {
