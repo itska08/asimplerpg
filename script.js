@@ -58,7 +58,7 @@ let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
 let playerMaxHPDefault = playerMaxHP;
-let dragonATK = 2400;
+let dragonATK = 1500;
 let playerATK = 300;
 let playerdefaultatk = 300;
 let damageDragon;
@@ -90,6 +90,7 @@ let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
 let playerDEF = 300;
+let dragonDEF = 400;
 let critRate = 10;
 let critHit = false;
 let critDmg = 0.5;
@@ -262,7 +263,7 @@ function resetGame() {
     holyshieldcooldown = 0;
     dragonHP = dragonMaxHP;
     holyshieldamount = 0;
-    dragonATK = 2400;
+    dragonATK = 1500;
     state = false;
     healBuff = false;
     shieldState = false;
@@ -591,10 +592,10 @@ let helpText = (a) => {
             document.getElementById('cast').style.display = 'none';
             break;
         case "dragonstats":
-            popup.innerHTML = "<h2>Fafnir the First King</h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Fafnir the First King</h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><p>Dragon's DEF: "+dragonDEF.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
             break;
         case "enraged":
-            popup.innerHTML = "<h2>The dragon is enraged!</h2><p>Its ATK is significantly higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>The dragon is enraged!</h2><p>Its ATK and DEF are significantly higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
             enragedicon.style.display = "block";
             break;
         case "wrongcode":
@@ -883,12 +884,12 @@ let castMagic = (skill) =>  {
             }
   
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF;
                 dragonHP -= damagePlayer;
                 dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF;
                 dragonHP -= damagePlayer.toFixed(0);
             }
             //check debuff states and calculate debuff dmg
@@ -968,7 +969,7 @@ let castMagic = (skill) =>  {
                 if (lightatkdebuffturn > 0) {
                     lightatkdebuffturn--;
                 } else if (lightatkdebuffturn == 0) {
-                    dragonATK = 2400;
+                    dragonATK = 1500;
                     lightatkdebuffturn=0;
                     lightatkdebuff=false;
                     lightatkdebufficon.style.display="none";
@@ -1214,7 +1215,8 @@ let castMagic = (skill) =>  {
             playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             if (dragonHP <= 5000 && state==false) {
                     dragonHP = dragonMaxHP;
-                    dragonATK = dragonATK + dragonATK * 0.8;
+                    dragonATK = dragonATK + dragonATK*0.8;
+                    dragonDEF = dragonDEF + dragonDEF*0.5;
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
                     state=true;
