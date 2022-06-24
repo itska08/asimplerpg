@@ -209,7 +209,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 12000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 110;
+            playerATK = 210;
             playerdefaultatk = 110;
             playerDEF = 360;
             critRate = 15;
@@ -284,7 +284,7 @@ let switchClass = (playerClass) => {
             playerMaxHP = 11000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 190;
+            playerATK = 220;
             playerdefaultatk = 190;
             playerDEF = 330;
             critRate = 10;
@@ -643,7 +643,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Sacred Anthems</h2><img src='images/s21.png' class='icon'><br><p>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</p><button onclick='closePopup()'>close</button>";
             break;
         case "s22":
-            popup.innerHTML = "<h2>Revered Presence</h2><img src='images/s22.png' class='icon'><br><p>Heals for 2040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Revered Presence</h2><img src='images/s22.png' class='icon'><br><p>Heals for 3040% of ATK + 40% of lost HP. Over-healed amount will be converted into Holy Shield.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s23":
             popup.innerHTML = "<h2>Solar Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
@@ -1021,7 +1021,7 @@ let castMagic = (skill) =>  {
                 case "reveredpresence":
                     skillATK = 0;
                     hploss = playerMaxHP - playerHP;
-                    holyHealSkill(playerATK*204+hploss*0.3);
+                    holyHealSkill(playerATK*30.4+hploss*0.3);
                     effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
                 case "solarchant":
