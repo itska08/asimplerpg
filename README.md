@@ -2,12 +2,16 @@
 
 Live preview: [[click here]](https://thaykhangne.github.io/a-simple-rpg/)
 
-Current version: 1.5
+Current version: 1.6
 
 ### Changes
 
 
 ```markdown
+# 1.6 - 24/6/2022
+- added a new class - Solar Songtress
+- log feature
+- removed two support skills due to inconsistencies.
 # 1.5 - 22/6/2022
 - added a new class - Blood Knight
 - added new passive skills
