@@ -392,6 +392,7 @@ function resetGame() {
     d3icon.style.display ="none";
     reflecticon.style.display ="none";
 
+    document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
     document.getElementById('holyshield').style.opacity = '1';
@@ -413,6 +414,7 @@ function resetGame() {
     document.getElementById('doubledmg').setAttribute("onclick", "doubledmg()");
     damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Fafnir</span>.<br>Defeat it and claim your <span class='damage'>treasure!</span>";
     dragonHealth.value = dragonHP;
+    dragonHealth.max = dragonMaxHP;
     playerEnergyText.innerHTML = energy;
     playerAtkText.innerHTML = playerATK;
     playerDefText.innerHTML = playerDEF;
