@@ -393,6 +393,7 @@ function resetGame() {
     reflecticon.style.display ="none";
 
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
+    document.getElementById("dragon").setAttribute("style","width: 700px; margin-left: -200px;");
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
     document.getElementById('holyshield').style.opacity = '1';
@@ -772,7 +773,7 @@ let castMagic = (skill) =>  {
                 energyCon = 60;
                 break;       
             case "sacredanthems":
-                skillName = "Sacred Anthem";
+                skillName = "Sacred Anthems";
                 energyCon = 0;
                 break;
             case "reveredpresence":
@@ -1225,7 +1226,7 @@ let castMagic = (skill) =>  {
                     }
                     break;
                  case "sacredanthems":
-                    energy = energy + random(20, 25);
+                    energy = energy + 15;
                     if (energy >= 100) {
                         energy = 100;
                     }
@@ -1433,6 +1434,7 @@ let castMagic = (skill) =>  {
                     dragonDEF = dragonDEF + dragonDEF*0.5;
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
+                    document.getElementById("dragon").setAttribute("style","width: 580px; margin-left: -100px;");
                     state=true;
                 } else if (dragonHP <= 5000 && state==true) {
                 state = true;
