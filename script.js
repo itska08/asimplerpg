@@ -1510,7 +1510,7 @@ let castMagic = (skill) =>  {
             damageText.innerHTML = logmessage;
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
-            logcontainer.appendChild(pnode);
+            logcontainer.prepend(pnode);
 
             if (poisonDot > 0) {
                 document.getElementById("playerpoisontext").innerHTML = poisonDot.toFixed(0);
