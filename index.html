@@ -9,6 +9,14 @@
     
 </head>
 <body>
+    <div id="log">
+        
+         <h5>Log of past actions</h5>
+         <br><hr><br>
+        <div id="logcontainer"></div>
+        <br><br><hr><br>
+        <button onclick='closeLog()'>close</button>
+    </div>
     <div id="settings">
         <ul id="ulsettings2">
             <h5>Change Your Character</h5>
@@ -17,6 +25,7 @@
             <li><button id="paladin" class="classchange" onclick="switchClass('paladin')">Paladin of Light</button></li>
             <li><button id="necromancer" class="classchange" onclick="switchClass('necromancer')">Necromancer</button></li>
             <li><button id="knight" class="classchange" onclick="switchClass('knight')">Blood Knight</button></li>
+            <li><button id="songtress" class="classchange" onclick="switchClass('songtress')">Solar Songtress</button></li>
         </ul>
         <br><br><br><br><br><br>
         <ul id="ulsettings">
@@ -35,7 +44,7 @@
             <img src="images/elementalmage.png" style="width: 60px; transform: scaleX(-1);">
             </h2>
         </li><br>
-        <li><h2 style="font-size: 15px; color:royalblue; width: 650px; margin: auto; margin-top: 10px;">Elemental Mage is an excellent choice if you want a balanced gameplay. This class possesses a range of basic elemental abilities, yet very powerful if played right. Recommended for beginner.</h2></li><br>
+        <li><h2 style="font-size: 15px; color:royalblue; width: 650px; margin: auto; margin-top: 10px;">The Elemental Mage is the master of the elements. She can form, control, and dissipate the elements at ease. Her skills center around applying several different effects and making use of their connections for the best outcome. An easy to play class, per se.</h2></li><br>
         
         <br><hr><br>
         <li><button id="archer" class="classchange">Forest Archer</button></li><br>
@@ -45,12 +54,12 @@
             <a href="#"><img src="images/s5.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Arrow of Light - 0</h3><br>Deals 100% DMG (+200) to the target. Marks it with a Hunter's Mark for 1 turn. Restores 10~20 energy.</span></a>
             <a href="#"><img src="images/s6.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Bloodshed - 30</h3><br>Deals 200% DMG (+470) to the target and another 125% DMG to the target every turn for 3 turns.</span></a>
             <a href="#"><img src="images/s7.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Piercing Shot - 60</h3><br>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, removes the mark and deals an additional amount of 150% DMG. Also, if the target is under Bleed, this skill's DMG is increased by 30%.</span></a>
-            <a href="#"><img src="images/s8.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Hunter's Instinct - 40</h3><br>Increases Critical DMG by 120% for 3 turns and Critical Rate for the next attack by 30% and mark the enemy with Hunter's Mark.</span></a>
+            <a href="#"><img src="images/s8.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Hunter's Instinct - 40</h3><br>Increases Critical DMG by 120% for 3 turns and Critical Rate until the next Crit Hit by 30% and mark the enemy with Hunter's Mark.</span></a>
             <a href="#"><img src="images/p2.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(71, 199, 114); font-size: 23px;">Forest's Favor - Passive</h3><br>After Hunter's Mark is removed, heals self by 50% of Max HP.</span></a>
             <img src="images/archer.png" style="width: 60px; transform: scaleX(-1);">
         </h2>
         </li><br>
-        <li><h2 style="font-size: 15px; color:rgb(46, 139, 70); width: 650px; margin: auto; margin-top: 10px;">Forest Archer's gameplay is one of the riskiest. You lose more to gain more, they once said. This class includes many powerful stat boosts and abilities that are sure to hit the enemy like a truck. A glass truck, though. Recommended for anyone who enjoys living a dangerous life.</h2></li><br>
+        <li><h2 style="font-size: 15px; color:rgb(46, 139, 70); width: 650px; margin: auto; margin-top: 10px;">The Forest Archer, or the Queen of the Elves, is the ultimate hunter and the best among her peers. With skills that focus on bringing the best damage outcome, you might find this class' survivability quite difficult to maintain. However, if played right, this is one of the most rewarding classes.</h2></li><br>
         <br><hr><br>
         <li><button id="paladin" class="classchange">Paladin of Light</button></li><br>
          <li>
@@ -93,7 +102,21 @@
             <img src="images/bloodknight.png" style="width: 60px;">
         </h2>
         </li><br>
-        <li><h2 style="font-size: 15px; color:rgb(139, 46, 46); width: 650px; margin: auto; margin-top: 10px;">The Knight of Blood gets stronger the lower his health gets. Challenge the extremity with this class to prove yourself a hardcore strategist.</h2></li><br><br><hr><br>-->
+        <li><h2 style="font-size: 15px; color:rgb(139, 46, 46); width: 650px; margin: auto; margin-top: 10px;">The Knight of Blood gets stronger the lower his health gets. Challenge the extremity with this class to prove yourself a hardcore strategist.</h2></li>
+        <br><hr><br>
+        <li><button id="songtress" class="classchange">Solar Songtress</button></li><br>
+        <li>
+            <h2 style="font-size: 15px; background-color: #ffffff00; border: 0px;">
+                <img src="images/songtress.png" style="width: 60px;">
+            <a href="#"><img src="images/s21.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Sacred Anthems - 0</h3><br>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</span></a>
+            <a href="#"><img src="images/s22.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Revered Presence - 40</h3><br>Heals for 2040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.</span></a>
+            <a href="#"><img src="images/s23.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Solar Chant - 80</h3><br>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.</span></a>
+            <a href="#"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.</span></a>
+            <a href="#"><img src="images/p6.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Divine Soprano - Passive</h3><br>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</span></a>
+            <img src="images/songtress.png" style="width: 60px;">
+        </h2>
+        </li><br>
+        <li><h2 style="font-size: 15px; color:rgb(197, 109, 26); width: 650px; margin: auto; margin-top: 10px;">Holy songtress that descends from the Sun. She uses a variety of debuff and healing skill that makes it easier for players to challenge the boss.</h2></li><br><br><hr><br>
         </ul>
         <button id="settingsclose" onclick='closeSettings()'>close</button>
         <p id="copyright">© 2022 - Khang Nguyen - v1.5</p>
@@ -111,6 +134,7 @@
                 <li><button id="paladin2" class="classchange"onclick="switchClass('paladin')">Paladin of Light</button></li>
                 <li><button id="necromancer2" class="classchange"onclick="switchClass('necromancer')">Necromancer</button></li>
                 <li><button id="knight2" class="classchange" onclick="switchClass('knight')">Blood Knight</button></li>
+                <li><button id="songtress2" class="classchange" onclick="switchClass('songtress')">Solar Songtress</button></li>
                 </ul> 
                 
                 <img src="images/book.gif" style="width: 250px;">
@@ -125,7 +149,7 @@
 
         <div id="cave">
             <button id="learnmore" onclick="openSettings()">≡</button>
-         
+            <button id="learnmore2" onclick="openLog()">+</button>
             <ul id="boss">
                 <p id="playerdmgtext">0</p>
                 <p id="playerpoisontext">0</p>
@@ -146,6 +170,12 @@
                 <a href="#" id="lightatkdebufficon"><img src="images/s9.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Righteousness</h3><br>Decreases ATK by 20%.</span></a>
                 <a href="#" id="soulsiphonicon"><img src="images/s13.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Soul Siphon</h3><br>Your soul is mine.</span></a>
                 <a href="#" id="mindgleaningicon"><img src="images/s14.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Mind Gleaning</h3><br>Your mind is also mine.</span></a>
+                <a href="#" id="d1icon"><p id="d1number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d1icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Purity</h3><br>Decreases ATK by 4%.</span></a>
+                <a href="#" id="d2icon"><p id="d2number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d2icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Justice</h3><br>Decreases DEF by 4%.</span></a>
+                <a href="#" id="d3icon"><p id="d3number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d3icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Faith</h3><br>Increases Incoming DMG by 2%.</span></a>
+                
+                
+                
                 <a href="#" id="enragedicon"><img src="images/enraged.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Enraged</h3><br>The Dragon's ATK is increased by 80%, DEF is increased by 50%, and Max HP is increased by 50%.</span></a>
                 
             </div>
@@ -172,6 +202,8 @@
             <a href="#" id="moonicon"><img src="images/moon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Song of Moonlight</h3><br>Increases ATK by 50% for 2 turns.</span></a>
             <a href="#" id="bloodsigilicon"><p id="sigilnumber" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/bloodsigil.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blood Sigil</h3><br>Oath of Blood shall be fulfilled.<br><br><p id="bloodsigilText">0 stacks.</p></span></a>
             <a href="#" id="crimsonicon"><img src="images/crimson.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Crimson Vitality</h3><br>Increases Max HP by 50% for 3 turns.</span></a>
+            <a href="#" id="reflecticon"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Hymn</h3><br>Reflects 50% of DMG received for 2 turns.</span></a>
+        
         </div>
             <ul>
               
@@ -269,15 +301,28 @@
                 <li><button id="p5" class="spellbutton">Hardened Will</button></li>
                 <li><button class="help" onclick="helpText('p5')">i</button></li>
             </ul>
+            <ul id="skillactive6">
+                <li><button id="s21" class="spellbutton" onclick="castMagic('sacredanthems')">Sacred Anthems</button></li>
+                <li><button class="help" onclick="helpText('s21')">i</button></li>
+                
+                <li><button id="s22" class="spellbutton" onclick="castMagic('reveredpresence')">Revered Presence</button></li>
+                <li><button class="help" onclick="helpText('s22')">i</button></li><br><br>
+                
+                <li><button id="s23" class="spellbutton" onclick="castMagic('solarchant')">Solar Chant</button></li>
+                <li><button class="help" onclick="helpText('s23')">i</button></li>
+
+                <li><button id="s23" class="spellbutton" onclick="castMagic('transcendenthymn')">Transcendent Hymn</button></li>
+                <li><button class="help" onclick="helpText('s24')">i</button></li>
+                <li><button id="p6" class="spellbutton">Divine Soprano</button></li>
+                <li><button class="help" onclick="helpText('p6')">i</button></li>
+            </ul>
+            
             <ul id="supportactive">
-                <li><button id="buff" class="support" onclick="buff()">Song of Fire and Ice</button></li>
-                <li><button id="help1" class="help" onclick="helpText('1')">i</button></li>
-                <li><button id="debuff" class="support" onclick="debuffAtk()">Curse of Power</button></li>
-                <li><button id="help2" class="help" onclick="helpText('2')">i</button></li>
+                
                 <li><button id="doubledmg" class="support" onclick="doubledmg()">Edge of Eternity</button></li>
-                <li><button id="help6" class="help" onclick="helpText('6')">i</button></li><br><br>
+                <li><button id="help6" class="help" onclick="helpText('6')">i</button></li>
                 <li><button id="heal" class="support" onclick="heal()">Blessing of Earth</button></li>
-                <li><button id="help3" class="help" onclick="helpText('3')">i</button></li>
+                <li><button id="help3" class="help" onclick="helpText('3')">i</button></li><br><br>
                 <li><button id="shield" class="support" onclick="shield()">Blessing of Light</button></li>
                 <li><button id="help4" class="help" onclick="helpText('4')">i</button></li>
                 <li><button id="holyshield" class="support" onclick="holyShield()">Heaven's Will</button></li>

@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality","sacredanthems","reveredpresence","solarchant","transcendenthymn"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSize = 192;
@@ -16,8 +16,8 @@ let alertHealText = document.getElementById("healalert");
 let playerEnergyText = document.getElementById("ene");
 let damageText = document.getElementById("welcomemessage");
 let turnText = document.getElementById("turn");
-let atkbufficon = document.getElementById("atkbufficon");
-let atkdebufficon = document.getElementById("atkdebufficon");
+
+
 let enragedicon = document.getElementById("enragedicon");
 let playerHealth = document.getElementById("playerHealth");
 let dragonHealth = document.getElementById("dragonHealth");
@@ -37,7 +37,7 @@ let bleedIcon = document.getElementById("bleedicon");
 let hunterIcon = document.getElementById("huntericon");
 let hunterAtkIcon = document.getElementById("hunteratkicon");
 let playerDefText = document.getElementById("def");
-let defbufficon = document.getElementById("defbufficon");
+
 let playerCritText = document.getElementById("crit");
 let playerCritDMGText = document.getElementById("critdmg");
 let lightmarkicon = document.getElementById("lighticon");
@@ -49,6 +49,12 @@ let moonbufficon = document.getElementById("moonicon");
 let bloodsigilicon = document.getElementById("bloodsigilicon");
 let crimsonicon = document.getElementById("crimsonicon");
 let playerMaxHPText = document.getElementById("maxhp");
+let logcontainer = document.getElementById("logcontainer");
+let pnode = "";
+let d1icon = document.getElementById("d1icon");
+let d2icon = document.getElementById("d2icon");
+let d3icon = document.getElementById("d3icon");
+let reflecticon = document.getElementById("reflecticon");
 /* character and skill stats */
 let skill;
 let energy = 0;
@@ -118,8 +124,20 @@ let critTemp = 0;
 let bloodsigilmodifier = 0;
 let dragonDEFTemp = 0;
 let dragonDEFmodifier = 0;
+let dragondefaultdef = dragonDEF;
+let dragondefaultatk = dragonATK;
 let playerDEFTemp = 0;
 let playerATKTemp = 0;
+let logmessage = "";
+let hd = [0,0,0];
+let dstate = [false,false,false];
+let debuffatkstate = false;
+let debuffAmount = 0;
+let reflectstate = false;
+let reflectturn = 0;
+let reflectmodifier = 0;
+let totaldebuffmodifier = 0;
+
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -155,6 +173,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
         break;
         case "mage":
             switchButtonDefault.setAttribute("id","mageclass");
@@ -179,6 +198,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
             break;
         case "paladin":
             switchButtonDefault.setAttribute("id","paladinclass");
@@ -203,6 +223,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive3").style.display = "block";
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
             break;
         case "necromancer":
             switchButtonDefault.setAttribute("id","necromancerclass");
@@ -214,7 +235,7 @@ let switchClass = (playerClass) => {
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
             playerATK = 290;
-            playerdefaultatk = 300;
+            playerdefaultatk = 290;
             playerDEF = 300;
             critRate = 13;
             defaultCrit = critRate;
@@ -227,6 +248,7 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "block";
             document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
             break;
         case "knight":
             switchButtonDefault.setAttribute("id","knightclass");
@@ -238,7 +260,7 @@ let switchClass = (playerClass) => {
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
             playerATK = 230;
-            playerdefaultatk = 390;
+            playerdefaultatk = 230;
             playerDEF = 300;
             critRate = 10;
             defaultCrit = critRate;
@@ -251,12 +273,40 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive3").style.display = "none";
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "block";
+            document.getElementById("skillactive6").style.display = "none";
+            break;
+         case "songtress":
+            switchButtonDefault.setAttribute("id","songtressclass");
+            switchButtonDefault.innerHTML = "Solar Songtress";
+            document.getElementById("playerHealth").setAttribute("max","15000");
+            document.getElementById("playerHealth").setAttribute("value","15000");
+            playerClass = "songtress";
+            playerMaxHP = 11000;
+            playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
+            playerATK = 190;
+            playerdefaultatk = 190;
+            playerDEF = 330;
+            critRate = 10;
+            defaultCrit = critRate;
+            critHit = false;
+            critDmg = 0.5;
+            defaultCritDMG = critDmg;
+            critRoll = 0;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "none";
+            document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "block";
+            
             break;
     }
     resetGame();
 }
 
 function resetGame() {
+
     energy = 0;
     energyCon = 0;
     turn = 0;
@@ -268,6 +318,7 @@ function resetGame() {
     dragonHP = dragonMaxHP;
     holyshieldamount = 0;
     dragonATK = 1500;
+    dragonDEF = 400;
     state = false;
     healBuff = false;
     shieldState = false;
@@ -306,9 +357,17 @@ function resetGame() {
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
     playerATKTemp = 0;
+    debuffAmount = 0;
+    hd = [0,0,0];
+    reflectstate = false;
+    reflectturn = 0;
+    reflectmodifier = 0;
+    totaldebuffmodifier = 0;
+    logmessage = "";
+    pnode.innerHTML = "";
+    logcontainer.innerHTML = "";
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
-    atkbufficon.style.display = "none";
-    atkdebufficon.style.display = "none";
+   
     enragedicon.style.display = "none";
     poisonIcon.style.display = "none";
     dmgReceiveIcon.style.display = "none";
@@ -319,7 +378,7 @@ function resetGame() {
     holyshieldicon.style.display = "none";
     shieldicon.style.display = "none";
     doubledmgIcon.style.display = "none";
-    defbufficon.style.display = "none";
+    
     lightmarkicon.style.display = "none";
     lightatkdebufficon.style.display = "none";
     lightdefbufficon.style.display = "none";
@@ -328,21 +387,15 @@ function resetGame() {
     moonbufficon.style.display = "none";
     bloodsigilicon.style.display = "none";
     crimsonicon.style.display = "none";
-    document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-    document.getElementById('buff').style.pointerevents = 'auto';
-    document.getElementById('buff').style.cursor = 'pointer';
-    document.getElementById('buff').style.opacity = '1';
-    document.getElementById('buff').setAttribute("onclick", "buff()");
+    d1icon.style.display ="none";
+    d2icon.style.display ="none";
+    d3icon.style.display ="none";
+    reflecticon.style.display ="none";
 
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
     document.getElementById('holyshield').style.opacity = '1';
     document.getElementById('holyshield').setAttribute("onclick", "holyShield()");
-
-    document.getElementById('debuff').style.pointerevents = 'auto';
-    document.getElementById('debuff').style.cursor = 'pointer';
-    document.getElementById('debuff').style.opacity = '1';
-    document.getElementById('debuff').setAttribute("onclick", "debuffAtk()");
 
     document.getElementById('shield').style.pointerevents = 'auto';
     document.getElementById('shield').style.cursor = 'pointer';
@@ -393,20 +446,36 @@ let healSkill = (healing) => {
     
 }
 
-function buff() {
-    let buffAmount = playerATK * 0.3;
-    let defbuffAmount = playerDEF * 0.3;
-    playerATK = playerATK + buffAmount;
-    playerDEF = playerDEF + defbuffAmount;
-    document.getElementById('buff').style.pointerevents = 'none';
-    document.getElementById('buff').style.cursor = 'not-allowed';
-    document.getElementById('buff').style.opacity = '0.6';
-    document.getElementById('buff').setAttribute("onclick", "");
-    atkbufficon.style.display = "block";
-    defbufficon.style.display = "block";
-    playerAtkText.innerHTML = playerATK;
-    playerDefText.innerHTML = playerDEF;
+let holyHealSkill = (holyhealing) => {
+    if (healBuff == true) {
+        holyhealing = holyhealing + holyhealing*0.5;
+        playerHP = playerHP + holyhealing;
+        healBuff = false;
+        healBuffIcon.style.display = "none";
+        } else {
+        playerHP = playerHP + holyhealing;
+    }
+    if (playerHP > playerMaxHP) {
+        
+        holyshieldamount = playerHP - playerMaxHP;
+        if (holyshieldamount >= playerMaxHP) {
+            holyshieldamount = playerMaxHP;
+        }
+        playerHP = playerMaxHP;
+        holyshieldbar.value = parseInt(holyshieldamount);
+        holyshieldText.innerHTML = parseInt(holyshieldamount);
+        holyshieldicon.style.display = "block";
+        holyshieldstate = true;
+        
+    }
+    
+    playerHealthText.innerHTML = parseInt(playerHP);
+    popup.style.display = "block";
+    popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + holyhealing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
+    
 }
+
+
 
 function doubledmg() {
     doubledmgState = true;
@@ -418,16 +487,7 @@ function doubledmg() {
     doubledmgIcon.style.display = "block";
 }
 
-function debuffAtk() {
-    let debuffAmount = dragonATK * 0.3;
-    dragonATK = dragonATK - debuffAmount;
-    debuffatkstate = true;
-    document.getElementById('debuff').style.pointerevents = 'none';
-    document.getElementById('debuff').style.cursor = 'not-allowed';
-    document.getElementById('debuff').style.opacity = '0.6';
-    document.getElementById('debuff').setAttribute("onclick", "");
-    atkdebufficon.style.display = "block";
-}
+
 
 function holyShield() {
     holyshieldamount = parseInt(holyshieldamount) + playerMaxHP*0.5;
@@ -504,12 +564,7 @@ function heal() {
 let helpText = (a) => {
     popup.style.display = "block";
     switch (a) {
-        case "1":
-            popup.innerHTML = "<h2>Song of Fire and Ice</h2><ul id='ulsettings'><li><img src='images/atkbuff.png' class='icon'></li><li><img src='images/defbuff.png' class='icon'></li></ul><br><p>Increase your ATK and DEF by 30%.</p><button onclick='closePopup()'>close</button>";
-            break;
-        case "2":
-            popup.innerHTML = "<h2>Curse of Power</h2><img src='images/atkdebuff.png' class='icon'><br><p>Decrease the Dragon's ATK by 30%</p><button onclick='closePopup()'>close</button>";
-            break;
+        
         case "3":
             popup.innerHTML = "<h2>Blessing of Earth</h2><img src='images/healicon.png' class='icon'><br><p>Heal yourself by 25% (+100 ~ 500) of your HP. Cooldown: 3 turns.</p><button onclick='closePopup()'>close</button>";
             break;
@@ -544,7 +599,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Piecing Shot</h2><img src='images/s7.png' class='icon'><br><p>Deals 380% DMG (+1050) to the target. If the target is under Hunter's Mark, removes the mark and deals an additional amount of 150% DMG. Also, if the target is under Bleed, this skill's DMG is increased by 30%.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s8":
-            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 120% for 3 turns and Critical Rate for the next attack by 30% and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Hunter's Instinct</h2><img src='images/s8.png' class='icon'><br><p>Increases Critical DMG by 120% for 3 turns and Critical Rate until the next Crit Hit by 30% and mark the enemy with Hunter's Mark.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s9":
             popup.innerHTML = "<h2>Righteousness</h2><img src='images/s9.png' class='icon'><br><p>Deals 120% DMG (+240) to the target and decreases its ATK by 20% for 2 turns and mark it with a Light mark. Restores 10~20 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
@@ -581,6 +636,21 @@ let helpText = (a) => {
             break;
         case "s20":
             popup.innerHTML = "<h2>Crimson Vitality</h2><img src='images/s20.png' class='icon'><br><p>Increases his Max HP by 30% for 3 turns. Also, grants a shield of 30% of his loss HP.<br>Energy consumption: 60</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s21":
+            popup.innerHTML = "<h2>Sacred Anthems</h2><img src='images/s21.png' class='icon'><br><p>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s22":
+            popup.innerHTML = "<h2>Revered Presence</h2><img src='images/s22.png' class='icon'><br><p>Heals for 2040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "s23":
+            popup.innerHTML = "<h2>Solar Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
+            break;     
+        case "s24":
+            popup.innerHTML = "<h2>Transcendent Hymn</h2><img src='images/s24.png' class='icon'><br><p>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.<br>Energy consumption: 50</p><button onclick='closePopup()'>close</button>";
+            break;
+        case "p6":
+            popup.innerHTML = "<h2>Divine Soprano - Passive</h2><img src='images/p6.png' class='icon'><br><p>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</p><button onclick='closePopup()'>close</button>";
             break;
         case "p1":
             popup.innerHTML = "<h2>Arcane Erudition - Passive</h2><img src='images/p1.png' class='icon'><br><p>While Bane of Death effect is active, reduces the target's DEF by 35%.</p><button onclick='closePopup()'>close</button>";
@@ -698,6 +768,22 @@ let castMagic = (skill) =>  {
             case "crimsonvitality":
                 skillName = "Crimson Vitality";
                 energyCon = 60;
+                break;       
+            case "sacredanthems":
+                skillName = "Sacred Anthem";
+                energyCon = 0;
+                break;
+            case "reveredpresence":
+                skillName = "Revered Presence";
+                energyCon = 40;
+                break;
+            case "solarchant":
+                skillName = "Solar Chant";
+                energyCon = 80;
+                break;
+            case "transcendenthymn":
+                skillName = "Transcendent Hymn";
+                energyCon = 50;
                 break;                      
         }
         
@@ -881,10 +967,87 @@ let castMagic = (skill) =>  {
                 case "crimsonvitality":
                     skillATK = 0;
                     effect.style.backgroundImage = "url('images/skill20.png')";
-                    break;               
+                    break;          
+               case "sacredanthems":
+                    skillATK = playerATK + 230;
+                    hd[random(0,3)]++;
+                    hd[random(0,3)]++;
+                    //d1
+                        dragonATKTemp = dragondefaultatk;
+
+                    if (hd[0] > 0) {
+         
+                        d1icon.style.display = "block";
+                        if (hd[0] >= 10) {
+                            hd[0] = 10;
+                        } else if (hd[0] < 10) {
+                            dragonATK = dragonATK - dragonATKTemp*0.04;
+                        }
+                        
+                        document.getElementById("d1number").innerHTML = hd[0];
+                    }
+                    //
+                     //d2
+                     dragonDEFTemp = dragondefaultdef;
+
+                     if (hd[1] > 0) {
+             
+                         d2icon.style.display = "block";
+                         if (hd[1] >= 10) {
+                             hd[1] = 10;
+                         } else if (hd[1] < 10) {
+                             dragonDEF = dragonDEF - dragonDEFTemp*0.04;
+                         }
+                         
+                         document.getElementById("d2number").innerHTML = hd[1];
+                     }
+                     //d3
+                    
+
+                     if (hd[2] > 0) {
+             
+                         d3icon.style.display = "block";
+                         if (hd[2] >= 10) {
+                             hd[2] = 10;
+                         } 
+                         
+                         document.getElementById("d3number").innerHTML = hd[2];
+                     }
+                    
+                    effect.style.backgroundImage = "url('images/skill21.png')";
+                    break;
+                case "reveredpresence":
+                    skillATK = 0;
+                    hploss = playerMaxHP - playerHP;
+                    holyHealSkill(playerATK*204+hploss*0.3);
+                    break;
+                case "solarchant":
+                    debuffAmount = hd[0]+hd[1]+hd[2];
+                    skillATK = playerATK*4 + 1515 + playerATK*debuffAmount;
+                    hd = [0,0,0]
+                    dragonATK = dragonATKTemp;
+                    dragonDEF = dragonDEFTemp;
+                    d1icon.style.display = "none";
+                    d2icon.style.display = "none";
+                    d3icon.style.display = "none";
+                    break;
+                case "transcendenthymn":
+                    skillATK = 0;
+                    reflectstate = true;
+                    reflecticon.style.display = "block";
+                    reflectturn = 2;
+                    reflectmodifier = 0.5;
+                    
+                    break;                            
             }
             //raw damage calculation
-            if (skill == "huntersinstinct" || skill == "crimsonvitality") {
+            if (debuffAmount >= 20) {
+                totaldebuffmodifier = 0.3;
+            } else {
+                totaldebuffmodifier = 0;
+            }
+            
+            if (skill == "huntersinstinct" || skill == "crimsonvitality" || skill == "reveredpresence" || skill == "transcendenthymn") {
                 damagePlayer = 0;
                 dragonDEFmodifier = 0;
             } else {
@@ -909,15 +1072,17 @@ let castMagic = (skill) =>  {
                 shieldState = false;
                 shieldicon.style.display = "none";
             }
-  
+            
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier;
-                dragonHP -= damagePlayer;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
+                dragonHP -= damagePlayer.toFixed(0);
+                dragonHP = dragonHP - damageDragon*reflectmodifier;
                 dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
+                dragonHP = dragonHP - damageDragon*reflectmodifier;
             }
             //check debuff states and calculate debuff dmg
             if (hunteratkcooldown == 0 && critHit == false) {
@@ -978,7 +1143,16 @@ let castMagic = (skill) =>  {
                     dragonDEF = dragonDEFTemp;
                 } 
             }
-
+            if (reflectstate == true) {
+                if (reflectturn > 0) {
+                    reflectturn--;
+                } else if (reflectturn == 0) {
+                    reflectturn = 0;
+                    reflectstate = false;
+                    reflectmodifier = 0;
+                    reflecticon.style.display = "none";
+                }
+            }
             if (bleedState == true) {
                 bleedDot = playerATK*1.25;
                 dragonHP = dragonHP - bleedDot;
@@ -1046,7 +1220,12 @@ let castMagic = (skill) =>  {
                         energy = 100;
                     }
                     break;
-                
+                 case "sacredanthems":
+                    energy = energy + random(20, 25);
+                    if (energy >= 100) {
+                        energy = 100;
+                    }
+                    break;
                 case "arrowoflight":
                     energy = energy + random(10, 20);
                     if (energy >= 100) {
@@ -1303,20 +1482,30 @@ let castMagic = (skill) =>  {
             document.getElementById("sigilnumber").innerHTML = bloodsigil;
             document.getElementById("lightnumber").innerHTML = lightmark;
             let totalDot = bleedDot + poisonDot;
+            
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
-                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                
+                
             } else {
                 document.getElementById("playerdmgtext").innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
-                damageText.innerHTML = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                
                 critHit=false;
+
             }
+            damageText.innerHTML = logmessage;
+            pnode = document.createElement("p");
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            logcontainer.appendChild(pnode);
+
             if (poisonDot > 0) {
                 document.getElementById("playerpoisontext").innerHTML = poisonDot.toFixed(0);
                 document.getElementById("playerpoisontext").style.display = "block";
@@ -1365,6 +1554,17 @@ function openSettings() {
 function closeSettings() {
     document.getElementById("settings").style.display = "none";
     setTimeout(()=>{document.getElementById("settings").style.opacity = 0}, 200);
+    
+}
+
+function openLog() {
+    document.getElementById("log").style.display = "block";
+    setTimeout(()=>{document.getElementById("log").style.opacity = 1}, 200);
+}
+
+function closeLog() {
+    document.getElementById("log").style.display = "none";
+    setTimeout(()=>{document.getElementById("log").style.opacity = 0}, 200);
     
 }
 /*

@@ -17,6 +17,19 @@ body {
 	opacity: 0;
 	transition: all 0.2s;
 }
+
+#log {
+	z-index: 9999999;
+	position: absolute;
+	background-color: rgba(0,0,0,0.9);
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	display: none;
+	opacity: 0;
+	transition: all 0.2s;
+}
 #change {
 	font-size: 16px;
 	text-align: center;
@@ -327,6 +340,19 @@ progress#dragonHealth {
 	background-color: #e7e7e7;
 	border: 5px solid #f3f3f3;
 }
+#learnmore2 {
+	width: 75px;
+	height: 70px;
+	font-size: 30px;
+	font-weight: bold;
+	position: absolute;
+	box-shadow: 0 0px 0px #21232400;
+	color:#1b1b1b;
+	top: -3px;
+	right: -3px;
+	background-color: #e7e7e7;
+	border: 5px solid #f3f3f3;
+}
 h3 {
 	color: #cecece;
 	text-align: center;
@@ -348,7 +374,17 @@ h2 {
 	border-radius: 25px;
 	padding: 10px;
 }
-
+#logcontainer {
+	overflow: auto;
+	background-color: #0a0a0ac7;
+	text-align: center;
+	width: 1050px;
+	font-size: 13px;
+	color: #000;
+	border-radius: 25px;
+	margin: auto;
+	padding: 10px;
+}
 h5 {
 	border: 5px solid #ffffff;
 	background-color: #ffffff;
@@ -432,7 +468,7 @@ p {
 	text-align: center;
 }
 span {
-	background-color: #ffffff;
+	background-color: #ffffff00;
 	color: #d94f45;
 	font-size: 16px;
 	padding: 1px 10px;
@@ -444,7 +480,9 @@ span {
 	font-size: 26px;
 	padding: 0px 2px;
 	font-weight: 700;
-	line-height: 2em;
+	line-height: 1.3em;
+	border-radius: 10px;
+
 }
 
 button {
@@ -519,7 +557,7 @@ li {
 }
 .support {
 	display: block;
-	width: 250px;
+	width: 255px;
 	height: 60px;
 	font-size: 22px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
@@ -621,5 +659,15 @@ li {
 	display: none;
 }
 #soulsiphonicon, #mindgleaningicon, #moonicon, #crimsonicon {
+	display: none;
+}
+
+#songtress, #songtress2, #songtressclass, #s21, #s22, #s23, #s24 {
+	background-color: #aa6831 ;
+}
+#skillactive6 {
+	display: none;
+}
+#d1icon, #d2icon, #d3icon, #reflecticon {
 	display: none;
 }
