@@ -244,6 +244,7 @@ progress {
 	width: 500px;
 	display: block;
 	height: 20px;
+	border-radius: 50px;
 	box-shadow: 0 3px 0px #212324;
 	outline: none;
 	-webkit-appearance: none;
@@ -254,6 +255,7 @@ progress {
 	
 	z-index: 99999;
 	position: relative;
+	bottom: 21px;
 	width: 500px;
 	padding-bottom: 15px;
 	background-color: #00000000;
@@ -262,36 +264,28 @@ progress {
 }
 progress#holyshieldbar::-webkit-progress-bar {
 	background-color: #00000000;
+	
 	z-index: 99999;
 }
 
-/* for firefox */
-progress#holyshieldbar::-moz-progress-bar {
-	background-color: #cfcfcf;
-	height: 0.6rem;
-	position: absolute;
-	top: -5px;
-}
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
-	height: 0.6rem;
+	width: 500px;
+	height: 20px;
 	position: absolute;
 	top: -5px;
+	border-radius: 50px;
 }
-/* for firefox */
-progress#playerHealth::-moz-progress-bar {
-	background-color: rgb(160, 21, 21);
 
-}
 /* For Chrome or Safari */
 progress#playerHealth::-webkit-progress-value {
 	background: rgb(160, 21, 21);
+	border-radius: 50px;
 }
-/* for firefox */
-progress#dragonHealth::-moz-progress-bar {
-	background-color: #eb5a1c;
+progress#playerHealth::-webkit-progress-bar {
 
+	border-radius: 50px;
 }
 /* for Chrome or Safari */
 progress#dragonHealth::-webkit-progress-value {
