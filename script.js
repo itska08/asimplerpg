@@ -1020,6 +1020,7 @@ let castMagic = (skill) =>  {
                     skillATK = 0;
                     hploss = playerMaxHP - playerHP;
                     holyHealSkill(playerATK*204+hploss*0.3);
+                    effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
                 case "solarchant":
                     debuffAmount = hd[0]+hd[1]+hd[2];
@@ -1030,6 +1031,7 @@ let castMagic = (skill) =>  {
                     d1icon.style.display = "none";
                     d2icon.style.display = "none";
                     d3icon.style.display = "none";
+                    effect.style.backgroundImage = "url('images/skill23.png')";
                     break;
                 case "transcendenthymn":
                     skillATK = 0;
@@ -1037,7 +1039,7 @@ let castMagic = (skill) =>  {
                     reflecticon.style.display = "block";
                     reflectturn = 2;
                     reflectmodifier = 0.5;
-                    
+                    effect.style.backgroundImage = "url('images/skill24.png')";
                     break;                            
             }
             //raw damage calculation
