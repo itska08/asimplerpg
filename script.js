@@ -327,37 +327,43 @@ function resetGame() {
     healBuff = false;
     shieldState = false;
     holyshieldstate = false;
-    dmgreceive = false;
-    poisonDot = 0;
-    poisonState = false;
-    poisonTurn = 0;
+    
     doubledmgState = false;
     doublemodifier = 0;
-    huntermark = false;
-    bleedState = false;
-    hunteratkbuff = false;
-    hunteratkcooldown = 0;
-    bleedTurn = 0;
-    bleedDot = 0;
-    hunteratkmodifier = 0;
-    lightmark = 0;
-    lightatkdebuff = false;
-    lightatkdebuffturn = 0;
     lightdefbuff = false;
     lightdefbuffturn = 0;
-    soulsiphon = false;
-    mindgleaning = false;
     moonbuff = false;
     moonbuffturn = 0;
     moonbuffamount = 0;
     moonstate = false;
-    bloodsigil = 0;
     crimsonbuff = false;
-    dragonATKTemp = 0;
     critDmgTemp = 0;
     critTemp = 0;
     bloodsigilmodifier = 0;
+    dragonATKTemp = 0;
     dragonDEFTemp = 0;
+
+    poisonDot = 0;
+    poisonState = false;
+    poisonTurn = 0;
+    dmgreceive = false;
+    hunteratkmodifier = 0;
+    hunteratkbuff = false;
+    hunteratkcooldown = 0;
+    bleedState = false;
+    bleedTurn = 0;
+    bleedDot = 0;
+    huntermark = false;
+    lightmark = 0;
+    lightatkdebuff = false;
+    lightatkdebuffturn = 0;
+    stun = false;
+    stunmodifier = 1;
+    stunturn = 0;
+    soulsiphon = false;
+    mindgleaning = false;
+    bloodsigil = 0;
+    
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
     playerATKTemp = 0;
@@ -367,37 +373,36 @@ function resetGame() {
     reflectturn = 0;
     reflectmodifier = 0;
     totaldebuffmodifier = 0;
-    stun = false;
-    stunmodifier = 1;
-    stunturn = 0;
+    
     logmessage = "";
     pnode.innerHTML = "";
     logcontainer.innerHTML = "";
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
    
     enragedicon.style.display = "none";
-    poisonIcon.style.display = "none";
-    dmgReceiveIcon.style.display = "none";
     healBuffIcon.style.display = "none";
     hunterIcon.style.display = "none";
-    bleedIcon.style.display = "none";
     hunterAtkIcon.style.display = "none";
     holyshieldicon.style.display = "none";
     shieldicon.style.display = "none";
     doubledmgIcon.style.display = "none";
-    
+    lightdefbufficon.style.display = "none";
+    moonbufficon.style.display = "none";
+    crimsonicon.style.display = "none";
+    reflecticon.style.display ="none";
+
+    poisonIcon.style.display = "none";
+    bleedIcon.style.display = "none";
+    dmgReceiveIcon.style.display = "none";
     lightmarkicon.style.display = "none";
     lightatkdebufficon.style.display = "none";
-    lightdefbufficon.style.display = "none";
     soulsiphonicon.style.display = "none";
     mindgleaningicon.style.display = "none";
-    moonbufficon.style.display = "none";
     bloodsigilicon.style.display = "none";
-    crimsonicon.style.display = "none";
     d1icon.style.display ="none";
     d2icon.style.display ="none";
     d3icon.style.display ="none";
-    reflecticon.style.display ="none";
+    
     document.getElementById("stun").style.display = "none";
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById("dragon").setAttribute("style","width: 700px; margin-left: -200px;");
@@ -796,7 +801,7 @@ let castMagic = (skill) =>  {
                 energyCon = 50;
                 break;                      
         }
-        
+
         if (energy < energyCon) {
             popup.style.display = "block";
             popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
@@ -805,6 +810,7 @@ let castMagic = (skill) =>  {
             skillATK = 0;
             skillName = "";
         } else {
+           
             currentFrame = 1;
             switch (skill) {
                 case "icebolt":
@@ -1240,7 +1246,7 @@ let castMagic = (skill) =>  {
                     stunturn = 0;
                     stun = false;
                     document.getElementById("stun").style.display = "none";
-                    document.getElementById("stunicon").style.display = "block";
+                    document.getElementById("stunicon").style.display = "none";
                 }
             }
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
@@ -1455,21 +1461,57 @@ let castMagic = (skill) =>  {
             holyshieldcooldown--;
             playerCritText.innerHTML = parseInt(critRate) + "%";
             playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
+            
             if (dragonHP <= 5000 && state==false) {
-                    dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
-                    dragonHP = dragonMaxHP;
-                    dragonATK = dragonATK + dragonATK*0.8;
-                    dragonDEF = dragonDEF + dragonDEF*0.5;
-                    helpText('enraged');
-                    document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-                    document.getElementById("dragon").setAttribute("style","width: 580px; margin-left: -100px;");
-                    document.getElementById("stun").style.left = "415px";
-                    document.getElementById("stun").style.bottom = "57px";
-                    state=true;
-                } else if (dragonHP <= 5000 && state==true) {
-                state = true;
-            }
-        
+                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
+                dragonHP = dragonMaxHP;
+                dragondefaultatk = 2700;
+                dragondefaultdef = 600;
+                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
+                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
+                poisonDot = 0;
+                poisonState = false;
+                poisonTurn = 0;
+                dmgreceive = false;
+    
+    bleedState = false;
+    bleedTurn = 0;
+    bleedDot = 0;
+    huntermark = false;
+    lightmark = 0;
+    lightatkdebuff = false;
+    lightatkdebuffturn = 0;
+    stun = false;
+    stunmodifier = 1;
+    stunturn = 0;
+    soulsiphon = false;
+    mindgleaning = false;
+    bloodsigil = 0;
+    hd = [0,0,0];
+    poisonIcon.style.display = "none";
+    bleedIcon.style.display = "none";
+    dmgReceiveIcon.style.display = "none";
+    lightmarkicon.style.display = "none";
+    lightatkdebufficon.style.display = "none";
+    soulsiphonicon.style.display = "none";
+    mindgleaningicon.style.display = "none";
+    bloodsigilicon.style.display = "none";
+    
+    d1icon.style.display = "none";
+                    d2icon.style.display = "none";
+                    d3icon.style.display = "none";
+                    document.getElementById("stun").style.display = "none";
+                    document.getElementById("stunicon").style.display = "none";
+                helpText('enraged');
+
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
+                document.getElementById("dragon").setAttribute("style","width: 580px; margin-left: -100px;");
+                document.getElementById("stun").style.left = "415px";
+                document.getElementById("stun").style.bottom = "57px";
+                state=true;
+            } else if (dragonHP <= 5000 && state==true) {
+            state = true;
+        }
 
             if (cooldown == 0) {
                 document.getElementById('heal').style.pointerevents = 'auto';
