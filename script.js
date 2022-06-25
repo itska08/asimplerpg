@@ -824,10 +824,10 @@ let castMagic = (skill) =>  {
                     break;
                 case "thunderstorm":
                     if (poisonState == true) {
-                        skillATK = playerATK*3.6+1150;
-                        skillATK = skillATK + skillATK*0.5;
+                        skillATK = playerATK*5.1+1950;
+                        skillATK = skillATK + skillATK*0.6;
                     } else {
-                        skillATK = playerATK*3.6 + 1150;
+                        skillATK = playerATK*5.1 + 1950;
                     }
                     healBuff = true;
                     healBuffIcon.style.display = "block";
@@ -849,18 +849,18 @@ let castMagic = (skill) =>  {
                     break;
                 case "piercingshot":
                     if (huntermark == false || bleedState == false) {
-                        skillATK = playerATK*3.8 + 1050;
+                        skillATK = playerATK*4.8 + 1750;
                     } else if (huntermark == true || bleedState == false) {
-                        skillATK = playerATK*5.3 + 1050;
+                        skillATK = playerATK*7.3 + 1750;
                         healSkill(playerMaxHP*0.5);
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     } else if (huntermark == false || bleedState == true) {
-                        skillATK = playerATK*3.8 + 1050;
-                        skillATK = skillATK + skillATK*0.3;
+                        skillATK = playerATK*4.8 + 1750;
+                        skillATK = skillATK + skillATK*0.5;
                     } else if (huntermark == true || bleedState == true) {
-                        skillATK = playerATK*5.3 + 1050;
-                        skillATK = skillATK + skillATK*0.3;
+                        skillATK = playerATK*7.3 + 1050;
+                        skillATK = skillATK + skillATK*0.5;
                         healSkill(playerMaxHP*0.5);
                         huntermark = false;
                         hunterIcon.style.display = "none";
@@ -908,12 +908,12 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
-                    skillATK = playerATK*3.3 + 1315 + playerDEF*0.25*lightmark;
+                    skillATK = playerATK*3.3 + 1315 + playerDEF*lightmark;
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
                     if (lightmark >= 5) {
-                        skillATK = playerATK*1.6 + 500 + playerMaxHP*0.12;
+                        skillATK = playerATK*1.6 + 500 + playerDEF*2.5;
                         lightmark = lightmark-2;
                         document.getElementById("lightText").innerHTML = lightmark + " stacks.";
                     } else {
@@ -1475,34 +1475,34 @@ let castMagic = (skill) =>  {
                 poisonTurn = 0;
                 dmgreceive = false;
     
-    bleedState = false;
-    bleedTurn = 0;
-    bleedDot = 0;
-    huntermark = false;
-    lightmark = 0;
-    lightatkdebuff = false;
-    lightatkdebuffturn = 0;
-    stun = false;
-    stunmodifier = 1;
-    stunturn = 0;
-    soulsiphon = false;
-    mindgleaning = false;
-    bloodsigil = 0;
-    hd = [0,0,0];
-    poisonIcon.style.display = "none";
-    bleedIcon.style.display = "none";
-    dmgReceiveIcon.style.display = "none";
-    lightmarkicon.style.display = "none";
-    lightatkdebufficon.style.display = "none";
-    soulsiphonicon.style.display = "none";
-    mindgleaningicon.style.display = "none";
-    bloodsigilicon.style.display = "none";
+                bleedState = false;
+                bleedTurn = 0;
+                bleedDot = 0;
+                huntermark = false;
+                lightmark = 0;
+                lightatkdebuff = false;
+                lightatkdebuffturn = 0;
+                stun = false;
+                stunmodifier = 1;
+                stunturn = 0;
+                soulsiphon = false;
+                mindgleaning = false;
+                bloodsigil = 0;
+                hd = [0,0,0];
+                poisonIcon.style.display = "none";
+                bleedIcon.style.display = "none";
+                dmgReceiveIcon.style.display = "none";
+                lightmarkicon.style.display = "none";
+                lightatkdebufficon.style.display = "none";
+                soulsiphonicon.style.display = "none";
+                mindgleaningicon.style.display = "none";
+                bloodsigilicon.style.display = "none";
     
-    d1icon.style.display = "none";
-                    d2icon.style.display = "none";
-                    d3icon.style.display = "none";
-                    document.getElementById("stun").style.display = "none";
-                    document.getElementById("stunicon").style.display = "none";
+                d1icon.style.display = "none";
+                d2icon.style.display = "none";
+                d3icon.style.display = "none";
+                document.getElementById("stun").style.display = "none";
+                document.getElementById("stunicon").style.display = "none";
                 helpText('enraged');
 
                 document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
