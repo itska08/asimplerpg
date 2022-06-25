@@ -174,7 +174,7 @@
                 <a href="#" id="d1icon"><p id="d1number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d1icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Purity</h3><br>Decreases ATK by 4%.</span></a>
                 <a href="#" id="d2icon"><p id="d2number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d2icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Justice</h3><br>Decreases DEF by 4%.</span></a>
                 <a href="#" id="d3icon"><p id="d3number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d3icon.png" class="icon"><span class="tooltip"><h3 class="flavortextminus">Faith</h3><br>Increases Incoming DMG by 2%.</span></a>
-                
+                <a href="#" id="stunicon" style="display: none;"><img src="images/stunicon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Chorus</h3><br>Target is stunned for 3 turns and cannot act.</span></a>
                 
                 
                 <a href="#" id="enragedicon"><img src="images/enraged.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Enraged</h3><br>The Dragon's ATK is increased by 80%, DEF is increased by 50%, and Max HP is increased by 50%.</span></a>
@@ -185,6 +185,7 @@
             
             <div class = "wrapper">
             <div id="effect"></div>
+            <img src="images/stun.gif" id = "stun" style = "position: relative; left: 500px; bottom: 151px; display: none; width: 250px;">
             </div>
         </div>
         <div id="alert" class="alert"></div>
@@ -205,8 +206,8 @@
             <a href="#" id="moonicon"><img src="images/moon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Song of Moonlight</h3><br>Increases ATK by 50% for 2 turns.</span></a>
             <a href="#" id="bloodsigilicon"><p id="sigilnumber" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/bloodsigil.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Blood Sigil</h3><br>Oath of Blood shall be fulfilled.<br><br><p id="bloodsigilText">0 stacks.</p></span></a>
             <a href="#" id="crimsonicon"><img src="images/crimson.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Crimson Vitality</h3><br>Increases Max HP by 50% for 3 turns.</span></a>
-            <a href="#" id="reflecticon"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Hymn</h3><br>Reflects 50% of DMG received for 2 turns.</span></a>
-        
+            <a href="#" id="reflecticon"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Hymn</h3><br>Reflects 50% of DMG received for 3 turns.</span></a>
+            
         </div>
             <ul>
               
@@ -278,7 +279,7 @@
             <a href="#" onclick="castMagic('sacredanthems')"><img src="images/s21.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Sacred Anthems - 0</h3><br>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</span></a>
             <a href="#" onclick="castMagic('reveredpresence')"><img src="images/s22.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Revered Presence - 40</h3><br>Heals for 3040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.</span></a>
             <a href="#" onclick="castMagic('solarchant')"><img src="images/s23.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Solar Chant - 80</h3><br>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.</span></a>
-            <a href="#" onclick="castMagic('transcendenthymn')"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.</span></a>
+            <a href="#" onclick="castMagic('transcendenthymn')"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Stuns the target and provides a Reflect buff that reflects 50% of received DMG for 3 turns.</span></a>
             <a href="#"><img src="images/p6.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Divine Soprano - Passive</h3><br>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</span></a>
             <img src="images/songtress.png" style="width: 60px;">
             </ul>

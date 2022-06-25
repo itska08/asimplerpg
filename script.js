@@ -2,7 +2,8 @@
 let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality","sacredanthems","reveredpresence","solarchant","transcendenthymn"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
-let spriteSize = 192;
+let spriteSizeX = 192;
+let spriteSizeY = 192;
 let effectInterval;
 
 /* custom function */
@@ -137,6 +138,9 @@ let reflectstate = false;
 let reflectturn = 0;
 let reflectmodifier = 0;
 let totaldebuffmodifier = 0;
+let stun = false;
+let stunmodifier = 1;
+let stunturn = 0;
 
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
@@ -363,6 +367,9 @@ function resetGame() {
     reflectturn = 0;
     reflectmodifier = 0;
     totaldebuffmodifier = 0;
+    stun = false;
+    stunmodifier = 1;
+    stunturn = 0;
     logmessage = "";
     pnode.innerHTML = "";
     logcontainer.innerHTML = "";
@@ -391,7 +398,7 @@ function resetGame() {
     d2icon.style.display ="none";
     d3icon.style.display ="none";
     reflecticon.style.display ="none";
-
+    document.getElementById("stun").style.display = "none";
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
     document.getElementById("dragon").setAttribute("style","width: 700px; margin-left: -200px;");
     document.getElementById('holyshield').style.pointerevents = 'auto';
@@ -803,6 +810,7 @@ let castMagic = (skill) =>  {
                 case "icebolt":
                     skillATK = playerATK*1.1 + 250;
                     effect.style.backgroundImage = "url('images/skill1.png')";
+
                     break;
                 case "firerain":
                     skillATK = playerATK*1.5 + 450;
@@ -1038,6 +1046,11 @@ let castMagic = (skill) =>  {
                     break;
                 case "transcendenthymn":
                     skillATK = 0;
+                    stun = true;
+                    stunmodifier = 0;
+                    stunturn = 2;
+                    document.getElementById("stunicon").style.display = "block";
+                    document.getElementById("stun").style.display = "block";
                     reflectstate = true;
                     reflecticon.style.display = "block";
                     reflectturn = 2;
@@ -1076,6 +1089,9 @@ let castMagic = (skill) =>  {
                 damageDragon = 0;
                 shieldState = false;
                 shieldicon.style.display = "none";
+            }
+            if (stun == true) {
+                damageDragon = 0;
             }
             
             if (dmgreceive == true) {
@@ -1213,6 +1229,18 @@ let castMagic = (skill) =>  {
                     playerMaxHP = playerMaxHPDefault;
                     crimsonbuff = false;
                     crimsonicon.style.display = "none";
+                }
+            }
+
+            if (stun == true) {
+                if (stunturn > 0) {
+                    stunturn--;
+
+                } else if (stunturn == 0) {
+                    stunturn = 0;
+                    stun = false;
+                    document.getElementById("stun").style.display = "none";
+                    document.getElementById("stunicon").style.display = "block";
                 }
             }
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
@@ -1435,6 +1463,8 @@ let castMagic = (skill) =>  {
                     helpText('enraged');
                     document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
                     document.getElementById("dragon").setAttribute("style","width: 580px; margin-left: -100px;");
+                    document.getElementById("stun").style.left = "415px";
+                    document.getElementById("stun").style.bottom = "57px";
                     state=true;
                 } else if (dragonHP <= 5000 && state==true) {
                 state = true;
@@ -1541,8 +1571,8 @@ function playNextFrame() {
         clearInterval(effectInterval);
     } else {
         effect.style.display = "block";
-        effect.style.backgroundPositionX = ((currentFrame % 2) * spriteSize * -1) + "px";
-        effect.style.backgroundPositionY = (Math.floor(currentFrame / 2) * spriteSize * -1) + "px";
+        effect.style.backgroundPositionX = ((currentFrame % 2) * spriteSizeX * -1) + "px";
+        effect.style.backgroundPositionY = (Math.floor(currentFrame / 2) * spriteSizeY * -1) + "px";
     }
 }
 
