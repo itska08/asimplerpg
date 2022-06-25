@@ -497,7 +497,7 @@ button {
 #effect {
 	display: none;
 	position: absolute;
-	top: 330px;
+	top: 300px;
 	left: 50%;
 	margin-left: -50px;
 	width: 192px;
@@ -505,8 +505,10 @@ button {
 	background-image: url("");
 	background-position-x: -512px;
 	background-position-y: 0;
-	transform: scale(2.5);
+	transform: scale(2.9);
 }
+
+
 #boss {
 	border: 0px;
 	background-color: rgba(0, 0, 0, 0.0);

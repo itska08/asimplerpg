@@ -1599,7 +1599,7 @@ let castMagic = (skill) =>  {
                 document.getElementById("playerbleedtext").style.opacity = 1;
             }
             clearInterval(effectInterval);
-            effectInterval = setInterval(playNextFrame, 70);
+            effectInterval = setInterval(playNextFrame, 60);
         }
     } else {
         helpText('wrongcode');
@@ -1609,8 +1609,8 @@ let castMagic = (skill) =>  {
 
 function playNextFrame() {
     currentFrame++;
-    if (currentFrame >= 14) {
-        currentFrame = 14;
+    if (currentFrame >= 12) {
+        currentFrame = 12;
         effect.style.display = "none";
         clearInterval(effectInterval);
     } else {
