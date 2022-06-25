@@ -1465,10 +1465,11 @@ let castMagic = (skill) =>  {
             if (dragonHP <= 5000 && state==false) {
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
                 dragonHP = dragonMaxHP;
-                dragondefaultatk = 2700;
-                dragondefaultdef = 600;
+                
                 dragonATK = dragondefaultatk + dragondefaultatk*0.8;
                 dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
+                dragondefaultatk = 2700;
+                dragondefaultdef = 600;
                 poisonDot = 0;
                 poisonState = false;
                 poisonTurn = 0;
