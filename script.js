@@ -8,6 +8,11 @@ let effectInterval;
 
 /* custom function */
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+function preloadImage(url)
+{
+    var img=new Image();
+    img.src=url;
+}
 
 /* texts, graphics and buttons */
 let dragonHealthText = document.querySelector("h4");
