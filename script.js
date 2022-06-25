@@ -964,7 +964,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill18.png')";
                     break;
                 case "ichorretaliation":
-                    skillATK = playerATK*4.1 + 1800 + playerATK*0.5*bloodsigil + playerMaxHP*0.03*bloodsigil;
+                    skillATK = playerATK*3.5 + 1200 + playerATK*0.25*bloodsigil + playerMaxHP*0.02*bloodsigil;
                     effect.style.backgroundImage = "url('images/skill19.png')";
                     break;
                 case "crimsonvitality":
@@ -976,7 +976,7 @@ let castMagic = (skill) =>  {
                     hd[random(0,3)]++;
                     hd[random(0,3)]++;
                     //d1
-                        dragonATKTemp = dragondefaultatk;
+                        
 
                     if (hd[0] > 0) {
          
@@ -984,14 +984,14 @@ let castMagic = (skill) =>  {
                         if (hd[0] >= 10) {
                             hd[0] = 10;
                         } else if (hd[0] < 10) {
-                            dragonATK = dragonATK - dragonATKTemp*0.04;
+                            dragonATK = dragonATK - dragondefaultatk*0.04;
                         }
                         
                         document.getElementById("d1number").innerHTML = hd[0];
                     }
                     //
                      //d2
-                     dragonDEFTemp = dragondefaultdef;
+                     
 
                      if (hd[1] > 0) {
              
@@ -999,7 +999,7 @@ let castMagic = (skill) =>  {
                          if (hd[1] >= 10) {
                              hd[1] = 10;
                          } else if (hd[1] < 10) {
-                             dragonDEF = dragonDEF - dragonDEFTemp*0.04;
+                             dragonDEF = dragonDEF - dragondefaultdef*0.04;
                          }
                          
                          document.getElementById("d2number").innerHTML = hd[1];
@@ -1029,8 +1029,8 @@ let castMagic = (skill) =>  {
                     debuffAmount = hd[0]+hd[1]+hd[2];
                     skillATK = playerATK*4 + 1515 + playerATK*debuffAmount;
                     hd = [0,0,0]
-                    dragonATK = dragonATKTemp;
-                    dragonDEF = dragonDEFTemp;
+                    dragonATK = dragondefaultatk;
+                    dragonDEF = dragondefaultdef;
                     d1icon.style.display = "none";
                     d2icon.style.display = "none";
                     d3icon.style.display = "none";
