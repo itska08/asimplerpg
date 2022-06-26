@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality","sacredanthems","reveredpresence","solarchant","transcendenthymn"];
+let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality","sacredanthems","reveredpresence","Divinechant","transcendenthymn"];
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSizeX = 192;
@@ -159,7 +159,7 @@ let switchClass = (playerClass) => {
             document.getElementById("char1").setAttribute("src","images/archer.gif");
             document.getElementById("char1").style.top = "199px";
             switchButtonDefault.setAttribute("id","archerclass");
-            switchButtonDefault.innerHTML = "Forest Archer";
+            switchButtonDefault.innerHTML = "Solar Archer";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = "archer";
@@ -290,14 +290,14 @@ let switchClass = (playerClass) => {
             document.getElementById("skillactive5").style.display = "block";
             document.getElementById("skillactive6").style.display = "none";
             break;
-         case "songtress":
-            document.getElementById("char1").setAttribute("src","images/songtress.gif");
+         case "swordsinger":
+            document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
             document.getElementById("char1").style.top = "199px";
-            switchButtonDefault.setAttribute("id","songtressclass");
-            switchButtonDefault.innerHTML = "Solar Songtress";
+            switchButtonDefault.setAttribute("id","swordsingerclass");
+            switchButtonDefault.innerHTML = "Divine Swordsinger";
             document.getElementById("playerHealth").setAttribute("max","15000");
             document.getElementById("playerHealth").setAttribute("value","15000");
-            playerClass = "songtress";
+            playerClass = "swordsinger";
             playerMaxHP = 11000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
@@ -672,7 +672,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Revered Presence</h2><img src='images/s22.png' class='icon'><br><p>Heals for 3040% of ATK + 40% of lost HP. Over-healed amount will be converted into Holy Shield.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s23":
-            popup.innerHTML = "<h2>Solar Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Holy Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s24":
             popup.innerHTML = "<h2>Transcendent Hymn</h2><img src='images/s24.png' class='icon'><br><p>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.<br>Energy consumption: 50</p><button onclick='closePopup()'>close</button>";
@@ -805,8 +805,8 @@ let castMagic = (skill) =>  {
                 skillName = "Revered Presence";
                 energyCon = 40;
                 break;
-            case "solarchant":
-                skillName = "Solar Chant";
+            case "Divinechant":
+                skillName = "Holy Chant";
                 energyCon = 80;
                 break;
             case "transcendenthymn":
@@ -1038,8 +1038,8 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill20.png')";
                     break;          
                case "sacredanthems":
-                    document.getElementById("char1").setAttribute("src","images/songtress_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/songtress.gif")}, 1200);
+                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
                     skillATK = playerATK + 230;
                     hd[random(0,3)]++;
                     hd[random(0,3)]++;
@@ -1091,9 +1091,9 @@ let castMagic = (skill) =>  {
                     effect.style.marginLeft = "160px";
                     effect.style.top = "160px";
                     
-                    document.getElementById("char1").setAttribute("src","images/songtress_atk.gif");
+                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
                     setTimeout(()=>{
-                        document.getElementById("char1").setAttribute("src","images/songtress.gif");
+                        document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
                         effect.style.marginLeft = "-310px";
                         effect.style.top = "330px";
                     }, 1200);
@@ -1103,9 +1103,9 @@ let castMagic = (skill) =>  {
                     holyHealSkill(playerATK*30.4+hploss*0.3);
                     effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
-                case "solarchant":
-                    document.getElementById("char1").setAttribute("src","images/songtress_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/songtress.gif")}, 1200);
+                case "Divinechant":
+                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
                     debuffAmount = hd[0]+hd[1]+hd[2];
                     skillATK = playerATK*4 + 1515 + playerATK*debuffAmount;
                     hd = [0,0,0]
@@ -1117,8 +1117,8 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill23.png')";
                     break;
                 case "transcendenthymn":
-                    document.getElementById("char1").setAttribute("src","images/songtress_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/songtress.gif")}, 1200);
+                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
                     skillATK = 0;
                     stun = true;
                     stunmodifier = 0;
@@ -1439,7 +1439,7 @@ let castMagic = (skill) =>  {
                     break;
                 case "mindgleaning":
                     if (soulsiphon == true) {
-                        healSkill(damagePlayer.toFixed(0)*1);
+                        healSkill(damagePlayer.toFixed(0)*2.5);
                     }
                     energy = energy - energyCon;
                     break;

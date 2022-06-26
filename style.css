@@ -44,7 +44,7 @@ body {
 }
 
 #archer, #archer2, #archerclass {
-	background-color: #366e36;
+	background-color: rgb(114, 158, 56);
 }
 
 #paladin, #paladin2, #paladinclass {
@@ -668,7 +668,7 @@ li {
 	display: none;
 }
 
-#songtress, #songtress2, #songtressclass, #s21, #s22, #s23, #s24 {
+#swordsinger, #swordsinger2, #swordsingerclass, #s21, #s22, #s23, #s24 {
 	background-color: #aa6831 ;
 }
 #skillactive6 {
