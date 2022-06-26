@@ -2,12 +2,16 @@
 
 Live preview: [[click here]](https://thaykhangne.github.io/a-simple-rpg/)
 
-Current version: 1.6
+Current version: 2.0
 
 ### Changes
 
 
 ```markdown
+# 2.0 - 26/6/2022
+- ui overhaul
+- character sprites
+- character battle visual
 # 1.6 - 24/6/2022
 - added a new class - Solar Songtress
 - log feature
