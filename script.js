@@ -826,7 +826,34 @@ let castMagic = (skill) =>  {
            
             currentFrame = 1;
             switch (skill) {
+                case "soulsiphon":
+                case "mindgleaning":
+                    document.getElementById("char1").setAttribute("style","right: 440px; top: 116px;");
+                    break;
+                case "painlessdeath":
+                case "songofmoonlight":
+                    document.getElementById("char1").setAttribute("style","top: 116px;");
+                    break;
+                case "hunterinstinct":
+                case "crimsonvitality":
+                case "reveredpresence":
+                case "transcendenthymn":
+                case "arrowoflight":
+                case "bloodshed":
+                case "piercingshot":
+                case "hunterinstinct":
+                
+                    break;
+                default:
+                    document.getElementById("char1").setAttribute("style","right: 440px;");
+                    break;
+           
+            }
+           
+            switch (skill) {
+                
                 case "icebolt":
+                    
                     document.getElementById("char1").setAttribute("src","images/mage_atk.gif");
                     setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/mage.gif")}, 1800);
                     skillATK = playerATK*1.1 + 250;
@@ -975,7 +1002,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill14.png')";
                     break;
                 case "painlessdeath":
-                    document.getElementById("char1").setAttribute("src","images/necromancer_atk.gif");
+                    document.getElementById("char1").setAttribute("src","images/necromancer_atk2.gif");
                     setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/necromancer.gif")}, 1700);
                     if (soulsiphon == true && mindgleaning == true) {
                         skillATK = playerATK*5.8 + 1500;
@@ -1130,8 +1157,36 @@ let castMagic = (skill) =>  {
                     reflectturn = 2;
                     reflectmodifier = 0.5;
                     effect.style.backgroundImage = "url('images/skill24.png')";
-                    break;                            
+                    break;   
+                                          
             }
+
+            switch (skill) {
+                case "soulsiphon":
+                case "mindgleaning":
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","right: 140px; top: 116px")},1800);
+                    break;
+
+                case "painlessdeath":
+                case "songofmoonlight":
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","top: 116px")},1800);
+                    break;
+                case "hunterinstinct":
+                case "crimsonvitality":
+                case "reveredpresence":
+                case "transcendenthymn":
+                case "arrowoflight":
+                case "bloodshed":
+                case "piercingshot":
+                case "hunterinstinct":
+                    break;
+                default:
+                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","right: 140px;")},1800);
+                    break;
+           
+            }
+           
+               
             //raw damage calculation
             if (debuffAmount >= 20) {
                 totaldebuffmodifier = 0.3;
