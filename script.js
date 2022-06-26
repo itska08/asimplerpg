@@ -1638,10 +1638,18 @@ let castMagic = (skill) =>  {
             state = true;
         }
         if (enragedicon.style.display == "block") {
-            document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
+            if (stun == false) {
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
+            } else {
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
+            }
             setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
         } else {
-            document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
+            if (stun == false) {
+                document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
+            } else {
+                document.getElementById("dragon").setAttribute("src","images/dragon.gif");
+            }
             setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
         }
             if (cooldown == 0) {
