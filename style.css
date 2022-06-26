@@ -306,7 +306,7 @@ progress#dragonHealth {
 }
 #container {
 	position: absolute;
-	width: 1080px;
+	width: 1300px;
 	margin: 0 auto;
 }
 #bookimg {
@@ -323,6 +323,7 @@ progress#dragonHealth {
 	transform: scaleX(-1);
 }
 #learnmore {
+	z-index: 50;
 	width: 75px;
 	height: 70px;
 	font-size: 30px;
@@ -404,7 +405,7 @@ h5 {
      url("images/background.png");
 	background-size: cover;
 	background-position: center center;
-	width: 1080px;
+	width: 1300px;
 	height: 760px;
 	margin: 15px auto;
 	border: 5px solid #ffffff;
@@ -412,10 +413,18 @@ h5 {
 	position: relative;
 }
 #dragon {
-	width: 700px;
+	width: 496px;
+	position: absolute;
+	top: 173px;
+	left: 350px;
+	margin-left: -217px;
+}
+.char {
+	width: 470px;
 	position: absolute;
 	top: 200px;
-	left: 350px;
+	right: 140px;
+	transform: scaleX(-1);
 	margin-left: -200px;
 }
 
@@ -447,7 +456,8 @@ h4 {
 #message {
 	background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8) ), url('images/backgroundui.jpg');
 	background-repeat: no-repeat;
-	background-size: 1200px 1200px;
+	background-size: cover;
+	background-position: center center;
 	background-color: #1b1b1b;
 	border: 5px solid #ffffff;
 	margin: 10px 0;
@@ -497,15 +507,15 @@ button {
 #effect {
 	display: none;
 	position: absolute;
-	top: 300px;
+	top: 330px;
 	left: 50%;
-	margin-left: -50px;
+	margin-left: -310px;
 	width: 192px;
 	height: 192px;
 	background-image: url("");
 	background-position-x: -512px;
 	background-position-y: 0;
-	transform: scale(2.9);
+	transform: scale(2.0);
 }
 
 
@@ -553,7 +563,7 @@ li {
 }
 .support {
 	display: block;
-	width: 255px;
+	width: 230px;
 	height: 60px;
 	font-size: 22px;
 	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
