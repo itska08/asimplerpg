@@ -1222,13 +1222,7 @@ let castMagic = (skill) =>  {
             if (stun == true) {
                 damageDragon = 0;
             }
-            if (enragedicon.style.display == "block") {
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
-                setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
-            } else {
-                document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
-                setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
-            }
+            
 
             if (dmgreceive == true) {
                 damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
@@ -1643,7 +1637,13 @@ let castMagic = (skill) =>  {
             } else if (dragonHP <= 5000 && state==true) {
             state = true;
         }
-
+        if (enragedicon.style.display == "block") {
+            document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
+            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
+        } else {
+            document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
+            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
+        }
             if (cooldown == 0) {
                 document.getElementById('heal').style.pointerevents = 'auto';
                 document.getElementById('heal').style.cursor = 'pointer';
