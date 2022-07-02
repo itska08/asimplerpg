@@ -157,9 +157,11 @@ let switchClass = (playerClass) => {
     switch (playerClass) {
         case "archer":
             document.getElementById("char1").setAttribute("src","images/archer.gif");
-            document.getElementById("char1").style.top = "199px";
+            document.getElementById("char1").style.width = "247px";
+            document.getElementById("char1").style.top = "246px";
+            document.getElementById("char1").style.right = "247px";
             switchButtonDefault.setAttribute("id","archerclass");
-            switchButtonDefault.innerHTML = "Solar Archer";
+            switchButtonDefault.innerHTML = "Forest Archer";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = "archer";
@@ -184,7 +186,9 @@ let switchClass = (playerClass) => {
         break;
         case "mage":
             document.getElementById("char1").setAttribute("src","images/mage.gif");
-            document.getElementById("char1").style.top = "199px";
+            document.getElementById("char1").style.width = "332px";
+            document.getElementById("char1").style.top = "260px";
+            document.getElementById("char1").style.right = "193px";
             switchButtonDefault.setAttribute("id","mageclass");
             switchButtonDefault.innerHTML = "Elemental Mage";
             document.getElementById("playerHealth").setAttribute("max","10000");
@@ -211,7 +215,9 @@ let switchClass = (playerClass) => {
             break;
         case "paladin":
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
-            document.getElementById("char1").style.top = "199px";
+            document.getElementById("char1").style.width = "399px";
+            document.getElementById("char1").style.top = "278px";
+            document.getElementById("char1").style.right = "236px";
             switchButtonDefault.setAttribute("id","paladinclass");
             switchButtonDefault.innerHTML = "Paladin of Light";
             document.getElementById("playerHealth").setAttribute("max","12000");
@@ -238,7 +244,9 @@ let switchClass = (playerClass) => {
             break;
         case "necromancer":
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
-            document.getElementById("char1").style.top = "116px";
+            document.getElementById("char1").style.width = "278px";
+            document.getElementById("char1").style.top = "258px";
+            document.getElementById("char1").style.right = "256px";
             switchButtonDefault.setAttribute("id","necromancerclass");
             switchButtonDefault.innerHTML = "Necromancer";
             document.getElementById("playerHealth").setAttribute("max","9000");
@@ -265,7 +273,9 @@ let switchClass = (playerClass) => {
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
-            document.getElementById("char1").style.top = "199px";
+            document.getElementById("char1").style.width = "271px";
+            document.getElementById("char1").style.top = "271px";
+            document.getElementById("char1").style.right = "193px";
             switchButtonDefault.setAttribute("id","knightclass");
             switchButtonDefault.innerHTML = "Blood Knight";
             document.getElementById("playerHealth").setAttribute("max","15000");
@@ -292,7 +302,9 @@ let switchClass = (playerClass) => {
             break;
          case "swordsinger":
             document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
-            document.getElementById("char1").style.top = "199px";
+            document.getElementById("char1").style.width = "271px";
+            document.getElementById("char1").style.top = "232px";
+            document.getElementById("char1").style.right = "241px";
             switchButtonDefault.setAttribute("id","swordsingerclass");
             switchButtonDefault.innerHTML = "Divine Swordsinger";
             document.getElementById("playerHealth").setAttribute("max","15000");
@@ -418,7 +430,9 @@ function resetGame() {
     
     document.getElementById("stun").style.display = "none";
     document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-    document.getElementById("dragon").setAttribute("style","width: 496px; margin-left: -173px;");
+    document.getElementById("dragon").style.top = "280px";
+    document.getElementById("dragon").style.width = "252px";
+    document.getElementById("dragon").style.left = "510px";
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
     document.getElementById('holyshield').style.opacity = '1';
@@ -498,8 +512,15 @@ let holyHealSkill = (holyhealing) => {
     }
     
     playerHealthText.innerHTML = parseInt(playerHP);
-    popup.style.display = "block";
-    popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + holyhealing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
+    document.getElementById("playerhealtext").innerHTML = holyhealing.toFixed(0);
+                document.getElementById("playerhealtext").style.display = "block";
+                document.getElementById("playerhealtext").style.left = "849px";
+                document.getElementById("playerhealtext").style.top = "203px";
+                document.getElementById("playerhealtext").style.color = "darkgreen";
+                setTimeout(()=>{document.getElementById("playerhealtext").style.opacity = 0}, 1000);
+                document.getElementById("playerhealtext").style.opacity = 1;
+    //popup.style.display = "block";
+    //popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + holyhealing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
     
 }
 
@@ -824,52 +845,27 @@ let castMagic = (skill) =>  {
             skillATK = 0;
             skillName = "";
         } else {
+
             document.getElementById('playerbox').style.pointerEvents = "none";
             currentFrame = 1;
-            switch (skill) {
-                case "soulsiphon":
-                case "mindgleaning":
-                    document.getElementById("char1").setAttribute("style","right: 440px; top: 116px;");
-                    break;
-                case "painlessdeath":
-                case "songofmoonlight":
-                    document.getElementById("char1").setAttribute("style","top: 116px;");
-                    break;
-                case "hunterinstinct":
-                case "crimsonvitality":
-                case "reveredpresence":
-                case "transcendenthymn":
-                case "arrowoflight":
-                case "bloodshed":
-                case "piercingshot":
-                case "hunterinstinct":
-                
-                    break;
-                default:
-                    document.getElementById("char1").setAttribute("style","right: 440px;");
-                    break;
-           
-            }
+            
            
             switch (skill) {
                 
                 case "icebolt":
                     
-                    document.getElementById("char1").setAttribute("src","images/mage_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/mage.gif")}, 1800);
+                    
                     skillATK = playerATK*1.1 + 250;
                     effect.style.backgroundImage = "url('images/skill1.png')";
 
                     break;
                 case "firerain":
-                    document.getElementById("char1").setAttribute("src","images/mage_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/mage.gif")}, 1800);
+                    
                     skillATK = playerATK*1.5 + 450;
                     effect.style.backgroundImage = "url('images/skill2.png')";
                     break;
                 case "thunderstorm":
-                    document.getElementById("char1").setAttribute("src","images/mage_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/mage.gif")}, 1800);
+                    
                     if (poisonState == true) {
                         skillATK = playerATK*5.1+1950;
                         skillATK = skillATK + skillATK*0.6;
@@ -881,28 +877,22 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill3.png')";
                     break;
                 case "bane":
-                    document.getElementById("char1").setAttribute("src","images/mage_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/mage.gif")}, 1800);
+                    
                     skillATK = playerATK*1.5 + 150;
                     effect.style.backgroundImage = "url('images/skill4.png')";
                     break;
                 case "arrowoflight":
-                    document.getElementById("char1").setAttribute("src","images/archer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/archer.gif")}, 1200);
+                    
                     skillATK = playerATK + 200;
                     huntermark = true;
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill5.png')";
                     break;
                 case "bloodshed":
-                    document.getElementById("char1").setAttribute("src","images/archer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/archer.gif")}, 1200);
                     skillATK = playerATK*2 + 470;
                     effect.style.backgroundImage = "url('images/skill6.png')";
                     break;
                 case "piercingshot":
-                    document.getElementById("char1").setAttribute("src","images/archer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/archer.gif")}, 1200);
                     if (huntermark == false || bleedState == false) {
                         skillATK = playerATK*4.8 + 1750;
                     } else if (huntermark == true || bleedState == false) {
@@ -923,9 +913,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill7.png')";
                     break;
                 case "huntersinstinct":
-                    document.getElementById("char1").setAttribute("src","images/archer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/archer.gif")}, 1200);
-                    skillATK = 0;
+                     skillATK = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
                     hunteratkmodifier = 0.2;
@@ -939,8 +927,6 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;
                 case "righteousness":
-                    document.getElementById("char1").setAttribute("src","images/paladin_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/paladin.gif")}, 1400);
                     skillATK = playerATK*1.2 + 240;
                     if (lightmark < 10) {
                         lightmark = lightmark+1;
@@ -954,8 +940,6 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill9.png')";
                     break;
                 case "rectitude":
-                    document.getElementById("char1").setAttribute("src","images/paladin_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/paladin.gif")}, 1400);
                     skillATK = playerATK*1.4 + 300;
                     if (lightmark < 10) {
                         lightmark++;
@@ -969,15 +953,11 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
-                    document.getElementById("char1").setAttribute("src","images/paladin_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/paladin.gif")}, 1400);
-                    skillATK = playerATK*3.3 + 1315 + playerDEF*lightmark;
+                   skillATK = playerATK*3.3 + 1315 + playerDEF*lightmark;
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
-                    document.getElementById("char1").setAttribute("src","images/paladin_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/paladin.gif")}, 1400);
-                    if (lightmark >= 5) {
+                     if (lightmark >= 5) {
                         skillATK = playerATK*1.6 + 500 + playerDEF*2.5;
                         lightmark = lightmark-2;
                         document.getElementById("lightText").innerHTML = lightmark + " stacks.";
@@ -987,24 +967,18 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill12.png')";
                     break;
                 case "soulsiphon":
-                    document.getElementById("char1").setAttribute("src","images/necromancer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/necromancer.gif")}, 1700);
                     skillATK = playerATK*1.1 + 280;
                     soulsiphon = true;
                     soulsiphonicon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill13.png')";
                     break;
                 case "mindgleaning":
-                    document.getElementById("char1").setAttribute("src","images/necromancer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/necromancer.gif")}, 1700);
                     skillATK = playerATK*1.8 + 470;
                     mindgleaning = true;
                     mindgleaningicon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill14.png')";
                     break;
                 case "painlessdeath":
-                    document.getElementById("char1").setAttribute("src","images/necromancer_atk2.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/necromancer.gif")}, 1700);
                     if (soulsiphon == true && mindgleaning == true) {
                         skillATK = playerATK*5.8 + 1500;
                     } else if (soulsiphon == true && mindgleaning == false) {
@@ -1017,8 +991,6 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill15.png')";
                     break;
                 case "songofmoonlight":
-                    document.getElementById("char1").setAttribute("src","images/necromancer_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/necromancer.gif")}, 1200);
                     skillATK = playerATK*1.5 + 600;
 
                     if (soulsiphon==true || mindgleaning==true) {
@@ -1041,33 +1013,23 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill16.png')"; 
                     break;
                 case "bloodembrace":
-                    document.getElementById("char1").setAttribute("src","images/knight_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/knight.gif")}, 1500);
                     skillATK = playerATK*1.2 + 310;    
                     effect.style.backgroundImage = "url('images/skill17.png')";
                     break;
                 case "rosemarysgift":
-                    document.getElementById("char1").setAttribute("src","images/knight_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/knight.gif")}, 1500);
                     hploss=playerMaxHP-playerHP;
                     skillATK = playerATK*1.6 + 670 + hploss*0.1;
                     effect.style.backgroundImage = "url('images/skill18.png')";
                     break;
                 case "ichorretaliation":
-                    document.getElementById("char1").setAttribute("src","images/knight_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/knight.gif")}, 1500);
                     skillATK = playerATK*3.5 + 1200 + playerATK*0.25*bloodsigil + playerMaxHP*0.02*bloodsigil;
                     effect.style.backgroundImage = "url('images/skill19.png')";
                     break;
                 case "crimsonvitality":
-                    document.getElementById("char1").setAttribute("src","images/knight_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/knight.gif")}, 1500);
                     skillATK = 0;
                     effect.style.backgroundImage = "url('images/skill20.png')";
                     break;          
                case "sacredanthems":
-                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
                     skillATK = playerATK + 230;
                     hd[random(0,3)]++;
                     hd[random(0,3)]++;
@@ -1116,15 +1078,6 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill21.png')";
                     break;
                 case "reveredpresence":
-                    effect.style.marginLeft = "160px";
-                    effect.style.top = "160px";
-                    
-                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
-                    setTimeout(()=>{
-                        document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
-                        effect.style.marginLeft = "-310px";
-                        effect.style.top = "330px";
-                    }, 1200);
                     
                     skillATK = 0;
                     hploss = playerMaxHP - playerHP;
@@ -1132,9 +1085,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
                 case "Divinechant":
-                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
-                    debuffAmount = hd[0]+hd[1]+hd[2];
+                   debuffAmount = hd[0]+hd[1]+hd[2];
                     skillATK = playerATK*4 + 1515 + playerATK*debuffAmount;
                     hd = [0,0,0]
                     dragonATK = dragondefaultatk;
@@ -1145,9 +1096,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill23.png')";
                     break;
                 case "transcendenthymn":
-                    document.getElementById("char1").setAttribute("src","images/swordsinger_atk.gif");
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("src","images/swordsinger.gif")}, 1200);
-                    skillATK = 0;
+                   skillATK = 0;
                     stun = true;
                     stunmodifier = 0;
                     stunturn = 2;
@@ -1162,30 +1111,7 @@ let castMagic = (skill) =>  {
                                           
             }
 
-            switch (skill) {
-                case "soulsiphon":
-                case "mindgleaning":
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","right: 140px; top: 116px")},1800);
-                    break;
-
-                case "painlessdeath":
-                case "songofmoonlight":
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","top: 116px")},1800);
-                    break;
-                case "hunterinstinct":
-                case "crimsonvitality":
-                case "reveredpresence":
-                case "transcendenthymn":
-                case "arrowoflight":
-                case "bloodshed":
-                case "piercingshot":
-                case "hunterinstinct":
-                    break;
-                default:
-                    setTimeout(()=>{document.getElementById("char1").setAttribute("style","right: 140px;")},1800);
-                    break;
-           
-            }
+            
            
                
             //raw damage calculation
@@ -1613,6 +1539,7 @@ let castMagic = (skill) =>  {
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
+                document.getElementById("playerdmgtext").style.left = "411px";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
                 logmessage = "You did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
@@ -1621,6 +1548,7 @@ let castMagic = (skill) =>  {
             } else {
                 document.getElementById("playerdmgtext").innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
+                document.getElementById("playerdmgtext").style.left = "411px";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
                 logmessage = "You did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
@@ -1648,11 +1576,7 @@ let castMagic = (skill) =>  {
             }
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 60);
-        }
-    } else {
-        helpText('wrongcode');
-    }
-    //dragonTurn
+            //dragonTurn
     
             if (dragonHP <= 5000 && state==false) {
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
@@ -1697,10 +1621,10 @@ let castMagic = (skill) =>  {
                 document.getElementById("stunicon").style.display = "none";
                 helpText('enraged');
 
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-                document.getElementById("dragon").setAttribute("style","width: 781px; margin-left: -387px; top: -91px;");
-                document.getElementById("stun").style.left = "251px";
-                document.getElementById("stun").style.top = "-201px";
+                document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
+                document.getElementById("stun").style.left = "351px";
+                document.getElementById("stun").style.width = "425px";
+                document.getElementById("stun").style.top = "280px";
                 state=true;
             } else if (dragonHP <= 5000 && state==true) {
             state = true;
@@ -1709,7 +1633,7 @@ let castMagic = (skill) =>  {
     turnText.innerHTML = "The dragon is going to deal some damage...";
     
     setTimeout(()=>{
-        turnText.innerHTML = "Dragon's Turn";
+        
 
         
         //damage
@@ -1736,21 +1660,11 @@ let castMagic = (skill) =>  {
         } else {
             playerHP -= damageDragon.toFixed(0);
         }
-        if (enragedicon.style.display == "block") {
-            if (stun == false) {
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
-            } else {
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-            }
-            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
-        } else {
-            if (stun == false) {
-                document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
-            } else {
-                document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-            }
-            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
-        }
+        document.getElementById("playerdmgtext").innerHTML = damageDragon.toFixed(0);
+                document.getElementById("playerdmgtext").style.display = "block";
+                document.getElementById("playerdmgtext").style.left = "849px";
+                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
+                document.getElementById("playerdmgtext").style.opacity = 1;
         dragonHP = dragonHP - damageDragon*reflectmodifier;
         holyshieldText.innerHTML = parseInt(holyshieldamount);
         holyshieldbar.value = parseInt(holyshieldamount);
@@ -1771,8 +1685,12 @@ playerHealth.max = playerMaxHP;
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
             logcontainer.prepend(pnode);
             
-        }, 2000);
-       setTimeout(()=>{document.getElementById('playerbox').style.pointerEvents = "auto";},4000);
+        }, 1000);
+       setTimeout(()=>{document.getElementById('playerbox').style.pointerEvents = "auto";},1500)}
+    } else {
+        helpText('wrongcode');
+    }
+    
     
 }
 
