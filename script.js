@@ -18,7 +18,7 @@ let alertHealText = document.getElementById("healalert");
 let playerEnergyText = document.getElementById("ene");
 let damageText = document.getElementById("welcomemessage");
 let turnText = document.getElementById("turn");
-
+let messagebox;
 
 let enragedicon = document.getElementById("enragedicon");
 let playerHealth = document.getElementById("playerHealth");
@@ -713,6 +713,7 @@ let helpText = (a) => {
 }
 
 let castMagic = (skill) =>  {
+    //playerTurn
     if (magicArray.indexOf(skill) > -1) {
         let skillName;
         //define the skill consumption
@@ -823,7 +824,7 @@ let castMagic = (skill) =>  {
             skillATK = 0;
             skillName = "";
         } else {
-           
+            document.getElementById('playerbox').style.pointerEvents = "none";
             currentFrame = 1;
             switch (skill) {
                 case "soulsiphon":
@@ -1211,29 +1212,18 @@ let castMagic = (skill) =>  {
                 playerCritText.innerHTML = critRate + "%";
                 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             }
-            if (shieldState == false) {
-                damageDragon = dragonATK + random(300, 500) - playerDEF;
-                damageDragon = damageDragon - damageDragon*0.02*bloodsigil;
-            } else {
-                damageDragon = 0;
-                shieldState = false;
-                shieldicon.style.display = "none";
-            }
-            if (stun == true) {
-                damageDragon = 0;
-            }
+           
             
 
             if (dmgreceive == true) {
                 damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
-                dragonHP = dragonHP - damageDragon*reflectmodifier;
-                dmgreceive = false;
+                 dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
                 damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
-                dragonHP = dragonHP - damageDragon*reflectmodifier;
+               
             }
             //check debuff states and calculate debuff dmg
             if (hunteratkcooldown == 0 && critHit == false) {
@@ -1264,18 +1254,7 @@ let castMagic = (skill) =>  {
                 doubledmgIcon.style.display = "none";
                 doublemodifier = 0;
             }
-            if (holyshieldstate == true) {
-                holyshieldamount -= damageDragon.toFixed(0);
-                if (holyshieldamount <= 0) {
-                    playerHP = playerHP - -holyshieldamount;
-                    holyshieldamount = 0;
-                    holyshieldstate = false;
-                }
-                holyshieldbar.value = parseInt(holyshieldamount);
-                holyshieldText.innerHTML = parseInt(holyshieldamount);
-            } else {
-                playerHP -= damageDragon.toFixed(0);
-            }
+            
             if (holyshieldamount==0 && holyshieldicon.style.display=="block") {
                 holyshieldicon.style.display = "none";
             }
@@ -1579,79 +1558,10 @@ let castMagic = (skill) =>  {
             }
             playerEnergyText.innerHTML = energy;
             
-            turn++;
-            turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
-            cooldown--;
-            holyshieldcooldown--;
+            
             playerCritText.innerHTML = parseInt(critRate) + "%";
             playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
             
-            if (dragonHP <= 5000 && state==false) {
-                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
-                dragonHP = dragonMaxHP;
-                
-                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
-                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
-                dragondefaultatk = 2700;
-                dragondefaultdef = 600;
-                poisonDot = 0;
-                poisonState = false;
-                poisonTurn = 0;
-                dmgreceive = false;
-    
-                bleedState = false;
-                bleedTurn = 0;
-                bleedDot = 0;
-                huntermark = false;
-                lightmark = 0;
-                lightatkdebuff = false;
-                lightatkdebuffturn = 0;
-                stun = false;
-                stunmodifier = 1;
-                stunturn = 0;
-                soulsiphon = false;
-                mindgleaning = false;
-                bloodsigil = 0;
-                hd = [0,0,0];
-                poisonIcon.style.display = "none";
-                bleedIcon.style.display = "none";
-                dmgReceiveIcon.style.display = "none";
-                lightmarkicon.style.display = "none";
-                lightatkdebufficon.style.display = "none";
-                soulsiphonicon.style.display = "none";
-                mindgleaningicon.style.display = "none";
-                bloodsigilicon.style.display = "none";
-    
-                d1icon.style.display = "none";
-                d2icon.style.display = "none";
-                d3icon.style.display = "none";
-                document.getElementById("stun").style.display = "none";
-                document.getElementById("stunicon").style.display = "none";
-                helpText('enraged');
-
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-                document.getElementById("dragon").setAttribute("style","width: 781px; margin-left: -387px; top: -91px;");
-                document.getElementById("stun").style.left = "251px";
-                document.getElementById("stun").style.top = "-201px";
-                state=true;
-            } else if (dragonHP <= 5000 && state==true) {
-            state = true;
-        }
-        if (enragedicon.style.display == "block") {
-            if (stun == false) {
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
-            } else {
-                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
-            }
-            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
-        } else {
-            if (stun == false) {
-                document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
-            } else {
-                document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-            }
-            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
-        }
             if (cooldown == 0) {
                 document.getElementById('heal').style.pointerevents = 'auto';
                 document.getElementById('heal').style.cursor = 'pointer';
@@ -1705,7 +1615,7 @@ let castMagic = (skill) =>  {
                 document.getElementById("playerdmgtext").style.display = "block";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
-                logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                logmessage = "You did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
                 
                 
             } else {
@@ -1713,11 +1623,12 @@ let castMagic = (skill) =>  {
                 document.getElementById("playerdmgtext").style.display = "block";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
-                logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you. And you did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
+                logmessage = "You did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
                 
                 critHit=false;
 
             }
+            turn++;
             damageText.innerHTML = logmessage;
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
@@ -1741,6 +1652,128 @@ let castMagic = (skill) =>  {
     } else {
         helpText('wrongcode');
     }
+    //dragonTurn
+    
+            if (dragonHP <= 5000 && state==false) {
+                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
+                dragonHP = dragonMaxHP;
+                
+                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
+                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
+                dragondefaultatk = 2700;
+                dragondefaultdef = 600;
+                poisonDot = 0;
+                poisonState = false;
+                poisonTurn = 0;
+                dmgreceive = false;
+    
+                bleedState = false;
+                bleedTurn = 0;
+                bleedDot = 0;
+                huntermark = false;
+                lightmark = 0;
+                lightatkdebuff = false;
+                lightatkdebuffturn = 0;
+                stun = false;
+                stunmodifier = 1;
+                stunturn = 0;
+                soulsiphon = false;
+                mindgleaning = false;
+                bloodsigil = 0;
+                hd = [0,0,0];
+                poisonIcon.style.display = "none";
+                bleedIcon.style.display = "none";
+                dmgReceiveIcon.style.display = "none";
+                lightmarkicon.style.display = "none";
+                lightatkdebufficon.style.display = "none";
+                soulsiphonicon.style.display = "none";
+                mindgleaningicon.style.display = "none";
+                bloodsigilicon.style.display = "none";
+    
+                d1icon.style.display = "none";
+                d2icon.style.display = "none";
+                d3icon.style.display = "none";
+                document.getElementById("stun").style.display = "none";
+                document.getElementById("stunicon").style.display = "none";
+                helpText('enraged');
+
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
+                document.getElementById("dragon").setAttribute("style","width: 781px; margin-left: -387px; top: -91px;");
+                document.getElementById("stun").style.left = "251px";
+                document.getElementById("stun").style.top = "-201px";
+                state=true;
+            } else if (dragonHP <= 5000 && state==true) {
+            state = true;
+        }
+        
+    turnText.innerHTML = "The dragon is going to deal some damage...";
+    
+    setTimeout(()=>{
+        turnText.innerHTML = "Dragon's Turn";
+
+        
+        //damage
+        if (shieldState == false) {
+            damageDragon = dragonATK + random(300, 500) - playerDEF;
+            damageDragon = damageDragon - damageDragon*0.02*bloodsigil;
+        } else {
+            damageDragon = 0;
+            shieldState = false;
+            shieldicon.style.display = "none";
+        }
+        if (stun == true) {
+            damageDragon = 0;
+        }
+        if (holyshieldstate == true) {
+            holyshieldamount -= damageDragon.toFixed(0);
+            if (holyshieldamount <= 0) {
+                playerHP = playerHP - -holyshieldamount;
+                holyshieldamount = 0;
+                holyshieldstate = false;
+            }
+            holyshieldbar.value = parseInt(holyshieldamount);
+            holyshieldText.innerHTML = parseInt(holyshieldamount);
+        } else {
+            playerHP -= damageDragon.toFixed(0);
+        }
+        if (enragedicon.style.display == "block") {
+            if (stun == false) {
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged_atk.gif");
+            } else {
+                document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif");
+            }
+            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon-enraged.gif")}, 1800);
+        } else {
+            if (stun == false) {
+                document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
+            } else {
+                document.getElementById("dragon").setAttribute("src","images/dragon.gif");
+            }
+            setTimeout(()=>{document.getElementById("dragon").setAttribute("src","images/dragon.gif")}, 1800);
+        }
+        dragonHP = dragonHP - damageDragon*reflectmodifier;
+        holyshieldText.innerHTML = parseInt(holyshieldamount);
+        holyshieldbar.value = parseInt(holyshieldamount);
+playerHealth.value = playerHP;
+dragonHealth.value = dragonHP;
+dragonHealth.max = dragonMaxHP;
+playerHealthText.innerHTML = parseInt(playerHP);
+playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+playerHealth.max = playerMaxHP;
+        //reflect
+    
+            turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
+            cooldown--;
+            holyshieldcooldown--;
+        logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you.";
+        damageText.innerHTML = logmessage;
+            pnode = document.createElement("p");
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            logcontainer.prepend(pnode);
+            
+        }, 2000);
+       setTimeout(()=>{document.getElementById('playerbox').style.pointerEvents = "auto";},4000);
+    
 }
 
 
