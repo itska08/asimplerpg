@@ -1725,12 +1725,15 @@ function closePopup() {
     popup.style.display = "none";
 }
 function openMenu() {
-    document.getElementById("menu").style.display = "block";
+
+    setTimeout(()=>{document.getElementById("menu").style.opacity = 1}, 100);
+    document.getElementById("menu").style.pointerEvents = "auto";
     document.getElementById("learnmore").setAttribute("onclick","closeMenu()");
 }
 
 function closeMenu() {
-    document.getElementById("menu").style.display = "none";
+ 
+    setTimeout(()=>{document.getElementById("menu").style.opacity = 0}, 100);
     document.getElementById("learnmore").setAttribute("onclick","openMenu()");
     
 }
@@ -1738,6 +1741,19 @@ function closeMenu() {
 function closeTutorial() {
     document.getElementById("tutorial").style.display = "none";
 }
+
+function openShop() {
+    document.getElementById("shop").style.display = "block";
+    setTimeout(()=>{document.getElementById("shop").style.opacity = 1}, 200);
+}
+
+function closeShop() {
+    document.getElementById("shop").style.display = "none";
+    setTimeout(()=>{document.getElementById("shop").style.opacity = 0}, 200);
+    
+}
+
+
 function openSettings() {
     document.getElementById("settings").style.display = "block";
     setTimeout(()=>{document.getElementById("settings").style.opacity = 1}, 200);
@@ -1759,6 +1775,26 @@ function closeLog() {
     setTimeout(()=>{document.getElementById("log").style.opacity = 0}, 200);
     
 }
+function openCat(evt, catName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(catName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
 /*
  * RESPONSIVE CODE
  */
