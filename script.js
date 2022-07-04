@@ -1113,10 +1113,6 @@ let castMagic = (skill) =>  {
                     stunturn = 2;
                     document.getElementById("stunicon").style.display = "block";
          
-                    reflectstate = true;
-                    reflecticon.style.display = "block";
-                    reflectturn = 5;
-                    reflectmodifier = 0.5;
                     effect.style.backgroundImage = "url('images/skill24.png')";
                     break;   
                                           
@@ -1162,6 +1158,62 @@ let castMagic = (skill) =>  {
                 dragonHP -= damagePlayer.toFixed(0);
                
             }
+             //dragonTurn
+    
+             if (dragonHP <= 5000 && state==false || dragonHP == 0 && state==false) {
+                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
+                dragonHP = dragonMaxHP;
+                
+                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
+                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
+                dragondefaultatk = 2700;
+                dragondefaultdef = 600;
+                poisonDot = 0;
+                poisonState = false;
+                poisonTurn = 0;
+                dmgreceive = false;
+    
+                bleedState = false;
+                bleedTurn = 0;
+                bleedDot = 0;
+                huntermark = false;
+                lightmark = 0;
+                lightatkdebuff = false;
+                lightatkdebuffturn = 0;
+                stun = false;
+                stunmodifier = 1;
+                stunturn = 0;
+                soulsiphon = false;
+                mindgleaning = false;
+                bloodsigil = 0;
+                hd = [0,0,0];
+                poisonIcon.style.display = "none";
+                bleedIcon.style.display = "none";
+                dmgReceiveIcon.style.display = "none";
+                lightmarkicon.style.display = "none";
+                lightatkdebufficon.style.display = "none";
+                soulsiphonicon.style.display = "none";
+                mindgleaningicon.style.display = "none";
+                bloodsigilicon.style.display = "none";
+    
+                d1icon.style.display = "none";
+                d2icon.style.display = "none";
+                d3icon.style.display = "none";
+          
+                document.getElementById("stunicon").style.display = "none";
+                helpText('enraged');
+
+                document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
+                document.getElementById("dragon").style.left = "370px";
+                document.getElementById("dragon").style.width = "450px";
+                document.getElementById("dragon").style.top = "277px";
+
+               
+                state=true;
+            } else if (dragonHP <= 5000 && state==true) {
+            state = true;
+        }
+        
             //check debuff states and calculate debuff dmg
             if (hunteratkcooldown == 0 && critHit == false) {
                         hunteratkbuff = false;
@@ -1285,7 +1337,11 @@ let castMagic = (skill) =>  {
                 } else if (stunturn == 0) {
                     stunturn = 0;
                     stun = false;
- 
+                    
+                    reflectstate = true;
+                    reflecticon.style.display = "block";
+                    reflectturn = 3;
+                    reflectmodifier = 0.5;
                     document.getElementById("stunicon").style.display = "none";
                 }
             }
@@ -1587,62 +1643,7 @@ let castMagic = (skill) =>  {
             }
             clearInterval(effectInterval);
             effectInterval = setInterval(playNextFrame, 60);
-            //dragonTurn
-    
-            if (dragonHP <= 5000 && state==false) {
-                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
-                dragonHP = dragonMaxHP;
-                
-                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
-                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
-                dragondefaultatk = 2700;
-                dragondefaultdef = 600;
-                poisonDot = 0;
-                poisonState = false;
-                poisonTurn = 0;
-                dmgreceive = false;
-    
-                bleedState = false;
-                bleedTurn = 0;
-                bleedDot = 0;
-                huntermark = false;
-                lightmark = 0;
-                lightatkdebuff = false;
-                lightatkdebuffturn = 0;
-                stun = false;
-                stunmodifier = 1;
-                stunturn = 0;
-                soulsiphon = false;
-                mindgleaning = false;
-                bloodsigil = 0;
-                hd = [0,0,0];
-                poisonIcon.style.display = "none";
-                bleedIcon.style.display = "none";
-                dmgReceiveIcon.style.display = "none";
-                lightmarkicon.style.display = "none";
-                lightatkdebufficon.style.display = "none";
-                soulsiphonicon.style.display = "none";
-                mindgleaningicon.style.display = "none";
-                bloodsigilicon.style.display = "none";
-    
-                d1icon.style.display = "none";
-                d2icon.style.display = "none";
-                d3icon.style.display = "none";
-          
-                document.getElementById("stunicon").style.display = "none";
-                helpText('enraged');
-
-                document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
-                document.getElementById("dragon").style.left = "370px";
-                document.getElementById("dragon").style.width = "450px";
-                document.getElementById("dragon").style.top = "277px";
-
-               
-                state=true;
-            } else if (dragonHP <= 5000 && state==true) {
-            state = true;
-        }
-        
+           
     turnText.innerHTML = "The dragon is going to deal some damage...";
     
     setTimeout(()=>{
@@ -1732,7 +1733,7 @@ function openMenu() {
 }
 
 function closeMenu() {
- 
+    document.getElementById("menu").style.pointerEvents = "none";
     setTimeout(()=>{document.getElementById("menu").style.opacity = 0}, 100);
     document.getElementById("learnmore").setAttribute("onclick","openMenu()");
     
