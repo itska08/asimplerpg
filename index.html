@@ -33,7 +33,7 @@
 </head>
 
 <body>
-
+    
     <div id="log">
         
          <h5>Log of past actions</h5>
@@ -42,6 +42,7 @@
         <br><br><hr><br>
         <button onclick='closeLog()'>close</button>
     </div>
+    
     <div id="settings">
         <ul id="ulsettings2">
             <h5>Change Your Character</h5>
@@ -136,7 +137,7 @@
             <a href="#"><img src="images/s21.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Sacred Anthems - 0</h3><br>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</span></a>
             <a href="#"><img src="images/s22.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Revered Presence - 40</h3><br>Heals for 3040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.</span></a>
             <a href="#"><img src="images/s23.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Holy Chant - 80</h3><br>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.</span></a>
-            <a href="#"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.</span></a>
+            <a href="#"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Stuns the target for 2 turns and provides a Reflect buff that reflects 50% of received DMG for 3 turns.</span></a>
             <a href="#"><img src="images/p6.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Divine Soprano - Passive</h3><br>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</span></a>
             <img src="images/swordsinger.png" style="width: 60px;">
         </h2>
@@ -147,6 +148,7 @@
         <p id="copyright">© 2022 - Khang Nguyen - v2.0</p>
         
     </div>
+
     <div id="tutorial">
         <h5 id="welcome">Welcome!</h5>
         <p>In this game, you are a hero who is fighting against the most fearful dragon, Fafnir.<br>
@@ -171,10 +173,13 @@
         <button onclick='closeTutorial()'>close</button>
     </div>
     <div id="container">
-
+        <div id="menu">
+            <button class="support" onclick="openSettings()" style="width: 200px; height: 37px; font-size: 20px;">Change Character</button><br>
+            <button class="support" onclick="openLog()" style="width: 200px; height: 37px; font-size: 20px;">View log</button><br>
+            </div>
         <div id="cave">
-            <button id="learnmore" onclick="openSettings()">≡</button>
-            <button id="learnmore2" onclick="openLog()">+</button>
+            <button id="learnmore" onclick="openMenu()">≡</button>
+       
             <ul id="boss">
                 <p id="playerdmgtext">0</p>
                 <p id="playerhealtext">0</p>
@@ -217,10 +222,10 @@
             <img src="images/stun.gif" id = "stun" style = "position: relative; left: 297px; bottom: 131px; display: none; width: 250px;">
             </div>
         </div>
+        
         <div id="alert" class="alert"></div>
         <div id="healalert" class="alert"></div>
          <div id="popup"></div>
-        <fieldset id="playerbox">
         <div id="message">
             <p id="turn">Turn: 0</p>
             <div id="imgcontainer2">
@@ -308,7 +313,7 @@
             <a href="#" onclick="castMagic('sacredanthems')"><img src="images/s21.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Sacred Anthems - 0</h3><br>Deals 100% DMG (+230) to the target. Applies 2 random Holy Debuffs from this list:<br>- Purity: decreases ATK by 4%.<br>- Justice: decreases DEF by 4%.<br>- Faith: increases incoming DMG by 2%.<br>Each debuff can stack up to 10 times. Also restores 15 Energy.</span></a>
             <a href="#" onclick="castMagic('reveredpresence')"><img src="images/s22.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Revered Presence - 40</h3><br>Heals for 3040% of ATK + 30% of lost HP. Over-healed amount will be converted into Holy Shield.</span></a>
             <a href="#" onclick="castMagic('Divinechant')"><img src="images/s23.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Holy Chant - 80</h3><br>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.</span></a>
-            <a href="#" onclick="castMagic('transcendenthymn')"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Stuns the target and provides a Reflect buff that reflects 50% of received DMG for 3 turns.</span></a>
+            <a href="#" onclick="castMagic('transcendenthymn')"><img src="images/s24.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Transcendent Hymn - 50</h3><br>Stuns the target for 2 turns and provides a Reflect buff that reflects 50% of received DMG for 3 turns.</span></a>
             <a href="#"><img src="images/p6.png" class="icon"><span class="tooltip"><h3 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 23px;">Divine Soprano - Passive</h3><br>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</span></a>
             <img src="images/swordsinger.png" style="width: 60px;">
             </ul>
@@ -326,7 +331,7 @@
             </ul>
         
         </div>
-    </fieldset>
+
     </div>
     <script src="script.js"></script>
 

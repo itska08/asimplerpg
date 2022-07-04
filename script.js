@@ -483,8 +483,13 @@ let healSkill = (healing) => {
         playerHP = playerMaxHP;
     }
     playerHealthText.innerHTML = parseInt(playerHP);
-    popup.style.display = "block";
-    popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
+    document.getElementById("playerhealtext").innerHTML = healing.toFixed(0);
+                document.getElementById("playerhealtext").style.display = "block";
+                document.getElementById("playerhealtext").style.left = "849px";
+                document.getElementById("playerhealtext").style.top = "203px";
+                document.getElementById("playerhealtext").style.color = "darkgreen";
+                setTimeout(()=>{document.getElementById("playerhealtext").style.opacity = 0}, 1000);
+                document.getElementById("playerhealtext").style.opacity = 1;
     
 }
 
@@ -581,12 +586,12 @@ function heal() {
             playerHP = playerHP + healAmount;
             healBuff = false;
             healBuffIcon.style.display = "none";
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25% of Max HP + 50%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
+            
             playerHealthText.innerHTML = parseInt(playerHP);
             healAmount = playerMaxHP * 0.25 + random(100, 500);
         } else {
             playerHP = playerHP + healAmount;
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + healAmount + " (25%) HP and your energy is restored!</p><button onclick='closePopup()'>close</button>";
+            
             playerHealthText.innerHTML = parseInt(playerHP);
         }
         if (playerHP >= playerMaxHP) {
@@ -598,7 +603,13 @@ function heal() {
         document.getElementById('heal').style.cursor = 'not-allowed';
         document.getElementById('heal').style.opacity = '0.6';
         document.getElementById('heal').setAttribute("onclick", "");
-        popup.style.display = "block";
+        document.getElementById("playerhealtext").innerHTML = healAmount.toFixed(0);
+                document.getElementById("playerhealtext").style.display = "block";
+                document.getElementById("playerhealtext").style.left = "849px";
+                document.getElementById("playerhealtext").style.top = "203px";
+                document.getElementById("playerhealtext").style.color = "darkgreen";
+                setTimeout(()=>{document.getElementById("playerhealtext").style.opacity = 0}, 1000);
+                document.getElementById("playerhealtext").style.opacity = 1;
         energy = energy + 70;
         if (energy < 100) {
             playerEnergyText.innerHTML = energy;
@@ -846,7 +857,7 @@ let castMagic = (skill) =>  {
             skillName = "";
         } else {
 
-            document.getElementById('playerbox').style.pointerEvents = "none";
+            document.getElementById('message').style.pointerEvents = "none";
             currentFrame = 1;
             
            
@@ -1101,10 +1112,10 @@ let castMagic = (skill) =>  {
                     stunmodifier = 0;
                     stunturn = 2;
                     document.getElementById("stunicon").style.display = "block";
-                    document.getElementById("stun").style.display = "block";
+         
                     reflectstate = true;
                     reflecticon.style.display = "block";
-                    reflectturn = 2;
+                    reflectturn = 5;
                     reflectmodifier = 0.5;
                     effect.style.backgroundImage = "url('images/skill24.png')";
                     break;   
@@ -1274,7 +1285,7 @@ let castMagic = (skill) =>  {
                 } else if (stunturn == 0) {
                     stunturn = 0;
                     stun = false;
-                    document.getElementById("stun").style.display = "none";
+ 
                     document.getElementById("stunicon").style.display = "none";
                 }
             }
@@ -1617,14 +1628,16 @@ let castMagic = (skill) =>  {
                 d1icon.style.display = "none";
                 d2icon.style.display = "none";
                 d3icon.style.display = "none";
-                document.getElementById("stun").style.display = "none";
+          
                 document.getElementById("stunicon").style.display = "none";
                 helpText('enraged');
 
                 document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
-                document.getElementById("stun").style.left = "351px";
-                document.getElementById("stun").style.width = "425px";
-                document.getElementById("stun").style.top = "280px";
+                document.getElementById("dragon").style.left = "370px";
+                document.getElementById("dragon").style.width = "450px";
+                document.getElementById("dragon").style.top = "277px";
+
+               
                 state=true;
             } else if (dragonHP <= 5000 && state==true) {
             state = true;
@@ -1686,7 +1699,7 @@ playerHealth.max = playerMaxHP;
             logcontainer.prepend(pnode);
             
         }, 1000);
-       setTimeout(()=>{document.getElementById('playerbox').style.pointerEvents = "auto";},1500)}
+       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
     } else {
         helpText('wrongcode');
     }
@@ -1711,6 +1724,17 @@ function playNextFrame() {
 function closePopup() {
     popup.style.display = "none";
 }
+function openMenu() {
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("learnmore").setAttribute("onclick","closeMenu()");
+}
+
+function closeMenu() {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("learnmore").setAttribute("onclick","openMenu()");
+    
+}
+
 function closeTutorial() {
     document.getElementById("tutorial").style.display = "none";
 }

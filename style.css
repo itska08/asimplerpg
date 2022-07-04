@@ -30,6 +30,7 @@ body {
 	opacity: 0;
 	transition: all 0.2s;
 }
+
 #change {
 	font-size: 16px;
 	text-align: center;
@@ -290,12 +291,14 @@ progress#holyshieldbar::-webkit-progress-value {
 	position: absolute;
 	top: -5px;
 	border-radius: 50px;
+	box-shadow:0 0 20px rgb(255, 255, 255); 
 }
 
 /* For Chrome or Safari */
 progress#playerHealth::-webkit-progress-value {
 	background: rgb(160, 21, 21);
 	border-radius: 50px;
+	
 }
 progress#playerHealth::-webkit-progress-bar {
 
@@ -313,6 +316,13 @@ progress#dragonHealth {
 }
 #li1 {
 	margin-left: 19px;
+}
+
+#menu {
+	position: absolute;
+	left: -217px;
+	top: 18px;
+	display: none;
 }
 progress#dragonHealth {
 	width: 670px;
