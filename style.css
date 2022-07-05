@@ -44,7 +44,7 @@ body {
 }
 .tab {
 	overflow: hidden;
-	border: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 
 	
   }
@@ -58,7 +58,8 @@ body {
 	cursor: pointer;
 	padding: 14px 16px;
 	transition: 0.3s;
-	border-radius: 0px;
+	border-radius: 40px;
+	margin: 5px;
   }
   
   /* Change background color of buttons on hover */
@@ -133,7 +134,7 @@ body {
 	color: #fff;
 }
 
-#holyshieldText, #ene {
+#holyshieldText, #ene, #coin {
 	font-size: 22px;
 	display: inline-block;
 	color: rgb(68, 68, 68);
@@ -152,6 +153,12 @@ body {
 }
 #energybutton {
 	background-color: #cca185;
+	height: 45px;
+	color: rgb(68, 68, 68);
+
+}
+#coinbutton {
+	background-color: #eed19c;
 	height: 45px;
 	color: rgb(68, 68, 68);
 
@@ -287,7 +294,7 @@ a {
 	margin: 5px 15px;
 }
 a:hover span {
-	z-index: 1;
+	z-index: 999;
 	opacity: 1;
 	transition: all 0.2s;
 	text-align: center;
@@ -514,7 +521,17 @@ h5 {
 	transform: scaleX(-1);
 	margin-left: -200px;
 }
+.elemental {
+	all: initial;
+	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+	font-size:20px;
+	font-weight: 700;
+	color:rgb(243, 162, 236);
 
+}
+.physical {
+	color: rgb(253, 176, 125);
+}
 h4 {
 	color: #ffffff;
 	font-size: 30px;
@@ -630,7 +647,7 @@ ul {
 #ulsettings2 {
 	position: fixed;
 	width: 96.5%;
-	z-index: 99999999;
+	z-index: 99;
 	border-radius: 0px;
 	border: 0px;
 	border-bottom: 1px solid #999999;

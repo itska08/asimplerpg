@@ -73,7 +73,8 @@ let damageDragon;
 let damagePlayer;
 let state = false;
 let turn = 0;
-let skillATK = 0;
+let eleDMG = 0;
+let phyDMG = 0;
 let cooldown = 0;
 let shieldState = false;
 let healAmount = playerMaxHP * 0.25 + random(100, 500);
@@ -142,7 +143,7 @@ let totaldebuffmodifier = 0;
 let stun = false;
 let stunmodifier = 1;
 let stunturn = 0;
-
+let coin = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -340,7 +341,8 @@ function resetGame() {
     energyCon = 0;
     turn = 0;
     cooldown = 0;
-    skillATK = 0;
+    eleDMG = 0;
+    phyDMG = 0;
     energyCon = 0;
     holyshieldcooldown = 0;
     dragonMaxHP = 20000;
@@ -367,7 +369,7 @@ function resetGame() {
     bloodsigilmodifier = 0;
     dragonATKTemp = 0;
     dragonDEFTemp = 0;
-
+    coin = 0;
     poisonDot = 0;
     poisonState = false;
     poisonTurn = 0;
@@ -853,7 +855,6 @@ let castMagic = (skill) =>  {
             popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
             energy = energy;
             playerEnergyText.innerHTML = energy;
-            skillATK = 0;
             skillName = "";
         } else {
 
@@ -866,65 +867,73 @@ let castMagic = (skill) =>  {
                 case "icebolt":
                     
                     
-                    skillATK = playerATK*1.1 + 250;
+                    eleDMG = playerATK*1.1 + 250;
+                    phyDMG = 0;
                     effect.style.backgroundImage = "url('images/skill1.png')";
 
                     break;
                 case "firerain":
                     
-                    skillATK = playerATK*1.5 + 450;
+                    eleDMG = playerATK*1.5 + 450;
+                    phyDMG = 0;
                     effect.style.backgroundImage = "url('images/skill2.png')";
                     break;
                 case "thunderstorm":
                     
                     if (poisonState == true) {
-                        skillATK = playerATK*5.1+1950;
-                        skillATK = skillATK + skillATK*0.6;
+                        eleDMG = playerATK*5.1+1950;
+                        eleDMG = eleDMG + eleDMG*0.6;
                     } else {
-                        skillATK = playerATK*5.1 + 1950;
+                        eleDMG = playerATK*5.1 + 1950;
                     }
+                    phyDMG = 0;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
                     break;
                 case "bane":
                     
-                    skillATK = playerATK*1.5 + 150;
+                    eleDMG = playerATK*1.5 + 150;
+                    phyDMG = 0;
                     effect.style.backgroundImage = "url('images/skill4.png')";
                     break;
                 case "arrowoflight":
                     
-                    skillATK = playerATK + 200;
+                    phyDMG = playerATK + 200;
+                    eleDMG = 0;
                     huntermark = true;
                     hunterIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill5.png')";
                     break;
                 case "bloodshed":
-                    skillATK = playerATK*2 + 470;
+                    phyDMG = playerATK*2 + 470;
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill6.png')";
                     break;
                 case "piercingshot":
                     if (huntermark == false || bleedState == false) {
-                        skillATK = playerATK*4.8 + 1750;
+                        phyDMG = playerATK*4.8 + 1750;
                     } else if (huntermark == true || bleedState == false) {
-                        skillATK = playerATK*7.3 + 1750;
+                        phyDMG = playerATK*7.3 + 1750;
                         healSkill(playerMaxHP*0.5);
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     } else if (huntermark == false || bleedState == true) {
-                        skillATK = playerATK*4.8 + 1750;
-                        skillATK = skillATK + skillATK*0.5;
+                        phyDMG = playerATK*4.8 + 1750;
+                        phyDMG = phyDMG + phyDMG*0.5;
                     } else if (huntermark == true || bleedState == true) {
-                        skillATK = playerATK*7.3 + 1050;
-                        skillATK = skillATK + skillATK*0.5;
+                        phyDMG = playerATK*7.3 + 1050;
+                        phyDMG = phyDMG + phyDMG*0.5;
                         healSkill(playerMaxHP*0.5);
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     }
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill7.png')";
                     break;
                 case "huntersinstinct":
-                     skillATK = 0;
+                     phyDMG = 0;
+                     eleDMG = 0;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
                     hunteratkmodifier = 0.2;
@@ -938,7 +947,8 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill8.png')";
                     break;
                 case "righteousness":
-                    skillATK = playerATK*1.2 + 240;
+                    phyDMG = playerATK*1.2 + 240;
+                    eleDMG = 0;
                     if (lightmark < 10) {
                         lightmark = lightmark+1;
                         lightmarkicon.style.display = "block";
@@ -951,7 +961,8 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill9.png')";
                     break;
                 case "rectitude":
-                    skillATK = playerATK*1.4 + 300;
+                    phyDMG = playerATK*1.4 + 300;
+                    eleDMG = 0;
                     if (lightmark < 10) {
                         lightmark++;
                         lightmarkicon.style.display = "block";
@@ -964,46 +975,51 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill10.png')";
                     break;
                 case "judgment":
-                   skillATK = playerATK*3.3 + 1315 + playerDEF*lightmark;
+                   phyDMG = playerATK*3.3 + 1315 + playerDEF*lightmark;
+                   eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
                      if (lightmark >= 5) {
-                        skillATK = playerATK*1.6 + 500 + playerDEF*2.5;
+                        phyDMG = playerATK*1.6 + 500 + playerDEF*2.5;
                         lightmark = lightmark-2;
                         document.getElementById("lightText").innerHTML = lightmark + " stacks.";
                     } else {
-                        skillATK = playerATK*1.6 + 500;
+                        phyDMG = playerATK*1.6 + 500;
                     }
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill12.png')";
                     break;
                 case "soulsiphon":
-                    skillATK = playerATK*1.1 + 280;
+                    eleDMG = playerATK*1.1 + 280;
+                    phyDMG = 0;
                     soulsiphon = true;
                     soulsiphonicon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill13.png')";
                     break;
                 case "mindgleaning":
-                    skillATK = playerATK*1.8 + 470;
+                    eleDMG = playerATK*1.8 + 470;
+                    phyDMG = 0;
                     mindgleaning = true;
                     mindgleaningicon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill14.png')";
                     break;
                 case "painlessdeath":
                     if (soulsiphon == true && mindgleaning == true) {
-                        skillATK = playerATK*5.8 + 1500;
+                        eleDMG = playerATK*5.8 + 1500;
                     } else if (soulsiphon == true && mindgleaning == false) {
-                        skillATK = playerATK*4.7 + 1500;
+                        eleDMG = playerATK*4.7 + 1500;
                     } else if (soulsiphon == false && mindgleaning == true) {
-                        skillATK = playerATK*4.6 + 1500;
+                        eleDMG = playerATK*4.6 + 1500;
                     } else {
-                        skillATK = playerATK*3.8 + 1500;
+                        eleDMG = playerATK*3.8 + 1500;
                     }
+                    phyDMG = 0;
                     effect.style.backgroundImage = "url('images/skill15.png')";
                     break;
                 case "songofmoonlight":
-                    skillATK = playerATK*1.5 + 600;
-
+                    eleDMG = playerATK*1.5 + 600;
+                    phyDMG = 0;
                     if (soulsiphon==true || mindgleaning==true) {
                         if (moonstate==false) {     
                             playerATKTemp = playerATK;          
@@ -1024,24 +1040,29 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill16.png')"; 
                     break;
                 case "bloodembrace":
-                    skillATK = playerATK*1.2 + 310;    
+                    phyDMG = playerATK*1.2 + 310;
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill17.png')";
                     break;
                 case "rosemarysgift":
                     hploss=playerMaxHP-playerHP;
-                    skillATK = playerATK*1.6 + 670 + hploss*0.1;
+                    phyDMG = playerATK*1.6 + 670 + hploss*0.1;
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill18.png')";
                     break;
                 case "ichorretaliation":
-                    skillATK = playerATK*3.5 + 1200 + playerATK*0.25*bloodsigil + playerMaxHP*0.02*bloodsigil;
+                    phyDMG = playerATK*3.5 + 1200 + playerATK*0.25*bloodsigil + playerMaxHP*0.02*bloodsigil;
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill19.png')";
                     break;
                 case "crimsonvitality":
-                    skillATK = 0;
+                    phyDMG = 0;
+                    eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill20.png')";
                     break;          
                case "sacredanthems":
-                    skillATK = playerATK + 230;
+                    eleDMG = playerATK + 230;
+                    phyDMG = 0;
                     hd[random(0,3)]++;
                     hd[random(0,3)]++;
                     //d1
@@ -1090,14 +1111,16 @@ let castMagic = (skill) =>  {
                     break;
                 case "reveredpresence":
                     
-                    skillATK = 0;
+                    eleDMG = 0;
+                    phyDMG = 0;
                     hploss = playerMaxHP - playerHP;
                     holyHealSkill(playerATK*30.4+hploss*0.3);
                     effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
                 case "Divinechant":
                    debuffAmount = hd[0]+hd[1]+hd[2];
-                    skillATK = playerATK*4 + 1515 + playerATK*debuffAmount;
+                    eleDMG = playerATK*4 + 1515 + playerATK*debuffAmount;
+                    phyDMG = 0;
                     hd = [0,0,0]
                     dragonATK = dragondefaultatk;
                     dragonDEF = dragondefaultdef;
@@ -1107,7 +1130,8 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill23.png')";
                     break;
                 case "transcendenthymn":
-                   skillATK = 0;
+                   eleDMG = 0;
+                   phyDMG = 0;
                     stun = true;
                     stunmodifier = 0;
                     stunturn = 2;
@@ -1136,11 +1160,11 @@ let castMagic = (skill) =>  {
                 critRoll = random(1,100);
                 if (critRoll >= 100-critRate) {
                     critHit=true;
-                    damagePlayer = random(50, 100) + skillATK;
+                    damagePlayer = random(50, 100) + phyDMG + eleDMG;
                     damagePlayer = damagePlayer+damagePlayer*critDmg;
                 } else {
                     critHit=false;
-                    damagePlayer = random(50, 100) + skillATK;
+                    damagePlayer = random(50, 100) + phyDMG + eleDMG;
                 }
                 playerCritText.innerHTML = critRate + "%";
                 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
@@ -1160,7 +1184,7 @@ let castMagic = (skill) =>  {
             }
              //dragonTurn
     
-             if (dragonHP <= 5000 && state==false || dragonHP == 0 && state==false) {
+             if ((dragonHP <= 5000 && state==false) || (dragonHP == 0 && state==false)) {
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
                 dragonHP = dragonMaxHP;
                 
@@ -1406,12 +1430,7 @@ let castMagic = (skill) =>  {
                     break;
                 case "piercingshot":
                     energy = energy - energyCon;
-                    if (huntermark == true) {
-                        skillATK = playerATK*5.3 + 1050;
-                        healSkill(playerMaxHP*0.5);
-                        huntermark = false;
-                        hunterIcon.style.display = "none";
-                    }
+                   
                     break;
                 case "righteousness":
                     energy = energy + random(10, 20);
@@ -1701,6 +1720,14 @@ playerHealth.max = playerMaxHP;
             
         }, 1000);
        setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
+        let cointemp = random(100,200);
+       coin = coin + cointemp;
+       document.getElementById("coin").innerHTML = coin;
+       document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
+       logmessage = "You received <span class='damage'>"+cointemp+" coins.";
+       pnode = document.createElement("p");
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            logcontainer.prepend(pnode);
     } else {
         helpText('wrongcode');
     }
