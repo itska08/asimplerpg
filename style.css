@@ -294,7 +294,7 @@ a {
 	margin: 5px 15px;
 }
 a:hover span {
-	z-index: 999;
+	z-index: 999999;
 	opacity: 1;
 	transition: all 0.2s;
 	text-align: center;
