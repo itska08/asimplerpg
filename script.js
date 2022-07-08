@@ -187,9 +187,9 @@ let switchClass = (playerClass) => {
         break;
         case "mage":
             document.getElementById("char1").setAttribute("src","images/mage.gif");
-            document.getElementById("char1").style.width = "332px";
+            document.getElementById("char1").style.width = "192px";
             document.getElementById("char1").style.top = "260px";
-            document.getElementById("char1").style.right = "193px";
+            document.getElementById("char1").style.right = "284px";
             switchButtonDefault.setAttribute("id","mageclass");
             switchButtonDefault.innerHTML = "Elemental Mage";
             document.getElementById("playerHealth").setAttribute("max","10000");
@@ -216,9 +216,9 @@ let switchClass = (playerClass) => {
             break;
         case "paladin":
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
-            document.getElementById("char1").style.width = "399px";
+            document.getElementById("char1").style.width = "220px";
             document.getElementById("char1").style.top = "278px";
-            document.getElementById("char1").style.right = "236px";
+            document.getElementById("char1").style.right = "275px";
             switchButtonDefault.setAttribute("id","paladinclass");
             switchButtonDefault.innerHTML = "Paladin of Light";
             document.getElementById("playerHealth").setAttribute("max","12000");
@@ -245,9 +245,9 @@ let switchClass = (playerClass) => {
             break;
         case "necromancer":
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
-            document.getElementById("char1").style.width = "278px";
+            document.getElementById("char1").style.width = "308px";
             document.getElementById("char1").style.top = "258px";
-            document.getElementById("char1").style.right = "256px";
+            document.getElementById("char1").style.right = "208px";
             switchButtonDefault.setAttribute("id","necromancerclass");
             switchButtonDefault.innerHTML = "Necromancer";
             document.getElementById("playerHealth").setAttribute("max","9000");
@@ -274,7 +274,7 @@ let switchClass = (playerClass) => {
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
-            document.getElementById("char1").style.width = "271px";
+            document.getElementById("char1").style.width = "319px";
             document.getElementById("char1").style.top = "271px";
             document.getElementById("char1").style.right = "193px";
             switchButtonDefault.setAttribute("id","knightclass");
@@ -303,9 +303,9 @@ let switchClass = (playerClass) => {
             break;
          case "swordsinger":
             document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
-            document.getElementById("char1").style.width = "271px";
-            document.getElementById("char1").style.top = "232px";
-            document.getElementById("char1").style.right = "241px";
+            document.getElementById("char1").style.width = "161px";
+            document.getElementById("char1").style.top = "277px";
+            document.getElementById("char1").style.right = "270px";
             switchButtonDefault.setAttribute("id","swordsingerclass");
             switchButtonDefault.innerHTML = "Divine Swordsinger";
             document.getElementById("playerHealth").setAttribute("max","15000");
@@ -370,6 +370,7 @@ function resetGame() {
     dragonATKTemp = 0;
     dragonDEFTemp = 0;
     coin = 0;
+    
     poisonDot = 0;
     poisonState = false;
     poisonTurn = 0;
@@ -405,7 +406,9 @@ function resetGame() {
     pnode.innerHTML = "";
     logcontainer.innerHTML = "";
     turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
-   
+    document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
+    document.getElementById("coin").innerHTML = coin;
+    
     enragedicon.style.display = "none";
     healBuffIcon.style.display = "none";
     hunterIcon.style.display = "none";
