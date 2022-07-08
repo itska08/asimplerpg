@@ -1636,7 +1636,7 @@ let castMagic = (skill) =>  {
             turn++;
             damageText.innerHTML = logmessage;
             pnode = document.createElement("p");
-            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
 
             if (poisonDot > 0) {
@@ -1726,7 +1726,7 @@ playerHealth.max = playerMaxHP;
             logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you.";
             damageText.innerHTML = logmessage;
             pnode = document.createElement("p");
-            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
             let cointemp = random(100,200);
             coin = coin + cointemp;
@@ -1734,7 +1734,7 @@ playerHealth.max = playerMaxHP;
             document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
             logmessage = "You received <span class='damage'>"+cointemp+" coins.";
             pnode = document.createElement("p");
-            pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
+            pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
         }, 1000);
        setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
