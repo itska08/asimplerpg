@@ -8,6 +8,9 @@ Current version: 2.0
 
 
 ```markdown
+# 2.1 - 8/7/2022
+- minor fixes
+- ui update
 # 2.0 - 26/6/2022
 - ui overhaul
 - character sprites
