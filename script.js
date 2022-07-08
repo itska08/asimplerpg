@@ -1591,25 +1591,7 @@ let castMagic = (skill) =>  {
                 document.getElementById('holyshield').setAttribute("onclick", "holyShield()");
             }
             
-            if (dragonHP < 0 && playerHP > 0) {
-                dragonHP = 0;
-                document.getElementById('dragon').style.display = 'block';
-                document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon in "+turn+ " turns and claimed a chest of gold!</p><br><img src='images/treasure.gif' style='width: 250px;'><br><br><br><button onClick='window.location.reload();'>play again</button>";
-
-            } else if (playerHP < 0 && dragonHP > 0) {
-                playerHP = 0;
-                document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
-         
-            } else if (playerHP < 0 && dragonHP < 0) {
-                playerHP = 0;
-                dragonHP = 0;
-                document.getElementById('dragon').style.display = 'block';
-                document.getElementById("tutorial").style.display = "block";
-                document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
-                
-            }
+           
            if (holyshieldamount >= playerMaxHP) {
                 holyshieldamount = playerMaxHP;
             }
@@ -1711,7 +1693,25 @@ playerHealthText.innerHTML = parseInt(playerHP);
 playerMaxHPText.innerHTML = parseInt(playerMaxHP);
 playerHealth.max = playerMaxHP;
         //reflect
-    
+        if (dragonHP < 0 && playerHP > 0) {
+            dragonHP = 0;
+            document.getElementById('dragon').style.display = 'block';
+            document.getElementById("tutorial").style.display = "block";
+            document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon in "+turn+ " turns and claimed a chest of gold!</p><br><img src='images/treasure.gif' style='width: 250px;'><br><br><br><button onClick='window.location.reload();'>play again</button>";
+
+        } else if (playerHP < 0 && dragonHP > 0) {
+            playerHP = 0;
+            document.getElementById("tutorial").style.display = "block";
+            document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
+     
+        } else if (playerHP < 0 && dragonHP < 0) {
+            playerHP = 0;
+            dragonHP = 0;
+            document.getElementById('dragon').style.display = 'block';
+            document.getElementById("tutorial").style.display = "block";
+            document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
+            
+        }
             turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
             cooldown--;
             holyshieldcooldown--;
