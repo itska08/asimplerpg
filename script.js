@@ -218,7 +218,7 @@ let switchClass = (playerClass) => {
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
             document.getElementById("char1").style.width = "220px";
             document.getElementById("char1").style.top = "278px";
-            document.getElementById("char1").style.right = "275px";
+            document.getElementById("char1").style.right = "224px";
             switchButtonDefault.setAttribute("id","paladinclass");
             switchButtonDefault.innerHTML = "Paladin of Light";
             document.getElementById("playerHealth").setAttribute("max","12000");
@@ -246,8 +246,8 @@ let switchClass = (playerClass) => {
         case "necromancer":
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
             document.getElementById("char1").style.width = "308px";
-            document.getElementById("char1").style.top = "258px";
-            document.getElementById("char1").style.right = "208px";
+            document.getElementById("char1").style.top = "246px";
+            document.getElementById("char1").style.right = "143px";
             switchButtonDefault.setAttribute("id","necromancerclass");
             switchButtonDefault.innerHTML = "Necromancer";
             document.getElementById("playerHealth").setAttribute("max","9000");
@@ -274,7 +274,7 @@ let switchClass = (playerClass) => {
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
-            document.getElementById("char1").style.width = "319px";
+            document.getElementById("char1").style.width = "291px";
             document.getElementById("char1").style.top = "271px";
             document.getElementById("char1").style.right = "193px";
             switchButtonDefault.setAttribute("id","knightclass");
