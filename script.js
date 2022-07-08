@@ -1728,17 +1728,17 @@ playerHealth.max = playerMaxHP;
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
             logcontainer.prepend(pnode);
-            
-        }, 1000);
-       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
-        let cointemp = random(100,200);
-       coin = coin + cointemp;
-       document.getElementById("coin").innerHTML = coin;
-       document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
-       logmessage = "You received <span class='damage'>"+cointemp+" coins.";
-       pnode = document.createElement("p");
+            let cointemp = random(100,200);
+            coin = coin + cointemp;
+            document.getElementById("coin").innerHTML = coin;
+            document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
+            logmessage = "You received <span class='damage'>"+cointemp+" coins.";
+            pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
             logcontainer.prepend(pnode);
+        }, 1000);
+       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
+        
     } else {
         helpText('wrongcode');
     }
