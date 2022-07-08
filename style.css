@@ -552,6 +552,7 @@ h5 {
     margin-left: -300px;
     width: 225px;
     height: 321px;
+	display: none;
     background-color: rgba(255, 255, 255, 0);
     border-radius: 50%;
     box-shadow: 0 0 90px 30px rgb(255 250 145 / 44%);
@@ -566,6 +567,10 @@ h5 {
 
 }
 .physical {
+	all: initial;
+	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+	font-size:20px;
+	font-weight: 700;
 	color: rgb(253, 176, 125);
 }
 h4 {

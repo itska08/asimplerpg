@@ -147,10 +147,10 @@ let coin = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
-    playerAtkText.innerHTML = playerATK;
-    playerHealthText.innerHTML = parseInt(playerHP);
-    playerMaxHPText.innerHTML = parseInt(playerMaxHP);
-    playerDefText.innerHTML = playerDEF;
+playerAtkText.innerHTML = playerATK;
+playerHealthText.innerHTML = parseInt(playerHP);
+playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+playerDefText.innerHTML = playerDEF;
 
 let switchClass = (playerClass) => {
     closeSettings();
@@ -1723,8 +1723,8 @@ playerHealth.max = playerMaxHP;
             turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
             cooldown--;
             holyshieldcooldown--;
-        logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you.";
-        damageText.innerHTML = logmessage;
+            logmessage = "The dragon did <span class='damage'>" + damageDragon.toFixed(0) + "</span> DMG on you.";
+            damageText.innerHTML = logmessage;
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + " </span>:" + logmessage;
             logcontainer.prepend(pnode);
