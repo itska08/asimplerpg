@@ -782,7 +782,7 @@ let castMagic = (skill) =>  {
             case "bane":
                 if (skillcd[3] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Bane of Death";
@@ -806,7 +806,7 @@ let castMagic = (skill) =>  {
             case "piercingshot":
                 if (skillcd[2] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Piercing Shot";
@@ -816,7 +816,7 @@ let castMagic = (skill) =>  {
             case "huntersinstinct":
                 if (skillcd[3] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Hunter's Instinct";
@@ -841,7 +841,7 @@ let castMagic = (skill) =>  {
             case "judgment":
                 if (skillcd[2] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Judgment";
@@ -851,7 +851,7 @@ let castMagic = (skill) =>  {
             case "honor":
                 if (skillcd[3] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Honor";
@@ -877,7 +877,7 @@ let castMagic = (skill) =>  {
             case "painlessdeath":
                 if (skillcd[2] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Painless Death";
@@ -887,7 +887,7 @@ let castMagic = (skill) =>  {
             case "songofmoonlight":
                 if (skillcd[1] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Song of Moonlight";
@@ -911,7 +911,7 @@ let castMagic = (skill) =>  {
             case "ichorretaliation":
                 if (skillcd[2] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Ichor Retaliation";
@@ -921,7 +921,7 @@ let castMagic = (skill) =>  {
             case "crimsonvitality":
                 if (skillcd[3] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Crimson Vitality";
@@ -945,7 +945,7 @@ let castMagic = (skill) =>  {
             case "divinechant":
                 if (skillcd[2] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Holy Chant";
@@ -955,7 +955,7 @@ let castMagic = (skill) =>  {
             case "transcendenthymn":
                 if (skillcd[3] > 0) {
                     popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
                 skillName = "Transcendent Hymn";
@@ -1880,15 +1880,16 @@ playerHealth.max = playerMaxHP;
             logcontainer.prepend(pnode);
         }, 1000);
        setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";
-        if (skillcd.some(el => el > 0) == true) {
-          for (let i = 0; i < skillcd.length; i++) {
-                if (skillcd[i] > 0) {
-                    skillcd[i]--;
-                    return;
-                }
-
-            }
+        if (skillcd[1] > 0) {
+            skillcd[1]--;
         }
+        if (skillcd[2] > 0) {
+            skillcd[2]--;
+        }
+        if (skillcd[3] > 0) {
+            skillcd[3]--;
+        }
+        
         
 
         
