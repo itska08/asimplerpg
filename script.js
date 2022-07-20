@@ -1,5 +1,5 @@
 /* magic values */
-let magicArray = ["icebolt", "firerain", "thunderstorm", "bane", "arrowoflight", "bloodshed", "piercingshot", "huntersinstinct","righteousness","rectitude","judgment","honor","soulsiphon","mindgleaning","painlessdeath","songofmoonlight","bloodembrace","rosemarysgift","ichorretaliation","crimsonvitality","sacredanthems","reveredpresence","Divinechant","transcendenthymn"];
+
 let effect = document.getElementById("effect");
 let currentFrame = 1;
 let spriteSizeX = 192;
@@ -59,6 +59,7 @@ let d3icon = document.getElementById("d3icon");
 let reflecticon = document.getElementById("reflecticon");
 /* character and skill stats */
 let skill;
+let skillcd = [0,0,0,0,0]
 let energy = 0;
 let energyCon = 0;
 let dragonMaxHP = 20000;
@@ -336,7 +337,7 @@ let switchClass = (playerClass) => {
 }
 
 function resetGame() {
-
+    skillcd = [0,0,0,0,0];
     energy = 0;
     energyCon = 0;
     turn = 0;
@@ -530,9 +531,7 @@ let holyHealSkill = (holyhealing) => {
                 document.getElementById("playerhealtext").style.color = "darkgreen";
                 setTimeout(()=>{document.getElementById("playerhealtext").style.opacity = 0}, 1000);
                 document.getElementById("playerhealtext").style.opacity = 1;
-    //popup.style.display = "block";
-    //popup.innerHTML = "<h2>Healed</h2><img src='images/healicon.png' class='icon'><br><p>You are healed by " + holyhealing.toFixed(0) + "!</p><button onclick='closePopup()'>close</button>";
-    
+
 }
 
 
@@ -753,107 +752,218 @@ let helpText = (a) => {
 
 let castMagic = (skill) =>  {
     //playerTurn
-    if (magicArray.indexOf(skill) > -1) {
         let skillName;
         //define the skill consumption
         switch (skill) {
             case "icebolt":
-                skillName = "Icebolt";
-                energyCon = 0;
+                    skillName = "Icebolt";
+                    energyCon = 0;
                 break;
             case "firerain":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Rain of Fire";
                 energyCon = 30;
+                }
                 break;
             case "thunderstorm":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Thunderstorm";
                 energyCon = 60;
+                }
                 break;
             case "bane":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Bane of Death";
                 energyCon = 25;
+                }
                 break;
             case "arrowoflight":
                 skillName = "Arrow of Light";
                 energyCon = 0;
                 break;
             case "bloodshed":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Bloodshed";
                 energyCon = 35;
+                }
                 break;
             case "piercingshot":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Piercing Shot";
                 energyCon = 60;
+                }
                 break;
             case "huntersinstinct":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Hunter's Instinct";
                 energyCon = 40;
+                }
                 break;           
             case "righteousness":
+                
                 skillName = "Righteousness";
                 energyCon = 0;
                 break;
             case "rectitude":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Rectitude";
                 energyCon = 30;
+                }
                 break;
             case "judgment":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Judgment";
                 energyCon = 60;
+                }
                 break;
             case "honor":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Honor";
                 energyCon = 40;
+                }
                 break;
             case "soulsiphon":
+                
                 skillName = "Soul Siphon";
                 energyCon = 0;
+                
                 break;
             case "mindgleaning":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Mind Gleaning";
                 energyCon = 30;
+                }
                 break;
             case "painlessdeath":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Painless Death";
                 energyCon = 80;
+                }
                 break;
             case "songofmoonlight":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Song of Moonlight";
                 energyCon = 40;
+                }
                 break;
             case "bloodembrace":
                 skillName = "Blood Embrace";
                 energyCon = 0;
                 break;
             case "rosemarysgift":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Rosemary's Gift";
                 energyCon = 30;
+                }
                 break;
             case "ichorretaliation":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Ichor Retaliation";
                 energyCon = 70;
+                }
                 break;
             case "crimsonvitality":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Crimson Vitality";
                 energyCon = 60;
+                }
                 break;       
             case "sacredanthems":
                 skillName = "Sacred Anthems";
                 energyCon = 0;
                 break;
             case "reveredpresence":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Revered Presence";
                 energyCon = 40;
+                }
                 break;
-            case "Divinechant":
+            case "divinechant":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Holy Chant";
                 energyCon = 80;
+                }
                 break;
             case "transcendenthymn":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
                 skillName = "Transcendent Hymn";
                 energyCon = 50;
+                }
                 break;                      
         }
+
 
         if (energy < energyCon) {
             popup.style.display = "block";
@@ -861,6 +971,7 @@ let castMagic = (skill) =>  {
             energy = energy;
             playerEnergyText.innerHTML = energy;
             skillName = "";
+            return;
         } else {
 
             document.getElementById('message').style.pointerEvents = "none";
@@ -881,6 +992,7 @@ let castMagic = (skill) =>  {
                     
                     eleDMG = playerATK*1.5 + 450;
                     phyDMG = 0;
+                    skillcd[1] = 3;
                     effect.style.backgroundImage = "url('images/skill2.png')";
                     break;
                 case "thunderstorm":
@@ -892,6 +1004,7 @@ let castMagic = (skill) =>  {
                         eleDMG = playerATK*5.1 + 1950;
                     }
                     phyDMG = 0;
+                    skillcd[2] = 4;
                     healBuff = true;
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
@@ -900,6 +1013,7 @@ let castMagic = (skill) =>  {
                     
                     eleDMG = playerATK*1.5 + 150;
                     phyDMG = 0;
+                    skillcd[3] = 3;
                     effect.style.backgroundImage = "url('images/skill4.png')";
                     break;
                 case "arrowoflight":
@@ -913,6 +1027,9 @@ let castMagic = (skill) =>  {
                 case "bloodshed":
                     phyDMG = playerATK*2 + 470;
                     eleDMG = 0;
+                    skillcd[1] = 3;
+                    document.getElementById("a6").style.opacity="0.6";
+                    document.getElementById("a6").style.pointerEvents="none";
                     effect.style.backgroundImage = "url('images/skill6.png')";
                     break;
                 case "piercingshot":
@@ -933,12 +1050,14 @@ let castMagic = (skill) =>  {
                         huntermark = false;
                         hunterIcon.style.display = "none";
                     }
+                    skillcd[2] = 3;
                     eleDMG = 0;
                     effect.style.backgroundImage = "url('images/skill7.png')";
                     break;
                 case "huntersinstinct":
                      phyDMG = 0;
                      eleDMG = 0;
+                     skillcd[3] = 3;
                     hunteratkbuff = true;
                     hunteratkcooldown = 2;
                     hunteratkmodifier = 0.2;
@@ -968,6 +1087,7 @@ let castMagic = (skill) =>  {
                 case "rectitude":
                     phyDMG = playerATK*1.4 + 300;
                     eleDMG = 0;
+                    skillcd[1] = 2;
                     if (lightmark < 10) {
                         lightmark++;
                         lightmarkicon.style.display = "block";
@@ -982,6 +1102,7 @@ let castMagic = (skill) =>  {
                 case "judgment":
                    phyDMG = playerATK*3.3 + 1315 + playerDEF*lightmark;
                    eleDMG = 0;
+                   skillcd[2] = 4;
                     effect.style.backgroundImage = "url('images/skill11.png')";
                     break;
                 case "honor":
@@ -993,6 +1114,7 @@ let castMagic = (skill) =>  {
                         phyDMG = playerATK*1.6 + 500;
                     }
                     eleDMG = 0;
+                    skillcd[3] = 3;
                     effect.style.backgroundImage = "url('images/skill12.png')";
                     break;
                 case "soulsiphon":
@@ -1005,6 +1127,7 @@ let castMagic = (skill) =>  {
                 case "mindgleaning":
                     eleDMG = playerATK*1.8 + 470;
                     phyDMG = 0;
+                    skillcd[1] = 2;
                     mindgleaning = true;
                     mindgleaningicon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill14.png')";
@@ -1020,11 +1143,13 @@ let castMagic = (skill) =>  {
                         eleDMG = playerATK*3.8 + 1500;
                     }
                     phyDMG = 0;
+                    skillcd[2] = 5;
                     effect.style.backgroundImage = "url('images/skill15.png')";
                     break;
                 case "songofmoonlight":
                     eleDMG = playerATK*1.5 + 600;
                     phyDMG = 0;
+                    skillcd[3] = 2;
                     if (soulsiphon==true || mindgleaning==true) {
                         if (moonstate==false) {     
                             playerATKTemp = playerATK;          
@@ -1050,6 +1175,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill17.png')";
                     break;
                 case "rosemarysgift":
+                    skillcd[1] = 2;
                     hploss=playerMaxHP-playerHP;
                     phyDMG = playerATK*1.6 + 670 + hploss*0.1;
                     eleDMG = 0;
@@ -1058,16 +1184,19 @@ let castMagic = (skill) =>  {
                 case "ichorretaliation":
                     phyDMG = playerATK*3.5 + 1200 + playerATK*0.25*bloodsigil + playerMaxHP*0.02*bloodsigil;
                     eleDMG = 0;
+                    skillcd[2] = 4;
                     effect.style.backgroundImage = "url('images/skill19.png')";
                     break;
                 case "crimsonvitality":
                     phyDMG = 0;
                     eleDMG = 0;
+                    skillcd[3] = 3;
                     effect.style.backgroundImage = "url('images/skill20.png')";
                     break;          
                case "sacredanthems":
                     eleDMG = playerATK + 230;
                     phyDMG = 0;
+                    
                     hd[random(0,3)]++;
                     hd[random(0,3)]++;
                     //d1
@@ -1118,15 +1247,17 @@ let castMagic = (skill) =>  {
                     
                     eleDMG = 0;
                     phyDMG = 0;
+                    skillcd[1] = 3;
                     hploss = playerMaxHP - playerHP;
                     holyHealSkill(playerATK*30.4+hploss*0.3);
                     effect.style.backgroundImage = "url('images/skill22.png')";
                     break;
-                case "Divinechant":
+                case "divinechant":
                    debuffAmount = hd[0]+hd[1]+hd[2];
                     eleDMG = playerATK*4 + 1515 + playerATK*debuffAmount;
                     phyDMG = 0;
-                    hd = [0,0,0]
+                    hd = [0,0,0];
+                    skillcd[2] = 4;
                     dragonATK = dragondefaultatk;
                     dragonDEF = dragondefaultdef;
                     d1icon.style.display = "none";
@@ -1137,6 +1268,7 @@ let castMagic = (skill) =>  {
                 case "transcendenthymn":
                    eleDMG = 0;
                    phyDMG = 0;
+                   skillcd[3] = 4;
                     stun = true;
                     stunmodifier = 0;
                     stunturn = 2;
@@ -1146,7 +1278,15 @@ let castMagic = (skill) =>  {
                     break;   
                                           
             }
-
+            if (skillcd[1] > 0) {
+                document.getElementById("a1").style.opacity = 1;
+            }
+            if (skillcd[2] > 0) {
+                document.getElementById("a2").style.opacity = 1;
+            }
+            if (skillcd[3] > 0) {
+                document.getElementById("a3").style.opacity = 1;
+            }
             
            
                
@@ -1189,7 +1329,7 @@ let castMagic = (skill) =>  {
             }
              //dragonTurn
     
-             if ((dragonHP <= 5000 && state==false) || (dragonHP == 0 && state==false)) {
+             if ((dragonHP <= dragonMaxHP/3 && state==false) || (dragonHP == 0 && state==false)) {
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
                 dragonHP = dragonMaxHP;
                 
@@ -1235,7 +1375,7 @@ let castMagic = (skill) =>  {
                 document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
                 document.getElementById("dragon").style.left = "370px";
                 document.getElementById("dragon").style.width = "450px";
-                document.getElementById("dragon").style.top = "277px";
+                document.getElementById("dragon").style.top = "309px";
 
                
                 state=true;
@@ -1384,7 +1524,9 @@ let castMagic = (skill) =>  {
                     if (energy >= 100) {
                         energy = 100;
                     }
+                    
                     break;
+                
                  case "sacredanthems":
                     energy = energy + 15;
                     if (energy >= 100) {
@@ -1737,15 +1879,33 @@ playerHealth.max = playerMaxHP;
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
         }, 1000);
-       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";},1500)}
+       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";
+        if (skillcd.some(el => el > 0) == true) {
+          for (let i = 0; i < skillcd.length; i++) {
+                if (skillcd[i] > 0) {
+                    skillcd[i]--;
+                    return;
+                }
+
+            }
+        }
         
-    } else {
-        helpText('wrongcode');
+
+        
+    },1500)}
+
+    if (skillcd[1] == 1) {
+        document.getElementById("a1").style.opacity = 0;
+    }
+    if (skillcd[2] == 1) {
+        document.getElementById("a2").style.opacity = 0;
+    }
+    if (skillcd[3] == 1) {
+        document.getElementById("a3").style.opacity = 0;
     }
     
+    }
     
-}
-
 
 function playNextFrame() {
     currentFrame++;
