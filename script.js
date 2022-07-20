@@ -59,15 +59,17 @@ let d3icon = document.getElementById("d3icon");
 let reflecticon = document.getElementById("reflecticon");
 /* character and skill stats */
 let skill;
+let playerLevel;
 let skillcd = [0,0,0,0,0]
 let energy = 0;
 let energyCon = 0;
-let dragonMaxHP = 20000;
+let dragonLevel = 1;
+let dragonMaxHP = 5000;
 let playerMaxHP = 10000;
 let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
 let playerMaxHPDefault = playerMaxHP;
-let dragonATK = 1500;
+let dragonATK = 500;
 let playerATK = 300;
 let playerdefaultatk = 300;
 let damageDragon;
@@ -100,7 +102,7 @@ let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
 let playerDEF = 300;
-let dragonDEF = 400;
+let dragonDEF = 50;
 let critRate = 10;
 let critHit = false;
 let critDmg = 0.5;
@@ -346,11 +348,11 @@ function resetGame() {
     phyDMG = 0;
     energyCon = 0;
     holyshieldcooldown = 0;
-    dragonMaxHP = 20000;
+    dragonMaxHP = 5000;
     dragonHP = dragonMaxHP;
     holyshieldamount = 0;
-    dragonATK = 1500;
-    dragonDEF = 400;
+    dragonATK = 500;
+    dragonDEF = 50;
     state = false;
     healBuff = false;
     shieldState = false;
@@ -402,7 +404,7 @@ function resetGame() {
     reflectturn = 0;
     reflectmodifier = 0;
     totaldebuffmodifier = 0;
-    
+    dragonLevel = 1;
     logmessage = "";
     pnode.innerHTML = "";
     logcontainer.innerHTML = "";
@@ -422,6 +424,7 @@ function resetGame() {
     crimsonicon.style.display = "none";
     reflecticon.style.display ="none";
 
+    document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
     poisonIcon.style.display = "none";
     bleedIcon.style.display = "none";
     dmgReceiveIcon.style.display = "none";
@@ -534,7 +537,7 @@ let holyHealSkill = (holyhealing) => {
 
 }
 
-
+document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
 
 function doubledmg() {
     doubledmgState = true;
@@ -738,11 +741,10 @@ let helpText = (a) => {
             document.getElementById('cast').style.display = 'none';
             break;
         case "dragonstats":
-            popup.innerHTML = "<h2>Fafnir the First King</h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"/"+dragonMaxHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><p>Dragon's DEF: "+dragonDEF.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Fafnir the First King Lvl."+dragonLevel+" </h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"/"+dragonMaxHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><p>Dragon's DEF: "+dragonDEF.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
             break;
         case "enraged":
-            popup.innerHTML = "<h2>The dragon is enraged!</h2><p>Its ATK, DEF, and Max HP are significantly higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
-            enragedicon.style.display = "block";
+            popup.innerHTML = "<h2>The dragon has leveled up!</h2><p>Its ATK, DEF, and Max HP are higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
             break;
         case "wrongcode":
             popup.innerHTML = "<h2>Warning</h2><p>Cannot cast the input spell.</p><button onclick='closePopup()'>close</button>";
@@ -1327,62 +1329,8 @@ let castMagic = (skill) =>  {
                 dragonHP -= damagePlayer.toFixed(0);
                
             }
-             //dragonTurn
-    
-             if ((dragonHP <= dragonMaxHP/3 && state==false) || (dragonHP == 0 && state==false)) {
-                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.5;
-                dragonHP = dragonMaxHP;
-                
-                dragonATK = dragondefaultatk + dragondefaultatk*0.8;
-                dragonDEF = dragondefaultdef + dragondefaultdef*0.5;
-                dragondefaultatk = 2700;
-                dragondefaultdef = 600;
-                poisonDot = 0;
-                poisonState = false;
-                poisonTurn = 0;
-                dmgreceive = false;
-    
-                bleedState = false;
-                bleedTurn = 0;
-                bleedDot = 0;
-                huntermark = false;
-                lightmark = 0;
-                lightatkdebuff = false;
-                lightatkdebuffturn = 0;
-                stun = false;
-                stunmodifier = 1;
-                stunturn = 0;
-                soulsiphon = false;
-                mindgleaning = false;
-                bloodsigil = 0;
-                hd = [0,0,0];
-                poisonIcon.style.display = "none";
-                bleedIcon.style.display = "none";
-                dmgReceiveIcon.style.display = "none";
-                lightmarkicon.style.display = "none";
-                lightatkdebufficon.style.display = "none";
-                soulsiphonicon.style.display = "none";
-                mindgleaningicon.style.display = "none";
-                bloodsigilicon.style.display = "none";
-    
-                d1icon.style.display = "none";
-                d2icon.style.display = "none";
-                d3icon.style.display = "none";
-          
-                document.getElementById("stunicon").style.display = "none";
-                helpText('enraged');
-
-                document.getElementById("dragon").setAttribute("src","images/dragon_enraged.gif");
-                document.getElementById("dragon").style.left = "370px";
-                document.getElementById("dragon").style.width = "450px";
-                document.getElementById("dragon").style.top = "309px";
-
-               
-                state=true;
-            } else if (dragonHP <= 5000 && state==true) {
-            state = true;
-        }
-        
+ 
+             
             //check debuff states and calculate debuff dmg
             if (hunteratkcooldown == 0 && critHit == false) {
                         hunteratkbuff = false;
@@ -1459,7 +1407,7 @@ let castMagic = (skill) =>  {
                 if (lightatkdebuffturn > 0) {
                     lightatkdebuffturn--;
                 } else if (lightatkdebuffturn == 0) {
-                    dragonATK = 1500;
+                    dragonATK = dragondefaultatk;
                     lightatkdebuffturn=0;
                     lightatkdebuff=false;
                     lightatkdebufficon.style.display="none";
@@ -1843,23 +1791,59 @@ playerHealthText.innerHTML = parseInt(playerHP);
 playerMaxHPText.innerHTML = parseInt(playerMaxHP);
 playerHealth.max = playerMaxHP;
         //reflect
-        if (dragonHP < 0 && playerHP > 0) {
-            dragonHP = 0;
-            document.getElementById('dragon').style.display = 'block';
-            document.getElementById("tutorial").style.display = "block";
-            document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Congrats!</h5><p>You've defeated the dragon in "+turn+ " turns and claimed a chest of gold!</p><br><img src='images/treasure.gif' style='width: 250px;'><br><br><br><button onClick='window.location.reload();'>play again</button>";
-
-        } else if (playerHP < 0 && dragonHP > 0) {
+        if (dragonHP <= 0) {
+                helpText('enraged');
+                dragonMaxHP = dragonMaxHP + dragonMaxHP*0.1 + random(50,95)*dragonLevel;
+                dragonHP = dragonMaxHP;
+                dragonDEF = dragonDEFTemp;
+                dragonATK = dragondefaultatk + dragondefaultatk*0.1 + random(15,25)*dragonLevel;
+                dragonDEF = dragondefaultdef + dragondefaultdef*0.1 + random(13,21)*dragonLevel;
+                dragondefaultatk = dragonATK;
+                dragondefaultdef = dragonDEF;
+                poisonDot = 0;
+                poisonState = false;
+                poisonTurn = 0;
+                dmgreceive = false;
+                dragonLevel++;
+                bleedState = false;
+                bleedTurn = 0;
+                bleedDot = 0;
+                huntermark = false;
+                lightmark = 0;
+                lightatkdebuff = false;
+                lightatkdebuffturn = 0;
+                stun = false;
+                stunmodifier = 1;
+                stunturn = 0;
+                soulsiphon = false;
+                mindgleaning = false;
+                bloodsigil = 0;
+                hd = [0,0,0];
+                poisonIcon.style.display = "none";
+                bleedIcon.style.display = "none";
+                dmgReceiveIcon.style.display = "none";
+                lightmarkicon.style.display = "none";
+                lightatkdebufficon.style.display = "none";
+                soulsiphonicon.style.display = "none";
+                mindgleaningicon.style.display = "none";
+                bloodsigilicon.style.display = "none";
+            
+                d1icon.style.display = "none";
+                d2icon.style.display = "none";
+                d3icon.style.display = "none";
+                dragonHealth.value = dragonHP;
+                dragonHealth.max = dragonMaxHP;
+                document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
+                document.getElementById("stunicon").style.display = "none";
+                
+    
+    }
+    
+         if (playerHP < 0) {
             playerHP = 0;
             document.getElementById("tutorial").style.display = "block";
             document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
      
-        } else if (playerHP < 0 && dragonHP < 0) {
-            playerHP = 0;
-            dragonHP = 0;
-            document.getElementById('dragon').style.display = 'block';
-            document.getElementById("tutorial").style.display = "block";
-            document.getElementById("tutorial").innerHTML = "<h5 id='welcome'>Oh No!</h5><p>You're both dead. Better luck next time.</p><br><img src='images/dead.gif' style='width: 150px'><br><button onClick='window.location.reload();'>try again</button>";
             
         }
             turnText.innerHTML = "<p id='turn'>Turn: " + turn + "</p>";
@@ -1870,10 +1854,10 @@ playerHealth.max = playerMaxHP;
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
-            let cointemp = random(100,200);
+            let cointemp = random(100,200)*dragonLevel*0.3;
             coin = coin + cointemp;
-            document.getElementById("coin").innerHTML = coin;
-            document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
+            document.getElementById("coin").innerHTML = coin.toFixed(0);
+            document.getElementById("cointext").innerHTML = "Available coins: "+ coin.toFixed(0);
             logmessage = "You received <span class='damage'>"+cointemp+" coins.";
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
