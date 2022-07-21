@@ -70,7 +70,7 @@ let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
 let playerMaxHPDefault = playerMaxHP;
 let dragonATK = 500;
-let playerATK = 300;
+let playerATK = 33300;
 let playerdefaultatk = 300;
 let damageDragon;
 let damagePlayer;
@@ -438,10 +438,6 @@ function resetGame() {
     d3icon.style.display ="none";
     
     document.getElementById("stun").style.display = "none";
-    document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-    document.getElementById("dragon").style.top = "280px";
-    document.getElementById("dragon").style.width = "252px";
-    document.getElementById("dragon").style.left = "510px";
     document.getElementById('holyshield').style.pointerevents = 'auto';
     document.getElementById('holyshield').style.cursor = 'pointer';
     document.getElementById('holyshield').style.opacity = '1';
@@ -1776,6 +1772,14 @@ let castMagic = (skill) =>  {
         } else {
             playerHP -= damageDragon.toFixed(0);
         }
+        document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
+        document.getElementById("dragon").style.cssText = "width: 560px; top: 10px; left: 421px; margin-left: -217px; position: absolute;"
+        setTimeout(()=>{
+            document.getElementById("dragon").setAttribute("src","images/dragon.gif");
+            document.getElementById("dragon").style.cssText = "width: 225px; top: 245px; left: 478px; margin-left: -217px; position: absolute;"
+        
+        }, 1500);
+
         document.getElementById("playerdmgtext").innerHTML = damageDragon.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
                 document.getElementById("playerdmgtext").style.left = "849px";
@@ -1808,7 +1812,7 @@ playerHealth.max = playerMaxHP;
                 bleedState = false;
                 bleedTurn = 0;
                 bleedDot = 0;
-                huntermark = false;
+                
                 lightmark = 0;
                 lightatkdebuff = false;
                 lightatkdebuffturn = 0;
@@ -1817,7 +1821,7 @@ playerHealth.max = playerMaxHP;
                 stunturn = 0;
                 soulsiphon = false;
                 mindgleaning = false;
-                bloodsigil = 0;
+    
                 hd = [0,0,0];
                 poisonIcon.style.display = "none";
                 bleedIcon.style.display = "none";
@@ -1826,7 +1830,7 @@ playerHealth.max = playerMaxHP;
                 lightatkdebufficon.style.display = "none";
                 soulsiphonicon.style.display = "none";
                 mindgleaningicon.style.display = "none";
-                bloodsigilicon.style.display = "none";
+                
             
                 d1icon.style.display = "none";
                 d2icon.style.display = "none";
@@ -1834,6 +1838,13 @@ playerHealth.max = playerMaxHP;
                 dragonHealth.value = dragonHP;
                 dragonHealth.max = dragonMaxHP;
                 document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
+                document.getElementById("dragon").setAttribute("src","images/dragon_levelup.gif");
+        document.getElementById("dragon").style.cssText = "width: 461px; top: 191px; left: 389px; margin-left: -217px; position: absolute;"
+        setTimeout(()=>{
+            document.getElementById("dragon").setAttribute("src","images/dragon.gif");
+            document.getElementById("dragon").style.cssText = "width: 225px; top: 245px; left: 478px; margin-left: -217px; position: absolute;"
+        
+        }, 900);
                 document.getElementById("stunicon").style.display = "none";
                 
     
