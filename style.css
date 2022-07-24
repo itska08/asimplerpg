@@ -676,7 +676,7 @@ button {
 	background-color: rgba(0, 0, 0, 0.0);
 }
 ul {
-	border: 3px solid #ffffff;
+	border: 3px solid #a5a5a5;
 	background-color: rgba(0, 0, 0, 0.4);
 	border-radius: 25px;
 	padding: 30px 25px;
@@ -769,19 +769,13 @@ li {
 
 #skillactive {
 	display: block;
-	
+	border: none;
+}
+#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6 {
+	display: none;
+	border: none;
 }
 
-#skillactive2 {
-	display: none;
-}
-
-#skillactive3 {
-	display: none;
-}
-#skillactive5 {
-	display: none;
-}
 #lighticon {
 	display: none;
 }
@@ -816,9 +810,7 @@ li {
 	background-color: #53223f;
 }
 
-#skillactive4 {
-	display: none;
-}
+
 #soulsiphonicon, #mindgleaningicon, #moonicon, #crimsonicon {
 	display: none;
 }
@@ -826,9 +818,7 @@ li {
 #swordsinger, #swordsinger2, #swordsingerclass, #s21, #s22, #s23, #s24 {
 	background-color: #aa6831 ;
 }
-#skillactive6 {
-	display: none;
-}
+
 #d1icon, #d2icon, #d3icon, #reflecticon {
 	display: none;
 }
