@@ -346,6 +346,7 @@ progress {
 	outline: none;
 	-webkit-appearance: none;
    	appearance: none;
+	 transition: width 0.5s ease;
 	
 }
 #holyshieldbar {
@@ -361,13 +362,14 @@ progress {
 }
 progress#holyshieldbar::-webkit-progress-bar {
 	background-color: #00000000;
-	
+	transition: width 0.5s ease;
 	z-index: 99999;
 }
 
 /* For Chrome or Safari */
 progress#holyshieldbar::-webkit-progress-value {
 	background-color: #cfcfcf;
+	transition: width 0.5s ease;
 	width: 500px;
 	height: 20px;
 	position: absolute;
@@ -379,15 +381,18 @@ progress#holyshieldbar::-webkit-progress-value {
 /* For Chrome or Safari */
 progress#playerHealth::-webkit-progress-value {
 	background: rgb(160, 21, 21);
+	transition: width 0.5s ease;
 	border-radius: 50px;
 	
 }
 progress#playerHealth::-webkit-progress-bar {
+	transition: width 0.5s ease;
 
 	border-radius: 50px;
 }
 /* for Chrome or Safari */
 progress#dragonHealth::-webkit-progress-value {
+	transition: width 0.5s ease;
 	background: #eb5a1c;
 	
 
