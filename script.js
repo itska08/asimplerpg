@@ -340,6 +340,9 @@ let switchClass = (playerClass) => {
 
 function resetGame() {
     skillcd = [0,0,0,0,0];
+    document.getElementById("a1").style.opacity = 0;
+    document.getElementById("a2").style.opacity = 0;
+    document.getElementById("a3").style.opacity = 0;
     energy = 0;
     energyCon = 0;
     turn = 0;
