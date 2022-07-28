@@ -167,6 +167,7 @@ body {
 #bloodsigilicon {
 	display: none;
 }
+
 #popup {
 	z-index: 99999999;
 	position: absolute;
@@ -191,7 +192,7 @@ body {
 	width: 700px;
 	left: 50%;
 	margin-left: -384px;
-	display: block;
+	display: none;
 }
 .icon {
 	width: 70px;

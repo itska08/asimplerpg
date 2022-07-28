@@ -59,7 +59,7 @@ let d3icon = document.getElementById("d3icon");
 let reflecticon = document.getElementById("reflecticon");
 /* character and skill stats */
 let skill;
-let playerLevel;
+let playerLevel = 1;
 let skillcd = [0,0,0,0,0]
 let energy = 0;
 let energyCon = 0;
@@ -70,8 +70,8 @@ let dragonHP = dragonMaxHP;
 let playerHP = playerMaxHP;
 let playerMaxHPDefault = playerMaxHP;
 let dragonATK = 500;
-let playerATK = 33300;
-let playerdefaultatk = 300;
+let playerdefaultatk = 28000;
+let playerATK = playerdefaultatk;
 let damageDragon;
 let damagePlayer;
 let state = false;
@@ -101,7 +101,9 @@ let bleedTurnText = document.getElementById("bleedText");
 let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
-let playerDEF = 300;
+let playerdefaultdef = 250;
+let playerDEF = playerdefaultdef;
+
 let dragonDEF = 50;
 let critRate = 10;
 let critHit = false;
@@ -147,6 +149,12 @@ let stun = false;
 let stunmodifier = 1;
 let stunturn = 0;
 let coin = 0;
+let atklvlText = document.getElementById("atkup");
+let deflvlText = document.getElementById("defup");
+let hplvlText = document.getElementById("hpup");
+let lvlupPanel = document.getElementById("levelup");
+let statslvl = [1,1,1];
+let statstype;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -155,6 +163,35 @@ playerHealthText.innerHTML = parseInt(playerHP);
 playerMaxHPText.innerHTML = parseInt(playerMaxHP);
 playerDefText.innerHTML = playerDEF;
 
+let LevelUp = (statstype) => {
+    playerLevel++;
+    switch (statstype) {
+        case "atk":
+            statslvl[0]++;
+            playerdefaultatk = playerdefaultatk + playerdefaultatk*0.02*statslvl[0];
+            playerATK = playerdefaultatk;
+            playerAtkText.innerHTML = parseInt(playerATK);
+            atklvlText.innerHTML = "Lvl. "+statslvl[0];
+            break;
+        case "def":
+            statslvl[1]++;
+            playerdefaultdef = playerdefaultdef + playerdefaultdef*0.02*statslvl[1];
+            playerDEF = playerdefaultdef;
+            playerDefText.innerHTML = parseInt(playerDEF);
+            deflvlText.innerHTML = "Lvl. "+statslvl[1];
+            break;
+        case "hp":
+            statslvl[2]++;
+            playerMaxHPDefault = playerMaxHPDefault + playerMaxHPDefault*0.025*statslvl[2];
+            playerMaxHPText.innerHTML = parseInt(playerMaxHP);
+            playerMaxHP = playerMaxHPDefault;
+            playerHealth.max = playerMaxHPDefault;
+            hplvlText.innerHTML = "Lvl. "+statslvl[2];
+            break;
+    }
+    document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
+    lvlupPanel.style.display = "none";
+}
 let switchClass = (playerClass) => {
     closeSettings();
     closeTutorial();
@@ -172,9 +209,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 380;
             playerdefaultatk = 380;
-            playerDEF = 200;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 200;
+            playerDEF = playerdefaultdef;
             critRate = 20;
             defaultCrit = critRate;
             critHit = false;
@@ -201,9 +239,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 10000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 280;
             playerdefaultatk = 280;
-            playerDEF = 250;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 250;
+            playerDEF = playerdefaultdef;
             critRate = 10;
             defaultCrit = critRate;
             critHit = false;
@@ -230,9 +269,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 12000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 210;
-            playerdefaultatk = 110;
-            playerDEF = 360;
+            playerdefaultatk = 210;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 360;
+            playerDEF = playerdefaultdef;
             critRate = 15;
             defaultCrit = critRate;
             critHit = false;
@@ -259,9 +299,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 9000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 290;
             playerdefaultatk = 290;
-            playerDEF = 300;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 300;
+            playerDEF = playerdefaultdef;
             critRate = 13;
             defaultCrit = critRate;
             critHit = false;
@@ -288,9 +329,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 15000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 230;
             playerdefaultatk = 230;
-            playerDEF = 300;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 300;
+            playerDEF = playerdefaultdef;
             critRate = 10;
             defaultCrit = critRate;
             critHit = false;
@@ -317,9 +359,10 @@ let switchClass = (playerClass) => {
             playerMaxHP = 11000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
-            playerATK = 220;
-            playerdefaultatk = 190;
-            playerDEF = 330;
+            playerdefaultatk = 220;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 330;
+            playerDEF = playerdefaultdef;
             critRate = 10;
             defaultCrit = critRate;
             critHit = false;
@@ -339,6 +382,13 @@ let switchClass = (playerClass) => {
 }
 
 function resetGame() {
+    playerLevel = 1;
+    document.getElementById("playerLvl").innerHTML = "Level 1";
+    atklvlText.innerHTML = "Lvl. 1";
+deflvlText.innerHTML = "Lvl. 1";
+hplvlText.innerHTML = "Lvl. 1";
+lvlupPanel.style.display = "none";
+statslvl = [1,1,1];
     skillcd = [0,0,0,0,0];
     document.getElementById("a1").style.opacity = 0;
     document.getElementById("a2").style.opacity = 0;
@@ -1191,7 +1241,7 @@ let castMagic = (skill) =>  {
                 case "crimsonvitality":
                     phyDMG = 0;
                     eleDMG = 0;
-                    skillcd[3] = 3;
+                    skillcd[3] = 4;
                     effect.style.backgroundImage = "url('images/skill20.png')";
                     break;          
                case "sacredanthems":
@@ -1439,6 +1489,7 @@ let castMagic = (skill) =>  {
             if (crimsonbuff == true) {
                 if (crimsonturn > 0) {
                     crimsonturn--;
+                    playerMaxHP = playerMaxHPDefault + playerMaxHPDefault*0.3;
                 } else if (crimsonturn == 0) {
                     crimsonturn = 0;
                     playerMaxHP = playerMaxHPDefault;
@@ -1639,7 +1690,7 @@ let castMagic = (skill) =>  {
                     if (crimsonbuff == false) {
                         crimsonbuff = true;
                         crimsonturn = 3;
-                        playerMaxHP = playerMaxHP + playerMaxHP*0.3;
+                        playerMaxHP = playerMaxHPDefault + playerMaxHPDefault*0.3;
                     } else {
                         crimsonbuff = true;
                         crimsonturn = 3;
@@ -1846,7 +1897,7 @@ playerHealth.max = playerMaxHP;
         setTimeout(()=>{
             document.getElementById("dragon").setAttribute("src","images/dragon.gif");
             document.getElementById("dragon").style.cssText = "width: 225px; top: 245px; left: 478px; margin-left: -217px; position: absolute;"
-        
+            lvlupPanel.style.display = "block";
         }, 900);
                 document.getElementById("stunicon").style.display = "none";
                 
