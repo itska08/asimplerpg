@@ -5,6 +5,7 @@ body {
 	width: 100%;
 	height: 100%;
 }
+
 #settings {
 	z-index: 9999999;
 	position: absolute;
@@ -178,6 +179,19 @@ body {
 	left: 50%;
 	margin-left: -215px;
 	display: none;
+}
+#levelup {
+	z-index: 99999999;
+	position: absolute;
+	border: 3px solid #ffffff;
+	border-radius: 25px;
+	padding: 23px;
+	background-color: rgba(0,0,0,0.9);
+	text-align: center;
+	width: 700px;
+	left: 50%;
+	margin-left: -384px;
+	display: block;
 }
 .icon {
 	width: 70px;
@@ -610,7 +624,7 @@ h4 {
 	background-size: cover;
 	background-position: center center;
 	background-color: #1b1b1b;
-	border: 5px solid #ffffff;
+	border: 3px solid #949494;
 	margin: 10px 0;
 	padding: 30px 15px;
 	border-radius: 25px;
@@ -676,7 +690,7 @@ button {
 	background-color: rgba(0, 0, 0, 0.0);
 }
 ul {
-	border: 3px solid #a5a5a5;
+	border: none;
 	background-color: rgba(0, 0, 0, 0.4);
 	border-radius: 25px;
 	padding: 30px 25px;
