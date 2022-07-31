@@ -936,7 +936,7 @@ let castMagic = (skill) =>  {
                 }
                 break;
             case "songofmoonlight":
-                if (skillcd[1] > 0) {
+                if (skillcd[3] > 0) {
                     popup.style.display = "block";
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
