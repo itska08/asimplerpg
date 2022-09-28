@@ -171,11 +171,11 @@ let switchClass = (playerClass) => {
     switch (playerClass) {
         case "archer":
             document.getElementById("char1").setAttribute("src","images/archer.gif");
-            document.getElementById("char1").style.width = "247px";
-            document.getElementById("char1").style.top = "246px";
-            document.getElementById("char1").style.right = "247px";
+            document.getElementById("char1").style.width = "645px";
+            document.getElementById("char1").style.top = "172px";
+            document.getElementById("char1").style.right = "15px";
             switchButtonDefault.setAttribute("id","archerclass");
-            switchButtonDefault.innerHTML = "Forest Archer";
+            switchButtonDefault.innerHTML = "Mech Archer";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = "archer";
@@ -201,9 +201,9 @@ let switchClass = (playerClass) => {
         break;
         case "mage":
             document.getElementById("char1").setAttribute("src","images/mage.gif");
-            document.getElementById("char1").style.width = "192px";
-            document.getElementById("char1").style.top = "260px";
-            document.getElementById("char1").style.right = "284px";
+            document.getElementById("char1").style.width = "346px";
+            document.getElementById("char1").style.top = "201px";
+            document.getElementById("char1").style.right = "166px";
             switchButtonDefault.setAttribute("id","mageclass");
             switchButtonDefault.innerHTML = "Elemental Mage";
             document.getElementById("playerHealth").setAttribute("max","10000");
@@ -231,9 +231,9 @@ let switchClass = (playerClass) => {
             break;
         case "paladin":
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
-            document.getElementById("char1").style.width = "220px";
-            document.getElementById("char1").style.top = "278px";
-            document.getElementById("char1").style.right = "224px";
+            document.getElementById("char1").style.width = "468px";
+            document.getElementById("char1").style.top = "143px";
+            document.getElementById("char1").style.right = "11px";
             switchButtonDefault.setAttribute("id","paladinclass");
             switchButtonDefault.innerHTML = "Paladin of Light";
             document.getElementById("playerHealth").setAttribute("max","12000");
@@ -261,9 +261,9 @@ let switchClass = (playerClass) => {
             break;
         case "necromancer":
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
-            document.getElementById("char1").style.width = "308px";
-            document.getElementById("char1").style.top = "246px";
-            document.getElementById("char1").style.right = "143px";
+            document.getElementById("char1").style.width = "393px";
+            document.getElementById("char1").style.top = "227px";
+            document.getElementById("char1").style.right = "166px";
             switchButtonDefault.setAttribute("id","necromancerclass");
             switchButtonDefault.innerHTML = "Necromancer";
             document.getElementById("playerHealth").setAttribute("max","9000");
@@ -291,9 +291,9 @@ let switchClass = (playerClass) => {
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
-            document.getElementById("char1").style.width = "291px";
-            document.getElementById("char1").style.top = "271px";
-            document.getElementById("char1").style.right = "193px";
+            document.getElementById("char1").style.width = "534px";
+            document.getElementById("char1").style.top = "164px";
+            document.getElementById("char1").style.right = "88px";
             switchButtonDefault.setAttribute("id","knightclass");
             switchButtonDefault.innerHTML = "Blood Knight";
             document.getElementById("playerHealth").setAttribute("max","15000");
@@ -321,9 +321,9 @@ let switchClass = (playerClass) => {
             break;
          case "swordsinger":
             document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
-            document.getElementById("char1").style.width = "161px";
-            document.getElementById("char1").style.top = "277px";
-            document.getElementById("char1").style.right = "270px";
+            document.getElementById("char1").style.width = "563px";
+            document.getElementById("char1").style.top = "133px";
+            document.getElementById("char1").style.right = "32px";
             switchButtonDefault.setAttribute("id","swordsingerclass");
             switchButtonDefault.innerHTML = "Divine Swordsinger";
             document.getElementById("playerHealth").setAttribute("max","15000");
@@ -523,7 +523,13 @@ let LevelUp = (statstype) => {
             playerMaxHPDefault = playerMaxHPDefault + playerMaxHPDefault*0.025*statslvl[2];
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
             playerMaxHP = playerMaxHPDefault;
+            playerMaxHPText.innerHTML = playerMaxHP;
+            playerHealth.value = playerHP;
+            playerHealthText.innerHTML = parseInt(playerHP);
             playerHealth.max = playerMaxHPDefault;
+            playerHP = playerMaxHP;
+    
+   
             hplvlText.innerHTML = "Lvl. "+statslvl[2];
             break;
         case "crit":
@@ -541,6 +547,7 @@ let LevelUp = (statstype) => {
             critlvlText.innerHTML = "Lvl. "+statslvl[3];
             break;
     }
+    
     document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
     document.getElementById("message").style.pointerEvents = "auto";
     lvlupPanel.style.display = "none";
@@ -1835,13 +1842,8 @@ let castMagic = (skill) =>  {
         } else {
             playerHP -= damageDragon.toFixed(0);
         }
-        document.getElementById("dragon").setAttribute("src","images/dragon_atk.gif");
-        document.getElementById("dragon").style.cssText = "width: 560px; top: 10px; left: 421px; margin-left: -217px; position: absolute;"
-        setTimeout(()=>{
-            document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-            document.getElementById("dragon").style.cssText = "width: 225px; top: 245px; left: 478px; margin-left: -217px; position: absolute;"
         
-        }, 1500);
+     
 
         document.getElementById("playerdmgtext").innerHTML = damageDragon.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
@@ -1859,7 +1861,6 @@ playerMaxHPText.innerHTML = parseInt(playerMaxHP);
 playerHealth.max = playerMaxHP;
         //reflect
         if (dragonHP <= 0) {
-                helpText('enraged');
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.1 + random(50,95)*dragonLevel;
                 dragonHP = dragonMaxHP;
                 dragonDEF = dragonDEFTemp;
@@ -1901,12 +1902,8 @@ playerHealth.max = playerMaxHP;
                 dragonHealth.value = dragonHP;
                 dragonHealth.max = dragonMaxHP;
                 document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
-                document.getElementById("dragon").setAttribute("src","images/dragon_levelup.gif");
-        document.getElementById("dragon").style.cssText = "width: 461px; top: 191px; left: 389px; margin-left: -217px; position: absolute;"
         setTimeout(()=>{
             document.getElementById("message").style.pointerEvents = "none";
-            document.getElementById("dragon").setAttribute("src","images/dragon.gif");
-            document.getElementById("dragon").style.cssText = "width: 225px; top: 245px; left: 478px; margin-left: -217px; position: absolute;"
             lvlupPanel.style.display = "block";
             
         }, 900);

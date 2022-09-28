@@ -547,18 +547,18 @@ h5 {
 	position: relative;
 }
 #dragon {
-	width: 225px;
+	width: 356px;
 	position: absolute;
-	top: 245px;
-	left: 478px;
+	top: 172px;
+	left: 407px;
 	margin-left: -217px;
 }
 .char {
-	width: 192px;
+	width: 346px;
 	position: absolute;
 	z-index: 3;
-	top: 260px;
-	right: 284px;
+	top: 201px;
+	right: 166px;
 	transform: scaleX(-1);
 	margin-left: -200px;
 }
