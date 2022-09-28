@@ -291,9 +291,9 @@ let switchClass = (playerClass) => {
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
-            document.getElementById("char1").style.width = "534px";
+            document.getElementById("char1").style.width = "377px";
             document.getElementById("char1").style.top = "164px";
-            document.getElementById("char1").style.right = "88px";
+            document.getElementById("char1").style.right = "115px";
             switchButtonDefault.setAttribute("id","knightclass");
             switchButtonDefault.innerHTML = "Blood Knight";
             document.getElementById("playerHealth").setAttribute("max","15000");
