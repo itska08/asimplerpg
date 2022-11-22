@@ -7,19 +7,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <img id="loading-image" src="/images/loading.gif" alt="Loading..." />
-    <link rel="preload" href="/images/archer.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/dragon.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/mage.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/knight.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/swordsinger.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/paladin.gif" as="image" type="image/gif" />
-    <link rel="preload" href="/images/necromancer.gif" as="image" type="image/gif" />
+    <img id="loading-image" src="images/loading.gif" alt="Loading..." />
+    <link rel="preload" href="images/archer.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/dragon.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/mage.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/knight.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/swordsinger.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/paladin.gif" as="image" type="image/gif" />
+    <link rel="preload" href="images/necromancer.gif" as="image" type="image/gif" />
 </head>
 
 <body>
     <div id="loading">
-        <img id="loading-image" src="/images/loading.gif" alt="Loading..." />
+        <h2>Please wait while assets are being loaded...</h2>
+        <img id="loading-image" src="images/loading.gif" alt="Loading..." />
       </div>
     <div id="cover" class="flex fh-center fv-center pos-abs"><div id="progress-bar"><div id="meter"></div></div></div>
         
@@ -399,7 +400,8 @@
     </div>
     <script>
         $(window).on('load', function () {
-          $('#loading').hide();
+            $('#loading').hide();
+            $('#loading-image').hide();
         }) 
       </script>
     <script src="script.js"></script>

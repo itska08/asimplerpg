@@ -20,8 +20,8 @@ body {
   }
   
   #loading-image {
-
-	position: absolute;
+	width: 150px;
+	position: relative;
 	margin: auto;
 	z-index: 9999999999;
   }
