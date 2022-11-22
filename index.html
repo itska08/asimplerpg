@@ -7,13 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="preload" href="images/archer.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/dragon.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/mage.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/knight.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/swordsinger.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/paladin.gif" as="image" type="image/gif" />
-    <link rel="preload" href="images/necromancer.gif" as="image" type="image/gif" />
+ 
 </head>
 
 <body>
@@ -259,7 +253,7 @@
    
                 
             </div>
-            <h2 id="welcomemessage" style="position: relative; height: 75px; width: 98%; left: -3px; bottom: -360px; border-radius: 0px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">You have entered the lair of the big bad <span class="damage">Fafnir</span>.<br>Defeat it and claim your <span class="damage">treasure!</span></h2>
+            <h2 id="welcomemessage" style="position: relative; height: 75px; width: 98%; left: -3px; bottom: -375px; border-radius: 0px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">You have entered the lair of the big bad <span class="damage">Fafnir</span>.<br>Defeat it and claim your <span class="damage">treasure!</span></h2>
             
             <div class = "wrapper">
             <div id="effect"></div>
@@ -397,41 +391,7 @@
         </div>
 
     </div>
-    <script>
-        ;(function(){
-  function id(v){ return document.getElementById(v); }
-  function loadbar() {
-    var ovrl = id("overlay"),
-        prog = id("progress"),
-        stat = id("progstat"),
-        img = document.images,
-        c = 0,
-        tot = img.length;
-    if(tot == 0) return doneLoading();
-
-    function imgLoaded(){
-      c += 1;
-      var perc = ((100/tot*c) << 0) +"%";
-      prog.style.width = perc;
-      stat.innerHTML = "Loading..."+perc;
-      if(c===tot) return doneLoading();
-    }
-    function doneLoading(){
-      ovrl.style.opacity = 0;
-      setTimeout(function(){ 
-        ovrl.style.display = "none";
-      }, 1200);
-    }
-    for(var i=0; i<tot; i++) {
-      var tImg     = new Image();
-      tImg.onload  = imgLoaded;
-      tImg.onerror = imgLoaded;
-      tImg.src     = img[i].src;
-    }    
-  }
-  document.addEventListener('DOMContentLoaded', loadbar, false);
-}());
-      </script>
+    
     <script src="script.js"></script>
     
 </body>
