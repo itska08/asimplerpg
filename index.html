@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Simple RPG</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="preload" href="archer.gif" as="image" type="image/gif" />
 </head>
 
 <body>
+    <div id="loading">
+        <img id="loading-image" src="https://media.tenor.com/On7kvXhzml4AAAAi/loading-gif.gif" alt="Loading..." />
+      </div>
     <div id="cover" class="flex fh-center fv-center pos-abs"><div id="progress-bar"><div id="meter"></div></div></div>
         
     <div id="log">
@@ -386,6 +390,11 @@
         </div>
 
     </div>
+    <script>
+        $(window).on('load', function () {
+          $('#loading').hide();
+        }) 
+      </script>
     <script src="script.js"></script>
     
 </body>
