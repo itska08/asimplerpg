@@ -1931,7 +1931,7 @@ playerHealth.max = playerMaxHP;
             coin = coin + cointemp;
             document.getElementById("coin").innerHTML = coin.toFixed(0);
             document.getElementById("cointext").innerHTML = "Available coins: "+ coin.toFixed(0);
-            logmessage = "You received <span class='damage'>"+cointemp+" coins.";
+            logmessage = "You received <span class='damage'>"+cointemp.toFixed(0)+" coins.";
             pnode = document.createElement("p");
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
