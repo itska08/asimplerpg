@@ -12,7 +12,7 @@
   
       function imgLoaded(){
         c += 1;
-        var perc = ((100/tot*c) << 0) +"%";
+        var perc = ((100/tot*c) << 0).toFixed(2) +"%";
         prog.style.width = perc;
         stat.innerHTML = "Loading..."+perc;
         if(c===tot) return doneLoading();
