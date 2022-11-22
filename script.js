@@ -12,14 +12,14 @@
   
       function imgLoaded(){
         c += 1;
-        var perc = ((100/tot*c) << 0).toFixed(2) +"%";
+        var perc = ((100/tot*c) << 0) +"%";
         prog.style.width = perc;
-        stat.innerHTML = "Loading..."+perc;
+        stat.innerHTML = "Loading, please wait..."+perc;
         if(c===tot) return doneLoading();
       }
       function doneLoading(){
         ovrl.style.opacity = 0;
-        setTimeout(function(){ 
+        setTimeout(function(){
           ovrl.style.display = "none";
         }, 1200);
       }
