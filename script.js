@@ -66,7 +66,7 @@ let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 let poisonIcon = document.getElementById("poisonicon");
 let doubledmgIcon = document.getElementById("doubledmgicon");
-let playerClass = "mage";
+let playerClass;
 let switchButtonDefault = document.getElementById("mageclass");
 let bleedIcon = document.getElementById("bleedicon");
 let hunterIcon = document.getElementById("huntericon");
@@ -198,10 +198,10 @@ playerMaxHPText.innerHTML = parseInt(playerMaxHP);
 playerDefText.innerHTML = playerDEF;
 
 
-let switchClass = (playerClass) => {
+let switchClass = (playerClassName) => {
     closeSettings();
     closeTutorial();
-    switch (playerClass) {
+    switch (playerClassName) {
         case "archer":
             document.getElementById("char1").setAttribute("src","images/archer.gif");
             document.getElementById("char1").style.width = "645px";
@@ -211,7 +211,7 @@ let switchClass = (playerClass) => {
             switchButtonDefault.innerHTML = "Mech Archer";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
-            playerClass = "archer";
+            playerClass = 'archer';
             playerMaxHP = 8000;
             playerHP = playerMaxHP;
             playerMaxHPDefault = playerMaxHP;
@@ -550,6 +550,7 @@ let LevelUp = (statstype) => {
             playerDEF = playerdefaultdef;
             playerDefText.innerHTML = parseInt(playerDEF);
             deflvlText.innerHTML = "Lvl. "+statslvl[1];
+            
             break;
         case "hp":
             statslvl[2]++;
@@ -580,7 +581,11 @@ let LevelUp = (statstype) => {
             critlvlText.innerHTML = "Lvl. "+statslvl[3];
             break;
     }
-    
+    lightdefbuffturn=0;
+                    lightdefbuff=false;
+                    playerDEF = playerdefaultdef;
+                    lightdefbufficon.style.display="none";
+                    playerDefText.innerHTML = playerDEF.toFixed(0);
     document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
     document.getElementById("message").style.pointerEvents = "auto";
     lvlupPanel.style.display = "none";
@@ -671,7 +676,7 @@ let helpText = (a) => {
             popup.innerHTML = "<h2>Revered Presence</h2><img src='images/s22.png' class='icon'><br><p>Heals for 3040% of ATK + 40% of lost HP. Over-healed amount will be converted into Holy Shield.<br>Energy consumption: 40</p><button onclick='closePopup()'>close</button>";
             break;
         case "s23":
-            popup.innerHTML = "<h2>Holy Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Divine Chant</h2><img src='images/s23.png' class='icon'><br><p>Deals 400% DMG (+1515) to the target and removes all debuffs. For each removed debuff, deals an additional of 100% DMG.<br>Energy consumption: 80</p><button onclick='closePopup()'>close</button>";
             break;     
         case "s24":
             popup.innerHTML = "<h2>Transcendent Hymn</h2><img src='images/s24.png' class='icon'><br><p>Provides a Reflect buff that reflects 50% of received DMG for 2 turns.<br>Energy consumption: 50</p><button onclick='closePopup()'>close</button>";
@@ -716,14 +721,17 @@ magicField.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     // Extract the command and argument from the input
     const input = magicField.value.trim();
-    const [command, arg] = input.split(' ');
+    const [command, ...args] = input.split(' ');
+
+    // Combine the argument words into a single string and remove any spaces
+    const arg = args.join('').trim();
 
     // Call the appropriate function based on the command
     switch (command) {
       case '/skill':
         castMagic(arg);
         break;
-        case '/support':
+      case '/support':
         castSupport(arg);
         break;
       // Add more cases for other commands here
@@ -733,9 +741,10 @@ magicField.addEventListener('keydown', function(event) {
 
     // Clear the input field
     magicField.value = '';
-    
   }
 });
+
+
 
 let castSupport = (supportSkill) => {
     switch (supportSkill) {
@@ -893,225 +902,46 @@ let holyHealSkill = (holyhealing) => {
 document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
 
 
-
+let skillName;
 let castMagic = (skill) =>  {
+    console.log(playerClass);
     //playerTurn
-        let skillName;
-        //define the skill consumption
-        switch (skill) {
-            case "icebolt":
-                    skillName = "Icebolt";
-                    energyCon = 0;
+ 
+    try {
+        switch (playerClass) {
+            case 'mage':
+                mageSkill(skill);
                 break;
-            case "firerain":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Rain of Fire";
-                energyCon = 30;
-                }
+            case 'archer':
+                archerSkill(skill);
                 break;
-            case "thunderstorm":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Thunderstorm";
-                energyCon = 60;
-                }
+            case 'paladin':
+                paladinSkill(skill);
                 break;
-            case "bane":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Bane of Death";
-                energyCon = 25;
-                }
+            case 'knight':
+                knightSkill(skill);
                 break;
-            case "arrowoflight":
-                skillName = "Arrow of Light";
-                energyCon = 0;
+            case 'necromancer':
+                necroSkill(skill);
                 break;
-            case "bloodshed":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Bloodshed";
-                energyCon = 35;
-                }
-                break;
-            case "piercingshot":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Piercing Shot";
-                energyCon = 60;
-                }
-                break;
-            case "huntersinstinct":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Hunter's Instinct";
-                energyCon = 40;
-                }
-                break;           
-            case "righteousness":
-                
-                skillName = "Righteousness";
-                energyCon = 0;
-                break;
-            case "rectitude":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Rectitude";
-                energyCon = 30;
-                }
-                break;
-            case "judgment":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Judgment";
-                energyCon = 60;
-                }
-                break;
-            case "honor":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Honor";
-                energyCon = 40;
-                }
-                break;
-            case "soulsiphon":
-                
-                skillName = "Soul Siphon";
-                energyCon = 0;
-                
-                break;
-            case "mindgleaning":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Mind Gleaning";
-                energyCon = 30;
-                }
-                break;
-            case "painlessdeath":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Painless Death";
-                energyCon = 80;
-                }
-                break;
-            case "songofmoonlight":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Song of Moonlight";
-                energyCon = 40;
-                }
-                break;
-            case "bloodembrace":
-                skillName = "Blood Embrace";
-                energyCon = 0;
-                break;
-            case "rosemarysgift":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Rosemary's Gift";
-                energyCon = 30;
-                }
-                break;
-            case "ichorretaliation":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Ichor Retaliation";
-                energyCon = 70;
-                }
-                break;
-            case "crimsonvitality":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Crimson Vitality";
-                energyCon = 60;
-                }
-                break;       
-            case "sacredanthems":
-                skillName = "Sacred Anthems";
-                energyCon = 0;
-                break;
-            case "reveredpresence":
-                if (skillcd[1] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Revered Presence";
-                energyCon = 40;
-                }
-                break;
-            case "divinechant":
-                if (skillcd[2] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Holy Chant";
-                energyCon = 80;
-                }
-                break;
-            case "transcendenthymn":
-                if (skillcd[3] > 0) {
-                    popup.style.display = "block";
-                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
-                    return;
-                } else {
-                skillName = "Transcendent Hymn";
-                energyCon = 50;
-                }
+            case 'swordsinger':
+                swordsingerSkill(skill);
                 break;
             default:
                 popup.style.display = "block";
-                popup.innerHTML = "<p>Skill is not available.</p><button onclick='closePopup()'>close</button>";
-                return;                 
+                popup.innerHTML = "<p>Cannot use such skill!</p><button onclick='closePopup()'>close</button>";
+                return;
         }
-
+    } catch (error) {
+        // handle error thrown from swordsingerSkill()
+        popup.style.display = "block";
+        popup.innerHTML = "<p>" + error.message + "</p><button onclick='closePopup()'>close</button>";
+        return;
+    }
+    
+   
+        
+    
 
         if (energy < energyCon) {
             popup.style.display = "block";
@@ -1136,7 +966,7 @@ let castMagic = (skill) =>  {
                     effect.style.backgroundImage = "url('images/skill1.png')";
 
                     break;
-                case "firerain":
+                case "rainoffire":
                     
                     eleDMG = playerATK*1.5 + 450;
                     phyDMG = 0;
@@ -1157,7 +987,7 @@ let castMagic = (skill) =>  {
                     healBuffIcon.style.display = "block";
                     effect.style.backgroundImage = "url('images/skill3.png')";
                     break;
-                case "bane":
+                case "baneofdeath":
                     
                     eleDMG = playerATK*1.5 + 150;
                     phyDMG = 0;
@@ -1552,13 +1382,13 @@ let castMagic = (skill) =>  {
             if (lightdefbuff == true) {
                 if (lightdefbuffturn > 0) {
                     lightdefbuffturn--;
-                    playerDefText.innerHTML = playerDEF;
+                    playerDefText.innerHTML = playerDEF.toFixed(0);
                 } else if (lightdefbuffturn == 0) {
                     lightdefbuffturn=0;
                     lightdefbuff=false;
-                    playerDEF = playerDEFTemp;
+                    playerDEF = playerdefaultdef;
                     lightdefbufficon.style.display="none";
-                    playerDefText.innerHTML = playerDEF;
+                    playerDefText.innerHTML = playerDEF.toFixed(0);
                 }
             }
             if (moonbuff == true) {
@@ -1683,15 +1513,15 @@ let castMagic = (skill) =>  {
                 case "rectitude":
                     energy = energy - energyCon;
                     if (lightdefbuff == false) {
-                        playerDEFTemp = playerDEF;
+                  
                         lightdefbuff = true;
                         lightdefbuffturn = 2;
-                        playerDEF = playerDEF + playerDEF*0.3;
+                        playerDEF = playerdefaultdef + playerdefaultdef*0.3;
                     } else {
                         lightdefbuff = true;
                         lightdefbuffturn = 2;
                     }
-                    playerDefText.innerHTML = playerDEF;
+                    playerDefText.innerHTML = playerDEF.toFixed(0);
                     lightdefbufficon.style.display = "block";  
                     break;
                 case "honor":
@@ -2033,7 +1863,7 @@ playerHealth.max = playerMaxHP;
         document.getElementById("a3").style.opacity = 0;
     }
     
-    }
+}
     
 
 function playNextFrame() {
@@ -2148,4 +1978,256 @@ function resizeGame() {
         if (newScale > 1) newScale = 1;
     }
     container.style.transform = `scale(${newScale})`;
+}
+
+
+function mageSkill(skill) {
+    //define the skill consumption
+    switch (skill) {
+       case "icebolt":
+               skillName = "Icebolt";
+               energyCon = 0;
+           break;
+       case "rainoffire":
+           if (skillcd[1] > 0) {
+               popup.style.display = "block";
+               popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+               return;
+           } else {
+           skillName = "Rain of Fire";
+           energyCon = 30;
+           }
+           break;
+       case "thunderstorm":
+           if (skillcd[2] > 0) {
+               popup.style.display = "block";
+               popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+               return;
+           } else {
+           skillName = "Thunderstorm";
+           energyCon = 60;
+           }
+           break;
+       case "baneofdeath":
+           if (skillcd[3] > 0) {
+               popup.style.display = "block";
+               popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+               return;
+           } else {
+           skillName = "Bane of Death";
+           energyCon = 25;
+           }
+           break;
+        default:
+            throw new Error("Invalid skill for your class.");
+   }
+}
+
+function archerSkill (skill) {
+    switch (skill) {
+            case "arrowoflight":
+                skillName = "Arrow of Light";
+                energyCon = 0;
+                break;
+            case "bloodshed":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Bloodshed";
+                energyCon = 35;
+                }
+                break;
+            case "piercingshot":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Piercing Shot";
+                energyCon = 60;
+                }
+                break;
+            case "huntersinstinct":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Hunter's Instinct";
+                energyCon = 40;
+                }
+                break;
+                default:
+                    throw new Error("Invalid skill for your class."); 
+    }
+}
+
+function paladinSkill(skill) {
+    switch (skill) {
+    
+    case "righteousness":
+                
+    skillName = "Righteousness";
+    energyCon = 0;
+    break;
+case "rectitude":
+    if (skillcd[1] > 0) {
+        popup.style.display = "block";
+        popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+        return;
+    } else {
+    skillName = "Rectitude";
+    energyCon = 30;
+    }
+    break;
+case "judgment":
+    if (skillcd[2] > 0) {
+        popup.style.display = "block";
+        popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+        return;
+    } else {
+    skillName = "Judgment";
+    energyCon = 60;
+    }
+    break;
+case "honor":
+    if (skillcd[3] > 0) {
+        popup.style.display = "block";
+        popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+        return;
+    } else {
+    skillName = "Honor";
+    energyCon = 40;
+    }
+    break;
+    default:
+        throw new Error("Invalid skill for your class.");
+}
+}
+
+function necroSkill(skill) {
+    switch (skill) {
+        case "soulsiphon":
+                
+        skillName = "Soul Siphon";
+        energyCon = 0;
+        
+        break;
+    case "mindgleaning":
+        if (skillcd[1] > 0) {
+            popup.style.display = "block";
+            popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+            return;
+        } else {
+        skillName = "Mind Gleaning";
+        energyCon = 30;
+        }
+        break;
+    case "painlessdeath":
+        if (skillcd[2] > 0) {
+            popup.style.display = "block";
+            popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+            return;
+        } else {
+        skillName = "Painless Death";
+        energyCon = 80;
+        }
+        break;
+    case "songofmoonlight":
+        if (skillcd[3] > 0) {
+            popup.style.display = "block";
+            popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+            return;
+        } else {
+        skillName = "Song of Moonlight";
+        energyCon = 40;
+        }
+        break;
+        default:
+            throw new Error("Invalid skill for your class."); 
+    }
+}
+
+function knightSkill(skill) {
+    switch (skill) {
+        case "bloodembrace":
+            skillName = "Blood Embrace";
+            energyCon = 0;
+            break;
+        case "rosemarysgift":
+            if (skillcd[1] > 0) {
+                popup.style.display = "block";
+                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                return;
+            } else {
+            skillName = "Rosemary's Gift";
+            energyCon = 30;
+            }
+            break;
+        case "ichorretaliation":
+            if (skillcd[2] > 0) {
+                popup.style.display = "block";
+                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                return;
+            } else {
+            skillName = "Ichor Retaliation";
+            energyCon = 70;
+            }
+            break;
+        case "crimsonvitality":
+            if (skillcd[3] > 0) {
+                popup.style.display = "block";
+                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                return;
+            } else {
+            skillName = "Crimson Vitality";
+            energyCon = 60;
+            }
+            break;       
+        default:
+            throw new Error("Invalid skill for your class.");  
+    }
+}
+
+function swordsingerSkill(skill) {
+    switch (skill) {
+        case "sacredanthems":
+                skillName = "Sacred Anthems";
+                energyCon = 0;
+                break;
+            case "reveredpresence":
+                if (skillcd[1] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Revered Presence";
+                energyCon = 40;
+                }
+                break;
+            case "divinechant":
+                if (skillcd[2] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Divine Chant";
+                energyCon = 80;
+                }
+                break;
+            case "transcendenthymn":
+                if (skillcd[3] > 0) {
+                    popup.style.display = "block";
+                    popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
+                    return;
+                } else {
+                skillName = "Transcendent Hymn";
+                energyCon = 50;
+                }
+                break;       
+        default:
+            throw new Error("Invalid skill for your class.");
+    }
 }
