@@ -5,6 +5,28 @@ body {
 	width: 100%;
 	height: 100%;
 }
+input[type="text"] {
+	border: none;
+  	border-radius: 10px;
+  	padding: 12px 20px;
+  	background-color: #000000;
+  	background-size: cover;
+  	color: #fff;
+  	font-family: "Lucida Console";
+  	letter-spacing: 2px;
+  	text-shadow: 1px 1px 2px #000;
+	width: 700px;
+	height: 35px;
+	font-size: 22px;
+	border: 3px solid #ffeecf;
+  	transition: border-color 0.3s ease-in-out; /* add transition property */
+}
+
+input[type="text"]:focus {
+	border-color: #fdbf4b; /* changes border color when input is active to orange */
+	outline: none;
+}
+
 #overlay{
 	position:fixed;
 	z-index:9999999999;
