@@ -25,7 +25,7 @@ input[type="text"] {
   	text-shadow: 1px 1px 2px #000;
 	width: 700px;
 	height: 35px;
-	font-size: 18px;
+	font-size: 20px;
 	border: 3px solid #ffeecf;
   	transition: border-color 0.3s ease-in-out; /* add transition property */
 	
