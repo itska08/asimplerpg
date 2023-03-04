@@ -1,11 +1,13 @@
 /*jquery load function */
+
+
 ;(function(){
     function id(v){ return document.getElementById(v); }
     function loadbar() {
       var ovrl = id("overlay"),
           prog = id("progress"),
           stat = id("progstat"),
-          img = document.images,
+          img = document.querySelectorAll('img[data-src]'),
           c = 0,
           tot = img.length;
       if(tot == 0) return doneLoading();
@@ -24,14 +26,18 @@
         }, 1200);
       }
       for(var i=0; i<tot; i++) {
-        var tImg     = new Image();
-        tImg.onload  = imgLoaded;
+        var tImg = new Image();
+        tImg.onload = imgLoaded;
         tImg.onerror = imgLoaded;
-        tImg.src     = img[i].src;
-      }    
+        if(img[i].getAttribute('data-src')){
+          tImg.src = img[i].getAttribute('data-src');
+          img[i].setAttribute('src', tImg.src);
+        }
+      }
     }
     document.addEventListener('DOMContentLoaded', loadbar, false);
   }());
+  
 /* magic values */
 
 let effect = document.getElementById("effect");
