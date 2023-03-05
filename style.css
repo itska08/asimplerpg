@@ -15,26 +15,40 @@ body {
 }
 input[type="text"] {
 	border: none;
-  	border-radius: 10px;
-  	padding: 12px 20px;
-  	background-color: #000000;
-  	background-size: cover;
-  	color: #fff;
-  	font-family: "Lucida Console";
-  	letter-spacing: 2px;
-  	text-shadow: 1px 1px 2px #000;
+	border-radius: 10px;
+	padding: 12px 20px;
+	background-color: #000000;
+	background-size: cover;
+	color: #fff;
+	font-family: "Lucida Console";
+	letter-spacing: 2px;
+	
 	width: 700px;
 	height: 35px;
 	font-size: 20px;
 	border: 3px solid #ffeecf;
-  	transition: border-color 0.3s ease-in-out; /* add transition property */
-	
-}
-
-input[type="text"]:focus {
+	transition: border-color 0.3s ease-in-out; /* add transition property */
+	animation: blink-border 3s ease-in-out infinite; /* add animation property */
+  }
+  
+  input[type="text"]:focus {
 	border-color: #fdbf4b; /* changes border color when input is active to orange */
 	outline: none;
-}
+	animation: none;
+  }
+  
+  @keyframes blink-border {
+	0% {
+	  border-color: #ffeecf;
+	}
+	50% {
+	  border-color: #fdbf4b;
+	}
+	100% {
+	  border-color: #ffeecf;
+	}
+  }
+  
 
 #overlay{
 	position:fixed;
@@ -634,6 +648,7 @@ h5 {
 }
 #dragon {
 	width: 604px;
+	z-index:2;
 	position: absolute;
 	top: 29px;
 	left: 201px;

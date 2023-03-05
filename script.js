@@ -69,7 +69,7 @@ let holyshieldicon = document.getElementById("holyshieldicon");
 let dmgReceiveIcon = document.getElementById("dmgreceiveicon");
 let poisonIcon = document.getElementById("poisonicon");
 let doubledmgIcon = document.getElementById("doubledmgicon");
-let playerClass;
+let playerClass = 'mage';
 let switchButtonDefault = document.getElementById("mageclass");
 let bleedIcon = document.getElementById("bleedicon");
 let hunterIcon = document.getElementById("huntericon");
@@ -601,16 +601,16 @@ let helpText = (a) => {
     switch (a) {
         
         case "3":
-            popup.innerHTML = "<h2>Blessing of Earth</h2><img src='images/healicon.png' class='icon'><br><p>Heal yourself by 25% (+100 ~ 500) of your HP. Cooldown: 3 turns.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Earth<hr>/support healing</h2><img src='images/healicon.png' class='icon'><br><p>Heal yourself by 25% (+100 ~ 500) of your HP. Cooldown: 3 turns.</p><button onclick='closePopup()'>close</button>";
             break;
         case "4":
-            popup.innerHTML = "<h2>Blessing of Light</h2><img src='images/shield.png' class='icon'><br><p>Nullify 1 instance of attack from the dragon.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Blessing of Light<hr>/support shield</h2><img src='images/shield.png' class='icon'><br><p>Nullify 1 instance of attack from the dragon.</p><button onclick='closePopup()'>close</button>";
             break;
         case "5":
-            popup.innerHTML = "<h2>Heaven's Will</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 50% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Heaven's Will<hr>/support holyshield</h2><img src='images/holyshield.png' class='icon'><br><p>Grants you a shield of 50% of Max HP. Cooldown: 5 turns.</p><button onclick='closePopup()'>close</button>";
             break;
         case "6":
-            popup.innerHTML = "<h2>Edge of Eternity</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Edge of Eternity<hr>/support doubledmg</h2><img src='images/doubledmg.png' class='icon'><br><p>Doubles the next instance of direct attack.</p><button onclick='closePopup()'>close</button>";
             break;
         case "s1":
             popup.innerHTML = "<h2>Icebolt</h2><img src='images/s1.png' class='icon'><br><p>Deals 110% DMG (+250) to the target and restore 20~25 energy.<br>Energy consumption: 0</p><button onclick='closePopup()'>close</button>";
