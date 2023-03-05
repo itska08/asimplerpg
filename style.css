@@ -231,13 +231,22 @@ input[type="text"]:focus {
 	border: 3px solid #ffffff;
 	border-radius: 25px;
 	padding: 23px;
-	background-color: rgba(0,0,0,0.9);
+	background-color: rgba(0, 0, 0, 0.9);
 	text-align: center;
 	width: 400px;
 	left: 50%;
 	margin-left: -215px;
-	display: none;
-}
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.1s ease-in-out, visibility 0s linear 0.1s;
+  }
+  
+  #popup.show {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.1s ease-in-out, visibility 0s linear 0s;
+  }
+  
 #levelup {
 	z-index: 99999999;
 	position: absolute;
@@ -478,6 +487,26 @@ progress#dragonHealth {
 	border: 3px solid #eeeeee;
 
 }
+progress#playerHealth::-webkit-progress-value::after {
+  content: attr(value) "/" attr(max);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+}
+
+progress#dragonHealth::-webkit-progress-value::after {
+  content: attr(value) "/" attr(max);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+}
+
 #li1 {
 	margin-left: 19px;
 }
@@ -604,10 +633,10 @@ h5 {
 	position: relative;
 }
 #dragon {
-	width: 356px;
+	width: 604px;
 	position: absolute;
-	top: 172px;
-	left: 407px;
+	top: 29px;
+	left: 201px;
 	margin-left: -217px;
 }
 .char {

@@ -486,7 +486,7 @@ statslvl = [1,1,1,1];
     crimsonicon.style.display = "none";
     reflecticon.style.display ="none";
 
-    document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
+    document.getElementById("dragonname").innerHTML = "Rosemary the Dark Queen Lvl. "+dragonLevel;
     poisonIcon.style.display = "none";
     bleedIcon.style.display = "none";
     dmgReceiveIcon.style.display = "none";
@@ -519,7 +519,7 @@ statslvl = [1,1,1,1];
     document.getElementById('doubledmg').style.cursor = 'pointer';
     document.getElementById('doubledmg').style.opacity = '1';
     document.getElementById('doubledmg').setAttribute("onclick", "doubledmg()");
-    damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Fafnir</span>.<br>Defeat it and claim your <span class='damage'>treasure!</span>";
+    damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Rosemary</span>.<br>Defeat her and claim your <span class='damage'>treasure!</span>";
     dragonHealth.value = dragonHP;
     dragonHealth.max = dragonMaxHP;
     playerEnergyText.innerHTML = energy;
@@ -585,10 +585,10 @@ let LevelUp = (statstype) => {
             break;
     }
     lightdefbuffturn=0;
-                    lightdefbuff=false;
-                    playerDEF = playerdefaultdef;
-                    lightdefbufficon.style.display="none";
-                    playerDefText.innerHTML = playerDEF.toFixed(0);
+    lightdefbuff=false;
+    playerDEF = playerdefaultdef;
+    lightdefbufficon.style.display="none";
+    playerDefText.innerHTML = playerDEF.toFixed(0);
     document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
     document.getElementById("message").style.pointerEvents = "auto";
     lvlupPanel.style.display = "none";
@@ -597,7 +597,7 @@ let LevelUp = (statstype) => {
 
 
 let helpText = (a) => {
-    popup.style.display = "block";
+   popup.classList.add('show');
     switch (a) {
         
         case "3":
@@ -707,7 +707,7 @@ let helpText = (a) => {
             document.getElementById('cast').style.display = 'none';
             break;
         case "dragonstats":
-            popup.innerHTML = "<h2>Fafnir the First King Lvl."+dragonLevel+" </h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Dragon's HP: "+dragonHP.toFixed(0)+"/"+dragonMaxHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><p>Dragon's DEF: "+dragonDEF.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
+            popup.innerHTML = "<h2>Rosemary The Dark Queen Lvl."+dragonLevel+" </h2><h3 class='flavortextminus'>Type: Big Bad Boss</h3><br><br><p>Rosemary's HP: "+dragonHP.toFixed(0)+"/"+dragonMaxHP.toFixed(0)+"</p><p>Dragon's ATK: "+dragonATK.toFixed(0)+"</p><p>Rosemary's DEF: "+dragonDEF.toFixed(0)+"</p><br><button onclick='closePopup()'>close</button>";
             break;
         case "enraged":
             popup.innerHTML = "<h2>The dragon has leveled up!</h2><p>Its ATK, DEF, and Max HP are higher and its HP is restored! Be careful!</p><button onclick='closePopup()'>close</button>";
@@ -756,13 +756,13 @@ let castSupport = (supportSkill) => {
                 playerHP = playerMaxHP;
                 playerHealth.value = playerHP;
                 playerHealthText.innerHTML = parseInt(playerHP);
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>Your HP is already at maximum!</p><button onclick='closePopup()'>close</button>";
             } else if (playerHP == 0) {
                 playerHP = 0;
                 playerHealth.value = playerHP;
                 playerHealthText.innerHTML = parseInt(playerHP);
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>You are already dead.</p><button onclick='closePopup()'>close</button>";
             } else {
                 if (healBuff == true) {
@@ -902,7 +902,7 @@ let holyHealSkill = (holyhealing) => {
 
 }
 
-document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
+document.getElementById("dragonname").innerHTML = "Rosemary the Dark Queen Lvl. "+dragonLevel;
 
 
 let skillName;
@@ -931,13 +931,13 @@ let castMagic = (skill) =>  {
                 swordsingerSkill(skill);
                 break;
             default:
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>Cannot use such skill!</p><button onclick='closePopup()'>close</button>";
                 return;
         }
     } catch (error) {
         // handle error thrown from swordsingerSkill()
-        popup.style.display = "block";
+       popup.classList.add('show');
         popup.innerHTML = "<p>" + error.message + "</p><button onclick='closePopup()'>close</button>";
         return;
     }
@@ -947,7 +947,7 @@ let castMagic = (skill) =>  {
     
 
         if (energy < energyCon) {
-            popup.style.display = "block";
+           popup.classList.add('show');
             popup.innerHTML = "<p>You don't have enough energy to use "+skillName+"!</p><button onclick='closePopup()'>close</button>";
             energy = energy;
             playerEnergyText.innerHTML = energy;
@@ -1768,10 +1768,10 @@ playerHealth.max = playerMaxHP;
                 dragonMaxHP = dragonMaxHP + dragonMaxHP*0.1 + random(50,95)*dragonLevel;
                 dragonHP = dragonMaxHP;
                 dragonDEF = dragonDEFTemp;
-                dragonATK = dragondefaultatk + dragondefaultatk*0.1 + random(15,25)*dragonLevel;
-                dragonDEF = dragondefaultdef + dragondefaultdef*0.1 + random(13,21)*dragonLevel;
-                dragondefaultatk = dragonATK;
-                dragondefaultdef = dragonDEF;
+                dragondefaultatk= dragondefaultatk + dragondefaultatk*0.1 + random(15,25)*dragonLevel;
+                dragondefaultdef = dragondefaultdef + dragondefaultdef*0.1 + random(13,21)*dragonLevel;
+                dragonATK = dragondefaultatk;
+                dragonDEF = dragondefaultdef;
                 poisonDot = 0;
                 poisonState = false;
                 poisonTurn = 0;
@@ -1805,7 +1805,7 @@ playerHealth.max = playerMaxHP;
                 d3icon.style.display = "none";
                 dragonHealth.value = dragonHP;
                 dragonHealth.max = dragonMaxHP;
-                document.getElementById("dragonname").innerHTML = "Fafnir the First King Lvl. "+dragonLevel;
+                document.getElementById("dragonname").innerHTML = "Rosemary the Dark Queen Lvl. "+dragonLevel;
         setTimeout(()=>{
             document.getElementById("message").style.pointerEvents = "none";
             lvlupPanel.style.display = "block";
@@ -1883,7 +1883,7 @@ function playNextFrame() {
 }
 
 function closePopup() {
-    popup.style.display = "none";
+    popup.classList.remove('show');
 }
 function openMenu() {
 
@@ -1993,7 +1993,7 @@ function mageSkill(skill) {
            break;
        case "rainoffire":
            if (skillcd[1] > 0) {
-               popup.style.display = "block";
+              popup.classList.add('show');
                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
                return;
            } else {
@@ -2003,7 +2003,7 @@ function mageSkill(skill) {
            break;
        case "thunderstorm":
            if (skillcd[2] > 0) {
-               popup.style.display = "block";
+              popup.classList.add('show');
                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                return;
            } else {
@@ -2013,7 +2013,7 @@ function mageSkill(skill) {
            break;
        case "baneofdeath":
            if (skillcd[3] > 0) {
-               popup.style.display = "block";
+              popup.classList.add('show');
                popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                return;
            } else {
@@ -2034,7 +2034,7 @@ function archerSkill (skill) {
                 break;
             case "bloodshed":
                 if (skillcd[1] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
@@ -2044,7 +2044,7 @@ function archerSkill (skill) {
                 break;
             case "piercingshot":
                 if (skillcd[2] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
@@ -2054,7 +2054,7 @@ function archerSkill (skill) {
                 break;
             case "huntersinstinct":
                 if (skillcd[3] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
@@ -2077,7 +2077,7 @@ function paladinSkill(skill) {
     break;
 case "rectitude":
     if (skillcd[1] > 0) {
-        popup.style.display = "block";
+       popup.classList.add('show');
         popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
         return;
     } else {
@@ -2087,7 +2087,7 @@ case "rectitude":
     break;
 case "judgment":
     if (skillcd[2] > 0) {
-        popup.style.display = "block";
+       popup.classList.add('show');
         popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
         return;
     } else {
@@ -2097,7 +2097,7 @@ case "judgment":
     break;
 case "honor":
     if (skillcd[3] > 0) {
-        popup.style.display = "block";
+       popup.classList.add('show');
         popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
         return;
     } else {
@@ -2120,7 +2120,7 @@ function necroSkill(skill) {
         break;
     case "mindgleaning":
         if (skillcd[1] > 0) {
-            popup.style.display = "block";
+           popup.classList.add('show');
             popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
             return;
         } else {
@@ -2130,7 +2130,7 @@ function necroSkill(skill) {
         break;
     case "painlessdeath":
         if (skillcd[2] > 0) {
-            popup.style.display = "block";
+           popup.classList.add('show');
             popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
             return;
         } else {
@@ -2140,7 +2140,7 @@ function necroSkill(skill) {
         break;
     case "songofmoonlight":
         if (skillcd[3] > 0) {
-            popup.style.display = "block";
+           popup.classList.add('show');
             popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
             return;
         } else {
@@ -2161,7 +2161,7 @@ function knightSkill(skill) {
             break;
         case "rosemarysgift":
             if (skillcd[1] > 0) {
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
                 return;
             } else {
@@ -2171,7 +2171,7 @@ function knightSkill(skill) {
             break;
         case "ichorretaliation":
             if (skillcd[2] > 0) {
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                 return;
             } else {
@@ -2181,7 +2181,7 @@ function knightSkill(skill) {
             break;
         case "crimsonvitality":
             if (skillcd[3] > 0) {
-                popup.style.display = "block";
+               popup.classList.add('show');
                 popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                 return;
             } else {
@@ -2202,7 +2202,7 @@ function swordsingerSkill(skill) {
                 break;
             case "reveredpresence":
                 if (skillcd[1] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[1]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
@@ -2212,7 +2212,7 @@ function swordsingerSkill(skill) {
                 break;
             case "divinechant":
                 if (skillcd[2] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[2]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
@@ -2222,7 +2222,7 @@ function swordsingerSkill(skill) {
                 break;
             case "transcendenthymn":
                 if (skillcd[3] > 0) {
-                    popup.style.display = "block";
+                   popup.classList.add('show');
                     popup.innerHTML = "<p>This skill is in CD. Please wait "+skillcd[3]+" more turns.</p><button onclick='closePopup()'>close</button>";
                     return;
                 } else {
