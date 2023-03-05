@@ -723,7 +723,7 @@ magicField.addEventListener('keydown', function(event) {
   // Only handle the command if the Enter key is pressed
   if (event.key === 'Enter') {
     // Extract the command and argument from the input
-    const input = magicField.value.trim();
+    const input = magicField.value.trim().toLowerCase();
     const [command, ...args] = input.split(' ');
 
     // Combine the argument words into a single string and remove any spaces
