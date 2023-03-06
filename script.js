@@ -405,7 +405,7 @@ function resetGame() {
     atklvlText.innerHTML = "Lvl. 1";
 deflvlText.innerHTML = "Lvl. 1";
 hplvlText.innerHTML = "Lvl. 1";
-lvlupPanel.style.display = "none";
+lvlupPanel.classList.remove('show');
 statslvl = [1,1,1,1];
     skillcd = [0,0,0,0,0];
     document.getElementById("a1").style.opacity = 0;
@@ -600,7 +600,7 @@ let LevelUp = (statstype) => {
     playerDefText.innerHTML = playerDEF.toFixed(0);
     document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
     document.getElementById("message").style.pointerEvents = "auto";
-    lvlupPanel.style.display = "none";
+    lvlupPanel.classList.remove('show');
 }
 
 
@@ -1828,7 +1828,7 @@ playerHealth.max = playerMaxHP;
                 document.getElementById("dragonname").innerHTML = "Rosemary the Dark Queen Lvl. "+dragonLevel;
         setTimeout(()=>{
             document.getElementById("message").style.pointerEvents = "none";
-            lvlupPanel.style.display = "block";
+            lvlupPanel.classList.add('show');
             
         }, 900);
                 document.getElementById("stunicon").style.display = "none";
