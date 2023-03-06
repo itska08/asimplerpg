@@ -2,12 +2,19 @@
 
 Live preview: [[click here]](https://thaykhangne.github.io/a-simple-rpg/)
 
-Current version: 2.5
+Current version: 3.0
 
 ### Changes
 
 
 ```markdown
+# 3.0 - 6/3/2023
+- new sprites
+- ui updates
+- mechanic fixes
+- new notification system
+- change click buttons to inputting commands (try to use /skill or /support + skill name)
+- many bug fixes
 # 2.5 - 8/7/2022
 - bug fixes
 - code cleanup
