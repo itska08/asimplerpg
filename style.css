@@ -668,7 +668,6 @@ h5 {
 	width: 1300px;
 	height: 760px;
 	margin: 15px auto;
-	border: 5px solid #ffffff;
 	box-sizing: border-box;
 	position: relative;
 }
@@ -757,7 +756,6 @@ h4 {
 	background-size: cover;
 	background-position: center center;
 	background-color: #1b1b1b;
-	border: 3px solid #949494;
 	margin: 10px 0;
 	padding: 30px 15px;
 	border-radius: 25px;
