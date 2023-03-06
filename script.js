@@ -528,7 +528,7 @@ statslvl = [1,1,1,1];
     document.getElementById('doubledmg').style.cursor = 'pointer';
     document.getElementById('doubledmg').style.opacity = '1';
     document.getElementById('doubledmg').setAttribute("onclick", "doubledmg()");
-    damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Rosemary</span>.<br>Defeat her and claim your <span class='damage'>treasure!</span>";
+    damageText.innerHTML = "You have entered the lair of the big bad <span class='damage'>Rosemary.</span>";
     dragonHealth.value = dragonHP;
     dragonHealth.max = dragonMaxHP;
     playerEnergyText.innerHTML = energy;
@@ -1487,12 +1487,12 @@ let castMagic = (skill) =>  {
                             energy = 100;
                         }
                     break;
-                case "firerain":
+                case "rainoffire":
                     dmgreceive = true;
                     dmgReceiveIcon.style.display = "block";
                     energy = energy - energyCon;
                     break;
-                case "bane":
+                case "baneofdeath":
                     if (poisonState==false) {
                         poisonState = true;
                         poisonTurn = 3;
