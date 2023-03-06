@@ -779,7 +779,7 @@ span {
 .damage {
 	color: rgb(214, 65, 65);
 	font-size: 26px;
-	padding: 0px 2px;
+	padding: 0px 9px;
 	font-weight: 700;
 	line-height: 1.3em;
 	border-radius: 10px;
