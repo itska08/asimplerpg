@@ -102,6 +102,9 @@ let d1icon = document.getElementById("d1icon");
 let d2icon = document.getElementById("d2icon");
 let d3icon = document.getElementById("d3icon");
 let reflecticon = document.getElementById("reflecticon");
+let stunicon = document.getElementById("stunicon");
+let frosticon = document.getElementById("frosticon");
+let frozenicon = document.getElementById("frozenicon");
 /* character and skill stats */
 let skill;
 let playerLevel = 1;
@@ -371,8 +374,8 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.right = "32px";
             switchButtonDefault.setAttribute("id","swordsingerclass");
             switchButtonDefault.innerHTML = "Divine Swordsinger";
-            document.getElementById("playerHealth").setAttribute("max","15000");
-            document.getElementById("playerHealth").setAttribute("value","15000");
+            document.getElementById("playerHealth").setAttribute("max","11000");
+            document.getElementById("playerHealth").setAttribute("value","11000");
             playerClass = "swordsinger";
             playerMaxHP = 11000;
             playerHP = playerMaxHP;
@@ -395,6 +398,37 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive6").style.display = "block";
             
             break;
+            case "cryomancer":
+            document.getElementById("char1").setAttribute("src","images/cryomancer.gif");
+            document.getElementById("char1").style.width = "548px";
+            document.getElementById("char1").style.top = "122px";
+            document.getElementById("char1").style.right = "13px";
+            switchButtonDefault.setAttribute("id","cryomancerclass");
+            switchButtonDefault.innerHTML = "Cryomancy Empress";
+            document.getElementById("playerHealth").setAttribute("max","12000");
+            document.getElementById("playerHealth").setAttribute("value","12000");
+            playerClass = "cryomancer";
+            playerMaxHP = 12000;
+            playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
+            playerdefaultatk = 230;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 310;
+            playerDEF = playerdefaultdef;
+            defaultCrit = 20;
+            critRate = defaultCrit;
+            critHit = false;
+            critDmg = 0.7;
+            defaultCritDMG = critDmg;
+            critRoll = 0;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "none";
+            document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "block";
+            
     }
     resetGame();
 }
@@ -483,7 +517,7 @@ statslvl = [1,1,1,1];
     document.getElementById("cointext").innerHTML = "Available coins: "+ coin;
     document.getElementById("coin").innerHTML = coin;
     document.getElementById("glow").style.display = "none";
-    enragedicon.style.display = "none";
+   
     healBuffIcon.style.display = "none";
     hunterIcon.style.display = "none";
     hunterAtkIcon.style.display = "none";
@@ -848,6 +882,7 @@ let castSupport = (supportSkill) => {
     shieldicon.style.display = "block";
                 break;
             default:
+                popInput('command');
                 console.log("error");
         }
         
@@ -1273,7 +1308,7 @@ let castMagic = (skill) =>  {
                     stun = true;
                     stunmodifier = 0;
                     stunturn = 2;
-                    document.getElementById("stunicon").style.display = "block";
+                    stunicon.style.display = "block";
          
                     effect.style.backgroundImage = "url('images/skill24.png')";
                     break;   
@@ -1450,7 +1485,7 @@ let castMagic = (skill) =>  {
                     reflecticon.style.display = "block";
                     reflectturn = 3;
                     reflectmodifier = 0.5;
-                    document.getElementById("stunicon").style.display = "none";
+                    stunicon.style.display = "none";
                 }
             }
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
@@ -1831,7 +1866,7 @@ playerHealth.max = playerMaxHP;
             lvlupPanel.classList.add('show');
             
         }, 900);
-                document.getElementById("stunicon").style.display = "none";
+                stunicon.style.display = "none";
                 
     
     }

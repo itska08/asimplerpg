@@ -14,6 +14,7 @@
     <link rel="preload" as="image" href="images/paladin.gif">
     <link rel="preload" as="image" href="images/dragon.gif">
     <link rel="preload" as="image" href="images/swordsinger.gif">
+    <link rel="preload" as="image" href="images/cryomancer.gif">
 </head>
 
 <body>
@@ -72,6 +73,7 @@
             <li><button id="necromancer" class="classchange" onclick="switchClass('necromancer')">Necromancer</button></li>
             <li><button id="knight" class="classchange" onclick="switchClass('knight')">Blood Knight</button></li>
             <li><button id="swordsinger" class="classchange" onclick="switchClass('swordsinger')">Divine Swordsinger</button></li>
+            <li><button id="cryomancer" class="classchange" onclick="switchClass('cryomancer')">Cryomancy Empress</button></li>
         </ul>
         <br><br><br><br><br><br>
         <ul id="ulsettings">
@@ -82,7 +84,6 @@
         <li>
             <h2 style="font-size: 15px; background-color: #ffffff00; border: 0px;">
             <img src="images/elementalmage.png" style="width: 60px;">
-        
             <a href="#"><img src="images/s1.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(89, 131, 255); font-size: 27px;">Icebolt - 0</h3><br>Deals <span class="elemental">110% DMG (+250)</span> to the target and restore 20~25 energy.</span></a>
             <a href="#"><img src="images/s2.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(89, 131, 255); font-size: 27px;">Rain of Fire - 30</h3><br>Deals <span class="elemental">150% DMG (+450)</span> to the target and makes it receive 30% more DMG for any subsequent direct attack.</span></a>
             <a href="#"><img src="images/s3.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(89, 131, 255); font-size: 27px;">Thunderstorm - 60</h3><br>Deals <span class="elemental">510% DMG (+1950)</span> to the target. With Bane of Death, this skill's DMG is increased by 60%. Also, increases the amount of healing by 50% for the next heal skill.</span></a>
@@ -187,7 +188,7 @@
         <br><br><hr><br>
         </ul>
         <button id="settingsclose" onclick='closeSettings()'>close</button>
-        <p id="copyright">© 2022 - Khang Nguyen - v3.0</p>
+        <p id="copyright">© 2023 - Khang Nguyen - v3.0</p>
         
     </div>
 
@@ -204,6 +205,7 @@
                 <li><button id="necromancer2" class="classchange" onclick="switchClass('necromancer')">Necromancer</button></li>
                 <li><button id="knight2" class="classchange" onclick="switchClass('knight')">Blood Knight</button></li>
                 <li><button id="swordsinger2" class="classchange" onclick="switchClass('swordsinger')">Divine Swordsinger</button></li>
+                <li><button id="cryomancer2" class="classchange" onclick="switchClass('cryomancer')">Cryomancy Empress</button></li>
                 </ul> 
                 
                 <img src="images/book.gif" style="width: 250px;">
@@ -252,10 +254,10 @@
                 <a href="#" id="d1icon"><p id="d1number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d1icon.png" class="icon"><span class="tooltip"><h2 class="flavortextminus">Purity</h3><br>Decreases ATK by 4%.</span></a>
                 <a href="#" id="d2icon"><p id="d2number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d2icon.png" class="icon"><span class="tooltip"><h2 class="flavortextminus">Justice</h3><br>Decreases DEF by 4%.</span></a>
                 <a href="#" id="d3icon"><p id="d3number" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/d3icon.png" class="icon"><span class="tooltip"><h2 class="flavortextminus">Faith</h3><br>Increases Incoming DMG by 2%.</span></a>
-                <a href="#" id="stunicon" style="display: none;"><img src="images/stunicon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Chorus</h3><br>Target is stunned for 3 turns and cannot act.</span></a>
-                
-                
-                <a href="#" id="enragedicon"><img src="images/enraged.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Enraged</h3><br>The Dragon's ATK is increased by 80%, DEF is increased by 50%, and Max HP is increased by 50%.</span></a>
+                <a href="#" id="stunicon"><img src="images/stunicon.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Transcendent Chorus</h3><br>Target is stunned for 3 turns and cannot act.</span></a>
+                <a href="#" id="frosticon"><p id="frostnumber" style="position: absolute; left: 3px; top: 1px;">0</p><img src="images/s29.png" class="icon"><span class="tooltip"><h2 class="flavortextminus">Frostbite</h3><br>Increases Target's Incoming DMG by 10%.</span></a>
+                    
+                    <a href="#" id="frozenicon"><img src="images/s30.png" class="icon"><span class="tooltip"><h3 class="flavortextplus">Frozen</h3><br>Target cannot act.</span></a>
    
                 
             </div>
@@ -378,6 +380,15 @@
             <a href="#"><img src="images/s24.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 27px;">Transcendent Hymn - 50 - CD: 3 turns</h3><br>Stuns the target for 2 turns and after that, provides a Reflect buff that reflects 50% of received DMG for 3 turns.</span></a>
             <a href="#"><img src="images/p6.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(197, 109, 26); font-size: 27px;">Divine Soprano - Passive</h3><br>When total debuffs reach more than 20, total DMG received by the target increases by 30%.</span></a>
             <img src="images/swordsinger.png" style="width: 60px;">
+            </ul>
+            <ul id="skillactive7">
+                <img src="images/cryomancer.png" style="width: 60px;">
+                <a href="#"><img src="images/s29.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(27, 159, 168); font-size: 27px;">Frosty Crown - 0</h3><br>Deals <span class="elemental">120% DMG (+310)</span> to the target. Applies 1 Frost debuff. Each Frost Debuff increases target's Incoming DMG by 10%, stacks 3 times. Also, restores 15 Energy.</span></a>
+                    <a href="#"><img src="images/s30.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(27, 159, 168); font-size: 27px;">Frigid Mind- 40</h3><br>Deals <span class="elemental">220% DMG (+570)</span> to the target. For each Frost debuff, applies Frozen state to the target for 1 turn. In Frozen state, the target cannot act.</span></a>
+                    <a href="#"><img src="images/s31.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(27, 159, 168); font-size: 27px;">Icy Heart - 80</h3><br>Deals <span class="elemental">500% DMG (+1800)</span> to the target. If the target is Frozen, removes Frozen state and all Frost debuffs and deals DMG that ignores target's DEF and increases this skill's DMG by 40% for each removed debuff.</span></a>
+                    <a href="#"><img src="images/s32.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(27, 159, 168); font-size: 27px;">Glacial Aura - 40</h3><br>Turns into an Ice Empress for 3 turns. During this time, increases her own DMG by 40% and decreases her received DMG by 30%.</span></a>
+                    <a href="#"><img src="images/p7.png" class="icon"><span class="tooltip"><h2 class="flavortextminus" style="color: rgb(27, 159, 168); font-size: 27px;">Everwinter Gaze - Passive</h3><br>DMG dealt to targets under Frozen state is increases by 40%. When received DMG that leads to death, stays alive with 1 HP. Only usable once per battle.</span></a>
+            <img src="images/cryomancer.png" style="width: 60px;">
             </ul>
         </ul>
   
