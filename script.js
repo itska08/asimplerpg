@@ -204,6 +204,10 @@ let critlvlText = document.getElementById("critup");
 let lvlupPanel = document.getElementById("levelup");
 let statslvl = [1,1,1,1];
 let statstype;
+let frost = 0;
+let frozen = false;
+let frozenturn = 0;
+let frozenmodifier = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -246,6 +250,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "none";
         break;
         case "mage":
             document.getElementById("char1").setAttribute("src","images/mage.gif");
@@ -276,6 +281,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "none";
             break;
         case "paladin":
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
@@ -306,6 +312,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "none";
             break;
         case "necromancer":
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
@@ -336,6 +343,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "block";
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "none";
             break;
         case "knight":
             document.getElementById("char1").setAttribute("src","images/knight.gif");
@@ -366,6 +374,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "block";
             document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "none";
             break;
          case "swordsinger":
             document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
@@ -396,6 +405,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive4").style.display = "none";
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "block";
+            document.getElementById("skillactive7").style.display = "none";
             
             break;
             case "cryomancer":
@@ -499,7 +509,13 @@ statslvl = [1,1,1,1];
     soulsiphon = false;
     mindgleaning = false;
     bloodsigil = 0;
-    
+    frozen = false;
+                frozenmodifier = 0;
+                frozenturn = 0;
+                frost = 0;
+                frosticon.style.display = "none";
+                document.getElementById("frostnumber").innerHTML = "0";
+                document.getElementById("frozennumber").innerHTML = "0";
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
     playerATKTemp = 0;
@@ -976,6 +992,9 @@ let castMagic = (skill) =>  {
             case 'swordsinger':
                 swordsingerSkill(skill);
                 break;
+            case 'cryomancer':
+                cryomancerSkill(skill);
+                break;
             default:
                
                 return;
@@ -1311,7 +1330,61 @@ let castMagic = (skill) =>  {
                     stunicon.style.display = "block";
          
                     effect.style.backgroundImage = "url('images/skill24.png')";
-                    break;   
+                    break;
+                case "frostycrown":
+                    phyDMG = 0;
+                    eleDMG = playerATK*1.2 + 310;
+                    if (frost < 3) {
+                        frost++;
+                    } else {
+                        frost = 3;
+                        
+                    }
+                    document.getElementById("frostnumber").innerHTML = frost;
+                    frosticon.style.display = "block";
+                    //effect.style.backgroundImage = "url('images/skill29.png')";
+                    break;
+                case "frigidmind":
+                    skillcd[1] = 2;
+                    phyDMG = 0;
+                    eleDMG = playerATK*2.2 + 570;
+                    if (frost > 0) {
+                        console.log(frost);
+                        frozen = true;
+                        frozenturn = frost;
+                        frozenmodifier = 0.4;
+                        document.getElementById("frozenicon").style.display = "block";
+                        document.getElementById("frozennumber").innerHTML = frozenturn+1;
+                    }
+                    //effect.style.backgroundImage = "url('images/skill30.png')";
+                    break;
+                case "icyheart":
+                    phyDMG = 0;
+                    if (frozen == true) {
+                        eleDMG = (playerATK*5 + 1800)*1.4*frost;
+                        frost = 0;
+                        frozen = false;
+                        frozenturn = 0;
+                        frozenmodifier = 0;
+                        frosticon.style.display = "none";
+                        document.getElementById("frostnumber").innerHTML = "0";
+                        document.getElementById("frozenicon").style.display = "none";
+                        document.getElementById("frozennumber").innerHTML = "0";
+                    } else {
+                        eleDMG = playerATK*5 + 1800;
+                    }
+                
+                    skillcd[2] = 5;
+                    //effect.style.backgroundImage = "url('images/skill19.png')";
+                    break;
+                case "glacialaura":
+                    phyDMG = 0;
+                    eleDMG = 0;
+                    healSkill(playerMaxHP*0.3);
+                    holyHealSkill(playerMaxHP*0.4);
+                    skillcd[3] = 3;
+                    //effect.style.backgroundImage = "url('images/skill32.png')";
+                    break; 
                                           
             }
             if (skillcd[1] > 0) {
@@ -1333,7 +1406,7 @@ let castMagic = (skill) =>  {
                 totaldebuffmodifier = 0;
             }
             
-            if (skill == "huntersinstinct" || skill == "crimsonvitality" || skill == "reveredpresence" || skill == "transcendenthymn") {
+            if (skill == "huntersinstinct" || skill == "crimsonvitality" || skill == "reveredpresence" || skill == "transcendenthymn" || skill == "glacialaura") {
                 damagePlayer = 0;
                 dragonDEFmodifier = 0;
             } else {
@@ -1354,12 +1427,12 @@ let castMagic = (skill) =>  {
             
 
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
                  dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
                
             }
@@ -1488,6 +1561,19 @@ let castMagic = (skill) =>  {
                     stunicon.style.display = "none";
                 }
             }
+            if (frozen == true) {
+                if (frozenturn > 0) {
+                    frozenturn--;
+                    document.getElementById("frozennumber").innerHTML = frozenturn+1;
+
+                } else if (frozenturn == 0) {
+                    frozenturn = 0;
+                    frozen = false;
+                    frozenmodifier = 0;
+                    frozenicon.style.display = "none";
+                    document.getElementById("frozennumber").innerHTML = "0";
+                }
+            }
             playerMaxHPText.innerHTML = parseInt(playerMaxHP);
             playerHealth.max = playerMaxHP;
             //energy calculation and effect application
@@ -1499,7 +1585,12 @@ let castMagic = (skill) =>  {
                     }
                     
                     break;
-                
+                    case "frostycrown":
+                        energy = energy + 15;
+                        if (energy >= 100) {
+                            energy = 100;
+                        }
+                        break;
                  case "sacredanthems":
                     energy = energy + 15;
                     if (energy >= 100) {
@@ -1784,7 +1875,7 @@ let castMagic = (skill) =>  {
             shieldState = false;
             shieldicon.style.display = "none";
         }
-        if (stun == true) {
+        if (stun == true || frozen == true) {
             damageDragon = 0;
         }
         if (holyshieldstate == true) {
@@ -1842,6 +1933,13 @@ playerHealth.max = playerMaxHP;
                 stun = false;
                 stunmodifier = 1;
                 stunturn = 0;
+                frozen = false;
+                frozenmodifier = 0;
+                frozenturn = 0;
+                frost = 0;
+                frosticon.style.display = "none";
+                document.getElementById("frostnumber").innerHTML = "0";
+                document.getElementById("frozennumber").innerHTML = "0";
                 soulsiphon = false;
                 mindgleaning = false;
     
@@ -1854,10 +1952,10 @@ playerHealth.max = playerMaxHP;
                 soulsiphonicon.style.display = "none";
                 mindgleaningicon.style.display = "none";
                 
-            
                 d1icon.style.display = "none";
                 d2icon.style.display = "none";
                 d3icon.style.display = "none";
+                
                 dragonHealth.value = dragonHP;
                 dragonHealth.max = dragonMaxHP;
                 document.getElementById("dragonname").innerHTML = "Rosemary the Dark Queen Lvl. "+dragonLevel;
@@ -2278,7 +2376,45 @@ function swordsingerSkill(skill) {
             throw err;
     }
 }
-
+function cryomancerSkill(skill) {
+    switch (skill) {
+            case "frostycrown":
+                skillName = "Frosty Crown";
+                energyCon = 0;
+                break;
+            case "frigidmind":
+                if (skillcd[1] > 0) {
+                   popInput('cooldown');
+                    return;
+                } else {
+                skillName = "Frigid Mind";
+                energyCon = 40;
+                }
+                break;
+            case "icyheart":
+                if (skillcd[2] > 0) {
+                   popInput('cooldown');
+                    return;
+                } else {
+                skillName = "Icy Heart";
+                energyCon = 80;
+                }
+                break;
+            case "glacialaura":
+                if (skillcd[3] > 0) {
+                   popInput('cooldown');
+                    return;
+                } else {
+                skillName = "Glacial Aura";
+                energyCon = 40;
+                }
+                break;       
+        default:
+            err = new Error("Invalid skill for your class.");
+            err.id = 'invalid-skill';
+            throw err;
+    }
+}
 function popInput(err) {
     switch (err) {
       
