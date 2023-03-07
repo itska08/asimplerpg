@@ -12,8 +12,8 @@ body {
     justify-content: center;
 	height: 80px;
 	margin: auto;
-	width: 950px;
-	bottom: -403px;
+	width: 1106px;
+	bottom: -61px;
 	border-radius: 15px;
 	background-color: #000000c5;
 	color:rgb(238, 238, 238);
@@ -349,7 +349,7 @@ input[type="text"] {
 	opacity: 1;
 	transition: all 0.1s;
 	top: 413px;
-	left: 411px;
+	left: 311px;
 	color: darkred;
 	font-weight: bold;
 	text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
@@ -989,3 +989,44 @@ li {
 #d1icon, #d2icon, #d3icon, #frozenicon, #reflecticon, #frosticon, #stunicon {
 	display: none;
 }
+
+
+  .rhombus {
+	  background: linear-gradient(rgba(245, 245, 245, 0.1), rgba(245, 245, 245, 0.1)), rgba(255, 255, 255, 0.1) no-repeat center center fixed;
+	background-size: cover;
+	width: 160px;
+	height: 160px;
+	transform: rotate(45deg);
+	position: relative;
+	top: 35px;
+	left: 879px;
+	animation: freeze 1s infinite;
+	border: 2px solid #c2d6d6;
+	box-sizing: border-box;
+	box-shadow: 0 0 10px #c2d6d6;
+  }
+  
+  @keyframes freeze {
+	50% {
+	  border-color: #f5f5f5;
+	  box-shadow: 0 0 20px #f5f5f5;
+	}
+  }
+  
+  #rhombus2 {
+	   width: 100px;
+	height: 100px;
+	  top: 63px;
+	  left: 865px;
+	  z-index: 4;
+  }
+  #rhombus3 {
+	   width: 50px;
+	height: 50px;
+	  top: -44px;
+	  left: 985px;
+  }
+  
+  #icyglass {
+	display: none;
+  }

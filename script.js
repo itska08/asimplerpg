@@ -208,6 +208,7 @@ let frost = 0;
 let frozen = false;
 let frozenturn = 0;
 let frozenmodifier = 0;
+let frostmodifier = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -223,6 +224,7 @@ let switchClass = (playerClassName) => {
    
     switch (playerClassName) {
         case "archer":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/archer.gif");
             document.getElementById("char1").style.width = "645px";
             document.getElementById("char1").style.top = "172px";
@@ -254,6 +256,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
         break;
         case "mage":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/mage.gif");
             document.getElementById("char1").style.width = "346px";
             document.getElementById("char1").style.top = "201px";
@@ -285,6 +288,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             break;
         case "paladin":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/paladin.gif");
             document.getElementById("char1").style.width = "468px";
             document.getElementById("char1").style.top = "143px";
@@ -316,6 +320,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             break;
         case "necromancer":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/necromancer.gif");
             document.getElementById("char1").style.width = "393px";
             document.getElementById("char1").style.top = "227px";
@@ -347,6 +352,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             break;
         case "knight":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/knight.gif");
             document.getElementById("char1").style.width = "377px";
             document.getElementById("char1").style.top = "164px";
@@ -378,6 +384,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             break;
          case "swordsinger":
+            document.getElementById("icyglass").style.display = "none";
             document.getElementById("char1").setAttribute("src","images/swordsinger.gif");
             document.getElementById("char1").style.width = "563px";
             document.getElementById("char1").style.top = "133px";
@@ -409,6 +416,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             break;
             case "cryomancer":
+                document.getElementById("icyglass").style.display = "block";
             document.getElementById("char1").setAttribute("src","images/cryomancer.gif");
             document.getElementById("char1").style.width = "548px";
             document.getElementById("char1").style.top = "122px";
@@ -513,6 +521,7 @@ statslvl = [1,1,1,1];
     bloodsigil = 0;
     frozen = false;
                 frozenmodifier = 0;
+                frostmodifier = 0;
                 frozenturn = 0;
                 frost = 0;
                 frosticon.style.display = "none";
@@ -1033,6 +1042,7 @@ let castMagic = (skill) =>  {
         } else {
 
             document.getElementById('message').style.pointerEvents = "none";
+            magicField.disabled = true;
             currentFrame = 1;
             
            
@@ -1343,12 +1353,13 @@ let castMagic = (skill) =>  {
                         frost = 3;
                         
                     }
+                    frostmodifier = frost/10;
                     document.getElementById("frostnumber").innerHTML = frost;
                     frosticon.style.display = "block";
                     //effect.style.backgroundImage = "url('images/skill29.png')";
                     break;
                 case "frigidmind":
-                    skillcd[1] = 2;
+                    skillcd[1] = 3;
                     phyDMG = 0;
                     eleDMG = playerATK*2.2 + 570;
                     if (frost > 0) {
@@ -1364,7 +1375,7 @@ let castMagic = (skill) =>  {
                 case "icyheart":
                     phyDMG = 0;
                     if (frozen == true) {
-                        eleDMG = (playerATK*5 + 1800)*1.4*frost;
+                        eleDMG = (playerATK*2.3 + 1800)*1.4*frost;
                         frost = 0;
                         frozen = false;
                         frozenturn = 0;
@@ -1430,12 +1441,12 @@ let castMagic = (skill) =>  {
             
 
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier + damagePlayer*frostmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
                  dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier + damagePlayer*frostmodifier;
                 dragonHP -= damagePlayer.toFixed(0);
                
             }
@@ -1825,7 +1836,7 @@ let castMagic = (skill) =>  {
             if (critHit == false) {
                 document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
-                document.getElementById("playerdmgtext").style.left = "411px";
+                document.getElementById("playerdmgtext").style.left = "311px";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
                 logmessage = "You did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
@@ -1834,7 +1845,7 @@ let castMagic = (skill) =>  {
             } else {
                 document.getElementById("playerdmgtext").innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
                 document.getElementById("playerdmgtext").style.display = "block";
-                document.getElementById("playerdmgtext").style.left = "411px";
+                document.getElementById("playerdmgtext").style.left = "311px";
                 setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
                 document.getElementById("playerdmgtext").style.opacity = 1;
                 logmessage = "You did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
@@ -1997,7 +2008,9 @@ playerHealth.max = playerMaxHP;
             pnode.innerHTML = "<span class='damage'>Turn "+ turn + "</span>: " + logmessage;
             logcontainer.prepend(pnode);
         }, 1000);
-       setTimeout(()=>{document.getElementById('message').style.pointerEvents = "auto";
+       setTimeout(()=>{
+        document.getElementById('message').style.pointerEvents = "auto";
+        magicField.disabled = false;
         if (skillcd[1] > 0) {
             skillcd[1]--;
         }
