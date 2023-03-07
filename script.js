@@ -105,7 +105,6 @@ let reflecticon = document.getElementById("reflecticon");
 let stunicon = document.getElementById("stunicon");
 let frosticon = document.getElementById("frosticon");
 let frozenicon = document.getElementById("frozenicon");
-
 /* character and skill stats */
 let skill;
 let playerLevel = 1;
@@ -409,6 +408,41 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive7").style.display = "none";
             
             break;
+            case "cryomancer":
+            document.getElementById("char1").setAttribute("src","images/cryomancer.gif");
+            document.getElementById("char1").style.width = "548px";
+            document.getElementById("char1").style.top = "122px";
+            document.getElementById("char1").style.right = "13px";
+            switchButtonDefault.setAttribute("id","cryomancerclass");
+            switchButtonDefault.innerHTML = "Cryomancy Empress";
+            document.getElementById("playerHealth").setAttribute("max","12000");
+            document.getElementById("playerHealth").setAttribute("value","12000");
+            playerClass = "cryomancer";
+            playerMaxHP = 12000;
+            playerHP = playerMaxHP;
+            playerMaxHPDefault = playerMaxHP;
+            playerdefaultatk = 230;
+            playerATK = playerdefaultatk;
+            playerdefaultdef = 310;
+            playerDEF = playerdefaultdef;
+            defaultCrit = 20;
+            critRate = defaultCrit;
+            critHit = false;
+            critDmg = 0.7;
+            defaultCritDMG = critDmg;
+            critRoll = 0;
+            document.getElementById("skillactive").style.display = "none";
+            document.getElementById("skillactive2").style.display = "none";
+            document.getElementById("skillactive3").style.display = "none";
+            document.getElementById("skillactive4").style.display = "none";
+            document.getElementById("skillactive5").style.display = "none";
+            document.getElementById("skillactive6").style.display = "none";
+            document.getElementById("skillactive7").style.display = "block";
+<<<<<<< HEAD
+            break;
+=======
+            
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
     }
     resetGame();
 }
@@ -479,7 +513,17 @@ statslvl = [1,1,1,1];
     soulsiphon = false;
     mindgleaning = false;
     bloodsigil = 0;
-    
+    frozen = false;
+                frozenmodifier = 0;
+                frozenturn = 0;
+                frost = 0;
+                frosticon.style.display = "none";
+                document.getElementById("frostnumber").innerHTML = "0";
+                document.getElementById("frozennumber").innerHTML = "0";
+<<<<<<< HEAD
+                frozenicon.style.display = "none";
+=======
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
     playerATKTemp = 0;
@@ -1928,7 +1972,11 @@ playerHealth.max = playerMaxHP;
             lvlupPanel.classList.add('show');
             
         }, 900);
-                document.getElementById("stunicon").style.display = "none";
+                stunicon.style.display = "none";
+<<<<<<< HEAD
+                frozenicon.style.display = "none";
+=======
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
                 
     
     }
@@ -2330,7 +2378,63 @@ function swordsingerSkill(skill) {
             throw err;
     }
 }
-
+function cryomancerSkill(skill) {
+    switch (skill) {
+            case "frostycrown":
+                skillName = "Frosty Crown";
+                energyCon = 0;
+                break;
+            case "frigidmind":
+                if (skillcd[1] > 0) {
+<<<<<<< HEAD
+                  err = new Error("Skill is in cooldown.");
+            err.id = 'cooldown';
+            throw err;
+=======
+                   popInput('cooldown');
+                    return;
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
+                } else {
+                skillName = "Frigid Mind";
+                energyCon = 40;
+                }
+                break;
+            case "icyheart":
+                if (skillcd[2] > 0) {
+<<<<<<< HEAD
+                  err = new Error("Skill is in cooldown.");
+            err.id = 'cooldown';
+            throw err;
+=======
+                   popInput('cooldown');
+                    return;
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
+                } else {
+                skillName = "Icy Heart";
+                energyCon = 80;
+                }
+                break;
+            case "glacialaura":
+                if (skillcd[3] > 0) {
+<<<<<<< HEAD
+                  err = new Error("Skill is in cooldown.");
+            err.id = 'cooldown';
+            throw err;
+=======
+                   popInput('cooldown');
+                    return;
+>>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
+                } else {
+                skillName = "Glacial Aura";
+                energyCon = 40;
+                }
+                break;       
+        default:
+            err = new Error("Invalid skill for your class.");
+            err.id = 'invalid-skill';
+            throw err;
+    }
+}
 function popInput(err) {
     switch (err) {
       
