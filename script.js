@@ -438,12 +438,9 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
             document.getElementById("skillactive7").style.display = "block";
-<<<<<<< HEAD
+
             break;
-=======
-            
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
-    }
+
     resetGame();
 }
 
@@ -520,10 +517,7 @@ statslvl = [1,1,1,1];
                 frosticon.style.display = "none";
                 document.getElementById("frostnumber").innerHTML = "0";
                 document.getElementById("frozennumber").innerHTML = "0";
-<<<<<<< HEAD
                 frozenicon.style.display = "none";
-=======
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
     dragonDEFmodifier = 0;
     playerDEFTemp = 0;
     playerATKTemp = 0;
@@ -1973,10 +1967,7 @@ playerHealth.max = playerMaxHP;
             
         }, 900);
                 stunicon.style.display = "none";
-<<<<<<< HEAD
                 frozenicon.style.display = "none";
-=======
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
                 
     
     }
@@ -2386,14 +2377,9 @@ function cryomancerSkill(skill) {
                 break;
             case "frigidmind":
                 if (skillcd[1] > 0) {
-<<<<<<< HEAD
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
             throw err;
-=======
-                   popInput('cooldown');
-                    return;
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
                 } else {
                 skillName = "Frigid Mind";
                 energyCon = 40;
@@ -2401,14 +2387,9 @@ function cryomancerSkill(skill) {
                 break;
             case "icyheart":
                 if (skillcd[2] > 0) {
-<<<<<<< HEAD
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
             throw err;
-=======
-                   popInput('cooldown');
-                    return;
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
                 } else {
                 skillName = "Icy Heart";
                 energyCon = 80;
@@ -2416,14 +2397,9 @@ function cryomancerSkill(skill) {
                 break;
             case "glacialaura":
                 if (skillcd[3] > 0) {
-<<<<<<< HEAD
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
             throw err;
-=======
-                   popInput('cooldown');
-                    return;
->>>>>>> 1ec45f7efec34810849094b8bb88f53930e4546f
                 } else {
                 skillName = "Glacial Aura";
                 energyCon = 40;
@@ -2493,4 +2469,5 @@ function resizeGame() {
         if (newScale > 1) newScale = 1;
     }
     container.style.transform = `scale(${newScale})`;
+}
 }
