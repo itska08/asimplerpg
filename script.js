@@ -218,8 +218,9 @@ playerDefText.innerHTML = playerDEF;
 
 
 let switchClass = (playerClassName) => {
-    closeSettings();
     closeTutorial();
+    closeSettings();
+   
     switch (playerClassName) {
         case "archer":
             document.getElementById("char1").setAttribute("src","images/archer.gif");
@@ -406,7 +407,6 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "block";
             document.getElementById("skillactive7").style.display = "none";
-            
             break;
             case "cryomancer":
             document.getElementById("char1").setAttribute("src","images/cryomancer.gif");
@@ -438,9 +438,10 @@ let switchClass = (playerClassName) => {
             document.getElementById("skillactive5").style.display = "none";
             document.getElementById("skillactive6").style.display = "none";
             document.getElementById("skillactive7").style.display = "block";
-
             break;
-
+           
+    }
+    console.log("error");
     resetGame();
 }
 
@@ -2448,26 +2449,41 @@ function popInput(err) {
  * RESPONSIVE CODE
  */
 
-let container = document.querySelector("#container");
-
-window.onload = window.onresize = resizeGame;
+const container = document.querySelector("#container");
+let gameRatio, windowRatio;
 
 function resizeGame() {
-    let gameRatio = container.offsetWidth / container.offsetHeight;
-    let windowRatio = window.innerWidth / window.innerHeight;
+  // Cache queries and calculations
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
+  const innerWidth = window.innerWidth;
+  const innerHeight = window.innerHeight;
 
-    container.style.position = "absolute";
-    container.style.left = `${(window.innerWidth - container.offsetWidth) / 2}px`;
-    container.style.top = `${(window.innerHeight - container.offsetHeight) / 2}px`;
+  gameRatio = containerWidth / containerHeight;
+  windowRatio = innerWidth / innerHeight;
 
-    let newScale;
-    if (gameRatio > windowRatio) {
-        newScale = window.innerWidth / container.offsetWidth;
-        if (newScale > 1) newScale = 1;
-    } else {
-        newScale = window.innerHeight / container.offsetHeight;
-        if (newScale > 1) newScale = 1;
-    }
-    container.style.transform = `scale(${newScale})`;
+  // Use position fixed instead of absolute
+  container.style.position = "fixed";
+  container.style.left = "50%";
+  container.style.top = "50%";
+  container.style.transform = "translate(-50%, -50%)";
+
+  let newScale;
+  if (gameRatio > windowRatio) {
+    newScale = innerWidth / containerWidth;
+  } else {
+    newScale = innerHeight / containerHeight;
+  }
+  // Clamp the scale to a maximum of 1
+  newScale = Math.min(newScale, 1);
+  container.style.transform += ` scale(${newScale})`;
 }
-}
+
+// Use requestAnimationFrame for smoother resizing
+window.addEventListener('resize', () => {
+  requestAnimationFrame(resizeGame);
+});
+
+// Initial call
+resizeGame();
+

@@ -694,12 +694,12 @@ h5 {
 	position: relative;
 }
 #dragon {
-	width: 604px;
+	width: 570px;
 	z-index:2;
 	position: absolute;
 	top: 29px;
-	left: 201px;
-	margin-left: -217px;
+	left: 0px;
+
 }
 .char {
 	width: 346px;
@@ -938,7 +938,7 @@ li {
 	display: block;
 	border: none;
 }
-#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6 {
+#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6, #skillactive7 {
 	display: none;
 	border: none;
 }
