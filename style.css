@@ -13,7 +13,7 @@ body {
 	height: 80px;
 	margin: auto;
 	width: 1106px;
-	bottom: -373px;
+	bottom: -678px;
 	border-radius: 15px;
 	background-color: #000000c5;
 	color:rgb(238, 238, 238);
@@ -1028,5 +1028,6 @@ li {
   }
   
   #icyglass {
+	position: absolute;
 	display: none;
   }

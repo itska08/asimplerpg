@@ -10,6 +10,7 @@ Current version: 3.0
 ```markdown
 # 3.0 - 6/3/2023
 - new sprites
+- new character: Cryomancy Empress
 - ui updates
 - mechanic fixes
 - new notification system
