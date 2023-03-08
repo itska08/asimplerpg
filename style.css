@@ -8,12 +8,12 @@ body {
 #welcomemessage {
 	position: relative;
 	display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 	height: 80px;
 	margin: auto;
 	width: 1106px;
-	bottom: -61px;
+	bottom: -373px;
 	border-radius: 15px;
 	background-color: #000000c5;
 	color:rgb(238, 238, 238);
@@ -411,7 +411,7 @@ input[type="text"] {
 	display: flex;
 	justify-content: center;
 	height: 70px;
-	margin-top: -50px;
+	margin-top: -366px;
 }
 
 #imgcontainer2 {
