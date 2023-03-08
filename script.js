@@ -209,6 +209,8 @@ let frozen = false;
 let frozenturn = 0;
 let frozenmodifier = 0;
 let frostmodifier = 0;
+let glacialdmgupmod = 0;
+let glacialdmgdownmod = 0;
 playerCritText.innerHTML = critRate + "%";
 playerCritDMGText.innerHTML = parseInt(critDmg*100) + "%";
 playerEnergyText.innerHTML = energy;
@@ -524,6 +526,8 @@ statslvl = [1,1,1,1];
                 frostmodifier = 0;
                 frozenturn = 0;
                 frost = 0;
+                glacialdmgdownmod = 0;
+                glacialdmgupmod = 0;
                 frosticon.style.display = "none";
                 document.getElementById("frostnumber").innerHTML = "0";
                 document.getElementById("frozennumber").innerHTML = "0";
@@ -642,7 +646,7 @@ let LevelUp = (statstype) => {
             break;
         case "crit":
             statslvl[3]++;
-            defaultCrit = defaultCrit + 2 + defaultCrit*0.008*statslvl[3];
+            defaultCrit = defaultCrit + 3.5 + defaultCrit*0.008*statslvl[3];
             if (defaultCrit >= 100) {
                 defaultCrit = 100;
                 document.getElementById('critupbutton').style.pointerevents = 'none';
@@ -1396,6 +1400,8 @@ let castMagic = (skill) =>  {
                     eleDMG = 0;
                     healSkill(playerMaxHP*0.3);
                     holyHealSkill(playerMaxHP*0.4);
+                    glacialdmgdownmod = 0.3;
+                    glacialdmgupmod = 0.2;
                     skillcd[3] = 3;
                     //effect.style.backgroundImage = "url('images/skill32.png')";
                     break; 
@@ -1441,12 +1447,12 @@ let castMagic = (skill) =>  {
             
 
             if (dmgreceive == true) {
-                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier + damagePlayer*frostmodifier;
+                damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier + damagePlayer*frostmodifier + damagePlayer*glacialdmgupmod;
                 dragonHP -= damagePlayer.toFixed(0);
                  dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
-                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier + damagePlayer*frostmodifier;
+                damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier + damagePlayer*frostmodifier + damagePlayer*glacialdmgupmod;
                 dragonHP -= damagePlayer.toFixed(0);
                
             }
@@ -1883,7 +1889,7 @@ let castMagic = (skill) =>  {
         //damage
         if (shieldState == false) {
             damageDragon = dragonATK + random(300, 500) - playerDEF;
-            damageDragon = damageDragon - damageDragon*0.02*bloodsigil;
+            damageDragon = damageDragon - damageDragon*0.02*bloodsigil - damageDragon*glacialdmgdownmod;
         } else {
             damageDragon = 0;
             shieldState = false;
@@ -1899,6 +1905,8 @@ let castMagic = (skill) =>  {
                 holyshieldamount = 0;
                 holyshieldstate = false;
                 document.getElementById("glow").style.display = "none";
+                glacialdmgdownmod = 0;
+                glacialdmgupmod = 0;
             }
             holyshieldbar.value = parseInt(holyshieldamount);
             holyshieldText.innerHTML = parseInt(holyshieldamount);
