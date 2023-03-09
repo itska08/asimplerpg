@@ -970,7 +970,7 @@ li {
 	display: block;
 	border: none;
 }
-#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6, #skillactive7 {
+#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6, #skillactive7, #skillactive8 {
 	display: none;
 	border: none;
 }
@@ -1002,9 +1002,14 @@ li {
 #cryomancer, #cryomancer2, #cryomancerclass, #s29, #s30, #s31, #s32 {
 	background-color: #366c6e;
 }
+.flamecaller {
+	background-color: #ec420f;
+}
 #necromancer, #necromancer2, #necromancerclass {
 	background-color: #53223f;
 }
+
+
 #s13, #s14, #s15, #s16 {
 	background-color: #53223f;
 }
