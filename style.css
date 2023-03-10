@@ -5,6 +5,38 @@ body {
 	width: 100%;
 	height: 100%;
 }
+.oval-circle {
+	position: absolute;
+	z-index: 0;
+	left: 671px;
+	top: 524px;
+    width: 600px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.4), 0 0 20px rgba(255, 87, 34, 0.4), 0 0 30px rgba(255, 87, 34, 0.4), 0 0 40px rgba(255, 87, 34, 0.4), 0 0 50px rgba(255, 87, 34, 0.4), inset 0 0 10px rgba(255, 87, 34, 0.4), inset 0 0 20px rgba(255, 87, 34, 0.4), inset 0 0 30px rgba(255, 87, 34, 0.4);
+    animation: pulsing-glow 2s infinite;
+	display: none;
+  }
+
+  @keyframes pulsing-glow {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 87, 34, 0.4), 0 0 20px rgba(255, 87, 34, 0.4), 0 0 30px rgba(255, 87, 34, 0.4), 0 0 40px rgba(255, 87, 34, 0.4), 0 0 50px rgba(255, 87, 34, 0.4), inset 0 0 10px rgba(255, 87, 34, 0.4), inset 0 0 20px rgba(255, 87, 34, 0.4), inset 0 0 30px rgba(255, 87, 34, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.2), 0 0 25px rgba(255, 87, 34, 0.2), 0 0 35px rgba(255, 87, 34, 0.2), 0 0 45px rgba(255, 87, 34, 0.2), 0 0 55px rgba(255, 87, 34, 0.2), inset 0 0 15px rgba(255, 87, 34, 0.2), inset 0 0 25px rgba(255, 87, 34, 0.2), inset 0 0 35px rgba(255, 87, 34, 0.2);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 87, 34, 0.4), 0 0 20px rgba(255, 87, 34, 0.4), 0 0 30px rgba(255, 87, 34, 0.4), 0 0 40px rgba(255, 87, 34, 0.4), 0 0 50px rgba(255, 87, 34, 0.4), inset 0 0 10px rgba(255, 87, 34, 0.4), inset 0 0 20px rgba(255, 87, 34, 0.4), inset 0 0 30px rgba(255, 87, 34, 0.4);
+}
+}
+.summon {
+	position: absolute;
+	left: 600px;
+	top: 250px;
+	transform: scaleX(-1);
+	display: none;
+}
 #welcomemessage {
 	position: relative;
 	display: flex;
@@ -13,7 +45,7 @@ body {
 	height: 80px;
 	margin: auto;
 	width: 1106px;
-	bottom: -678px;
+	bottom: -700px;
 	border-radius: 15px;
 	background-color: #000000c5;
 	color:rgb(238, 238, 238);
@@ -938,7 +970,7 @@ li {
 	display: block;
 	border: none;
 }
-#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6, #skillactive7 {
+#skillactive2, #skillactive3, #skillactive4, #skillactive5, #skillactive6, #skillactive7, #skillactive8 {
 	display: none;
 	border: none;
 }
@@ -970,9 +1002,14 @@ li {
 #cryomancer, #cryomancer2, #cryomancerclass, #s29, #s30, #s31, #s32 {
 	background-color: #366c6e;
 }
+.flamecaller {
+	background-color: #ec420f;
+}
 #necromancer, #necromancer2, #necromancerclass {
 	background-color: #53223f;
 }
+
+
 #s13, #s14, #s15, #s16 {
 	background-color: #53223f;
 }
@@ -1030,4 +1067,5 @@ li {
   #icyglass {
 	position: absolute;
 	display: none;
+	position: absolute;
   }
