@@ -85,6 +85,9 @@ let hunterIcon = document.getElementById("huntericon");
 let hunterAtkIcon = document.getElementById("hunteratkicon");
 let playerDefText = document.getElementById("def");
 
+let atkBuffIcon = document.getElementById("atkbufficon");
+let defBuffIcon = document.getElementById("defbufficon");
+
 let playerCritText = document.getElementById("crit");
 let playerCritDMGText = document.getElementById("critdmg");
 let lightmarkicon = document.getElementById("lighticon");
@@ -149,6 +152,8 @@ let bleedTurnText = document.getElementById("bleedText");
 let hunteratkbuff = false;
 let hunteratkcooldown = 0;
 let hunteratkmodifier = 0;
+let attackBuff = false;
+let defenseBuff = false;
 let playerdefaultdef = 250;
 let playerDEF = playerdefaultdef;
 
@@ -551,6 +556,10 @@ statslvl = [1,1,1,1];
     document.getElementById("glow").style.display = "none";
    
     healBuffIcon.style.display = "none";
+    atkBuffIcon.style.display = "none";
+    defBuffIcon.style.display = "none";
+    attackBuff = false;
+    defenseBuff = false;
     hunterIcon.style.display = "none";
     hunterAtkIcon.style.display = "none";
     holyshieldicon.style.display = "none";
@@ -2089,7 +2098,41 @@ function openShop() {
 function closeShop() {
     document.getElementById("shop").style.display = "none";
     setTimeout(()=>{document.getElementById("shop").style.opacity = 0}, 200);
-    
+
+}
+
+function buyBuff(type) {
+    const cost = 100;
+    if (coin < cost) {
+        alert('Not enough coins!');
+        return;
+    }
+    switch (type) {
+        case 'atk':
+            if (attackBuff) {
+                alert('Attack buff already active!');
+                return;
+            }
+            coin -= cost;
+            playerATK += playerATK * 0.3;
+            playerAtkText.innerHTML = parseInt(playerATK);
+            atkBuffIcon.style.display = 'block';
+            attackBuff = true;
+            break;
+        case 'def':
+            if (defenseBuff) {
+                alert('Defense buff already active!');
+                return;
+            }
+            coin -= cost;
+            playerDEF += playerDEF * 0.3;
+            playerDefText.innerHTML = parseInt(playerDEF);
+            defBuffIcon.style.display = 'block';
+            defenseBuff = true;
+            break;
+    }
+    document.getElementById('coin').innerHTML = coin.toFixed(0);
+    document.getElementById('cointext').innerHTML = 'Available coins: ' + coin.toFixed(0);
 }
 
 
