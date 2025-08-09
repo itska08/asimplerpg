@@ -2219,10 +2219,12 @@ function mageSkill(skill) {
     //define the skill consumption
     switch (skill) {
        case "icebolt":
+       case "frostbolt":
                skillName = "Frost Bolt";
                energyCon = 0;
            break;
        case "rainoffire":
+       case "flamestrike":
            if (skillcd[1] > 0) {
             err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2233,6 +2235,7 @@ function mageSkill(skill) {
            }
            break;
        case "thunderstorm":
+       case "arcanetempest":
            if (skillcd[2] > 0) {
               err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2243,6 +2246,7 @@ function mageSkill(skill) {
            }
            break;
        case "baneofdeath":
+       case "curseofdecay":
            if (skillcd[3] > 0) {
               err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2262,10 +2266,12 @@ function mageSkill(skill) {
 function archerSkill (skill) {
     switch (skill) {
             case "arrowoflight":
+            case "radiantarrow":
                 skillName = "Radiant Arrow";
                 energyCon = 0;
                 break;
             case "bloodshed":
+            case "crimsonvolley":
                 if (skillcd[1] > 0) {
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2296,19 +2302,23 @@ function archerSkill (skill) {
                 }
                 break;
                 default:
-                    throw new Error("Invalid skill for your class."); 
+                    err = new Error("Invalid skill for your class.");
+                    err.id = 'invalid-skill';
+                    throw err;
     }
 }
 
 function paladinSkill(skill) {
     switch (skill) {
-    
+
     case "righteousness":
-                
+    case "righteousstrike":
+
     skillName = "Righteous Strike";
     energyCon = 0;
     break;
 case "rectitude":
+case "shieldoffaith":
     if (skillcd[1] > 0) {
         err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2319,6 +2329,7 @@ case "rectitude":
     }
     break;
 case "judgment":
+case "divinejudgment":
     if (skillcd[2] > 0) {
         err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2329,6 +2340,7 @@ case "judgment":
     }
     break;
 case "honor":
+case "sacredoath":
     if (skillcd[3] > 0) {
         err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2339,7 +2351,9 @@ case "honor":
     }
     break;
     default:
-        throw new Error("Invalid skill for your class.");
+        err = new Error("Invalid skill for your class.");
+        err.id = 'invalid-skill';
+        throw err;
 }
 }
 
@@ -2382,17 +2396,21 @@ function necroSkill(skill) {
         }
         break;
         default:
-            throw new Error("Invalid skill for your class."); 
+            err = new Error("Invalid skill for your class.");
+            err.id = 'invalid-skill';
+            throw err;
     }
 }
 
 function knightSkill(skill) {
     switch (skill) {
         case "bloodembrace":
+        case "crimsonembrace":
         skillName = "Crimson Embrace";
             energyCon = 0;
             break;
         case "rosemarysgift":
+        case "vampiricgift":
             if (skillcd[1] > 0) {
                err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2403,6 +2421,7 @@ function knightSkill(skill) {
             }
             break;
         case "ichorretaliation":
+        case "ichorreprisal":
             if (skillcd[2] > 0) {
                err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2421,15 +2440,18 @@ function knightSkill(skill) {
             skillName = "Crimson Vitality";
             energyCon = 60;
             }
-            break;       
+            break;
         default:
-            throw new Error("Invalid skill for your class.");  
+            err = new Error("Invalid skill for your class.");
+            err.id = 'invalid-skill';
+            throw err;
     }
 }
 
 function swordsingerSkill(skill) {
     switch (skill) {
         case "sacredanthems":
+        case "sacredanthem":
                 skillName = "Sacred Anthem";
                 energyCon = 0;
                 break;
@@ -2444,6 +2466,7 @@ function swordsingerSkill(skill) {
                 }
                 break;
             case "divinechant":
+            case "holychant":
                 if (skillcd[2] > 0) {
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
@@ -2476,6 +2499,7 @@ function cryomancerSkill(skill) {
                 energyCon = 0;
                 break;
             case "frigidmind":
+            case "frozenmind":
                 if (skillcd[1] > 0) {
                   err = new Error("Skill is in cooldown.");
             err.id = 'cooldown';
