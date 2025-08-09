@@ -1,14 +1,5 @@
 /*jquery load function */
-var input = document.querySelector('input[type="text"]');
 var popupInput = document.querySelector('.popupInput');
-
-input.addEventListener('click', function() {
-  popupInput.classList.add('show-popup');
-});
-
-input.addEventListener('blur', function() {
-  popupInput.classList.remove('show-popup');
-});
 let err;
 ;(function(){
     function id(v){ return document.getElementById(v); }
@@ -806,39 +797,6 @@ let helpText = (a) => {
             break;
     }
 }
-const magicField = document.getElementById('magicField');
-
-magicField.addEventListener('keydown', function(event) {
-  // Only handle the command if the Enter key is pressed
-  if (event.key === 'Enter') {
-    // Extract the command and argument from the input
-    const input = magicField.value.trim().toLowerCase();
-    const [command, ...args] = input.split(' ');
-
-    // Combine the argument words into a single string and remove any spaces
-    const arg = args.join('').trim();
-
-    // Call the appropriate function based on the command
-    switch (command) {
-      case '/skill':
-        castMagic(arg);
-        break;
-      case '/support':
-        castSupport(arg);
-        break;
-      // Add more cases for other commands here
-      default:
-        popInput('command');
-        console.log(`Invalid command: ${command}`);
-    }
-
-    // Clear the input field
-    magicField.value = '';
-  }
-});
-
-
-
 let castSupport = (supportSkill) => {
     switch (supportSkill) {
         case "healing":
@@ -1062,7 +1020,6 @@ let castMagic = (skill) =>  {
         } else {
 
             document.getElementById('message').style.pointerEvents = "none";
-            magicField.disabled = true;
             currentFrame = 1;
             
            
@@ -2042,7 +1999,6 @@ playerHealth.max = playerMaxHP;
         }, 1000);
        setTimeout(()=>{
         document.getElementById('message').style.pointerEvents = "auto";
-        magicField.disabled = false;
         if (skillcd[1] > 0) {
             skillcd[1]--;
         }
@@ -2535,6 +2491,32 @@ function cryomancerSkill(skill) {
             throw err;
     }
 }
+
+// map skill icons to their respective actions
+const skillBindings = {
+    '#skillactive': ['icebolt', 'rainoffire', 'thunderstorm', 'baneofdeath'],
+    '#skillactive2': ['arrowoflight', 'bloodshed', 'piercingshot', 'huntersinstinct'],
+    '#skillactive3': ['righteousness', 'rectitude', 'judgment', 'honor'],
+    '#skillactive4': ['soulsiphon', 'mindgleaning', 'painlessdeath', 'songofmoonlight'],
+    '#skillactive5': ['bloodembrace', 'rosemarysgift', 'ichorretaliation', 'crimsonvitality'],
+    '#skillactive6': ['reveredpresence', 'sacredanthem', 'divinechant', 'transcendenthymn'],
+    '#skillactive7': ['frostycrown', 'frozenmind', 'icyheart', 'glacialaura']
+};
+
+Object.entries(skillBindings).forEach(([listId, skills]) => {
+    const anchors = document.querySelectorAll(`${listId} a`);
+    skills.forEach((skill, index) => {
+        const anchor = anchors[index];
+        if (anchor) {
+            anchor.style.cursor = 'pointer';
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                castMagic(skill);
+            });
+        }
+    });
+});
+
 function popInput(err) {
     switch (err) {
       
@@ -2549,7 +2531,7 @@ function popInput(err) {
             popupInput.innerHTML = 'Skill is in cooldown.';
         break;
         default:
-            popupInput.innerHTML = 'Invalid command.';
+            popupInput.innerHTML = 'Invalid action.';
             break;
         
     };
@@ -2558,14 +2540,8 @@ function popInput(err) {
     setTimeout(function() {
         popupInput.classList.remove('show-popup');
         popupInput.style.backgroundColor = "#000000e8";
-        popupInput.innerHTML = 'Try using /skill or /support followed by a skill id.';
+        popupInput.innerHTML = 'Click a skill icon to use it.';
     }, 1500);
-    input.addEventListener('blur', function() { 
-        popupInput.style.backgroundColor = "#000000e8";
-        popupInput.classList.remove('show-popup');
-        popupInput.innerHTML = 'Try using /skill or /support followed by a skill id.';
-        
-    })
 }
 
 /*

@@ -8,13 +8,16 @@ Current version: 3.0
 
 
 ```markdown
+# 3.1 - 9/8/2025
+- enlarged UI elements for better readability
+- skills are now activated by clicking icons
+
 # 3.0 - 6/3/2023
 - new sprites
 - new character: Cryomancy Empress
 - ui updates
 - mechanic fixes
 - new notification system
-- change click buttons to inputting commands (try to use /skill or /support + skill name)
 - many bug fixes
 # 2.5 - 8/7/2022
 - bug fixes
