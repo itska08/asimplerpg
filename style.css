@@ -44,7 +44,7 @@ body {
     justify-content: center;
 	height: 80px;
 	margin: auto;
-	width: 1106px;
+        width: 1400px;
 	bottom: -700px;
 	border-radius: 15px;
 	background-color: #000000c5;
@@ -633,7 +633,7 @@ progress#dragonHealth {
 }
 #container {
 	position: absolute;
-	width: 1300px;
+        width: 1600px;
 	margin: 0 auto;
 }
 #bookimg {
@@ -732,7 +732,7 @@ h5 {
      url("images/background.png");
 	background-size: cover;
 	background-position: center center;
-	width: 1300px;
+        width: 1600px;
 	height: 760px;
 	margin: 15px auto;
 	box-sizing: border-box;

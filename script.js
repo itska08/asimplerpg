@@ -111,6 +111,9 @@ let frozenicon = document.getElementById("frozenicon");
 /* character and skill stats */
 let skill;
 let playerLevel = 1;
+let artifactLevel = 1;
+const artifactBaseBuffs = { gluttony: 6, envy: 10, pride: 10, sloth: 8, wrath: 6, greed: 10 };
+let artifactBonuses = { elemental: 0, crit: 0, reduction: 0, lifesteal: 0, physical: 0, heal: 0 };
 let skillcd = [0,0,0,0,0]
 let energy = 0;
 let energyCon = 0;
@@ -237,7 +240,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "172px";
             document.getElementById("char1").style.right = "15px";
             switchButtonDefault.setAttribute("id","archerclass");
-            switchButtonDefault.innerHTML = "Mech Archer";
+            switchButtonDefault.innerHTML = "Elven Ranger";
             document.getElementById("playerHealth").setAttribute("max","8000");
             document.getElementById("playerHealth").setAttribute("value","8000");
             playerClass = 'archer';
@@ -269,7 +272,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "201px";
             document.getElementById("char1").style.right = "166px";
             switchButtonDefault.setAttribute("id","mageclass");
-            switchButtonDefault.innerHTML = "Elemental Mage";
+            switchButtonDefault.innerHTML = "Arcane Sorcerer";
             document.getElementById("playerHealth").setAttribute("max","10000");
             document.getElementById("playerHealth").setAttribute("value","10000");
             playerClass = "mage";
@@ -301,7 +304,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "143px";
             document.getElementById("char1").style.right = "11px";
             switchButtonDefault.setAttribute("id","paladinclass");
-            switchButtonDefault.innerHTML = "Paladin of Light";
+            switchButtonDefault.innerHTML = "Holy Paladin";
             document.getElementById("playerHealth").setAttribute("max","12000");
             document.getElementById("playerHealth").setAttribute("value","12000");
             playerClass = "paladin";
@@ -365,7 +368,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "164px";
             document.getElementById("char1").style.right = "115px";
             switchButtonDefault.setAttribute("id","knightclass");
-            switchButtonDefault.innerHTML = "Blood Knight";
+            switchButtonDefault.innerHTML = "Crimson Knight";
             document.getElementById("playerHealth").setAttribute("max","15000");
             document.getElementById("playerHealth").setAttribute("value","15000");
             playerClass = "knight";
@@ -397,7 +400,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "133px";
             document.getElementById("char1").style.right = "32px";
             switchButtonDefault.setAttribute("id","swordsingerclass");
-            switchButtonDefault.innerHTML = "Divine Swordsinger";
+            switchButtonDefault.innerHTML = "Celestial Swordsinger";
             document.getElementById("playerHealth").setAttribute("max","11000");
             document.getElementById("playerHealth").setAttribute("value","11000");
             playerClass = "swordsinger";
@@ -429,7 +432,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.top = "122px";
             document.getElementById("char1").style.right = "13px";
             switchButtonDefault.setAttribute("id","cryomancerclass");
-            switchButtonDefault.innerHTML = "Cryomancy Empress";
+            switchButtonDefault.innerHTML = "Frost Empress";
             document.getElementById("playerHealth").setAttribute("max","12000");
             document.getElementById("playerHealth").setAttribute("value","12000");
             playerClass = "cryomancer";
@@ -478,6 +481,7 @@ statslvl = [1,1,1,1];
     cooldown = 0;
     eleDMG = 0;
     phyDMG = 0;
+    updateArtifacts();
     energyCon = 0;
     holyshieldcooldown = 0;
     dragonMaxHP = 5000;
@@ -676,6 +680,7 @@ let LevelUp = (statstype) => {
     document.getElementById("playerLvl").innerHTML = "Level "+playerLevel;
     document.getElementById("message").style.pointerEvents = "auto";
     lvlupPanel.classList.remove('show');
+    updateArtifacts();
 }
 
 
@@ -930,6 +935,7 @@ let castSupport = (supportSkill) => {
 }
 
 let healSkill = (healing) => {
+    healing = healing + healing*artifactBonuses.heal;
     if (healBuff == true) {
         healing = healing + healing*0.5;
         playerHP = playerHP + healing;
@@ -954,6 +960,7 @@ let healSkill = (healing) => {
 }
 
 let holyHealSkill = (holyhealing) => {
+    holyhealing = holyhealing + holyhealing*artifactBonuses.heal;
     if (healBuff == true) {
         holyhealing = holyhealing + holyhealing*0.5;
         playerHP = playerHP + holyhealing;
@@ -1425,9 +1432,11 @@ let castMagic = (skill) =>  {
             if (skillcd[3] > 0) {
                 document.getElementById("a3").style.opacity = 1;
             }
-            
-           
-               
+
+            eleDMG += eleDMG * artifactBonuses.elemental;
+            phyDMG += phyDMG * artifactBonuses.physical;
+            critRate = defaultCrit + artifactBonuses.crit;
+
             //raw damage calculation
             if (debuffAmount >= 20) {
                 totaldebuffmodifier = 0.3;
@@ -1458,11 +1467,17 @@ let castMagic = (skill) =>  {
             if (dmgreceive == true) {
                 damagePlayer = damagePlayer + damagePlayer*0.3 + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier + damagePlayer*frozenmodifier + damagePlayer*frostmodifier + damagePlayer*glacialdmgupmod;
                 dragonHP -= damagePlayer.toFixed(0);
-                 dmgreceive = false;
+                playerHP = Math.min(playerHP + damagePlayer*artifactBonuses.lifesteal, playerMaxHP);
+                playerHealthText.innerHTML = parseInt(playerHP);
+                playerHealth.value = playerHP;
+                dmgreceive = false;
                 dmgReceiveIcon.style.display = "none";
             } else {
                 damagePlayer = damagePlayer + damagePlayer*doublemodifier + damagePlayer*hunteratkmodifier + damagePlayer*0.03*bloodsigil - dragonDEF*dragonDEFmodifier + damagePlayer*0.02*hd[2] + damagePlayer*totaldebuffmodifier+damagePlayer*frozenmodifier + damagePlayer*frostmodifier + damagePlayer*glacialdmgupmod;
                 dragonHP -= damagePlayer.toFixed(0);
+                playerHP = Math.min(playerHP + damagePlayer*artifactBonuses.lifesteal, playerMaxHP);
+                playerHealthText.innerHTML = parseInt(playerHP);
+                playerHealth.value = playerHP;
                
             }
  
@@ -1898,7 +1913,7 @@ let castMagic = (skill) =>  {
         //damage
         if (shieldState == false) {
             damageDragon = dragonATK + random(300, 500) - playerDEF;
-            damageDragon = damageDragon - damageDragon*0.02*bloodsigil - damageDragon*glacialdmgdownmod;
+            damageDragon = damageDragon - damageDragon*0.02*bloodsigil - damageDragon*glacialdmgdownmod - damageDragon*artifactBonuses.reduction;
         } else {
             damageDragon = 0;
             shieldState = false;
@@ -2178,13 +2193,33 @@ function openCat(evt, catName) {
     evt.currentTarget.className += " active";
   }
 
+function updateArtifacts() {
+    artifactLevel = playerLevel;
+    document.getElementById("artifactLevel").innerText = artifactLevel;
+    document.getElementById("gluttonyBuff").innerText = artifactBaseBuffs.gluttony + (artifactLevel - 1);
+    document.getElementById("envyBuff").innerText = artifactBaseBuffs.envy + (artifactLevel - 1);
+    document.getElementById("prideBuff").innerText = artifactBaseBuffs.pride + (artifactLevel - 1);
+    document.getElementById("slothBuff").innerText = artifactBaseBuffs.sloth + (artifactLevel - 1);
+    document.getElementById("wrathBuff").innerText = artifactBaseBuffs.wrath + (artifactLevel - 1);
+    document.getElementById("greedBuff").innerText = artifactBaseBuffs.greed + (artifactLevel - 1);
+
+    artifactBonuses.elemental = (artifactBaseBuffs.gluttony + (artifactLevel - 1)) / 100;
+    artifactBonuses.crit = artifactBaseBuffs.envy + (artifactLevel - 1);
+    artifactBonuses.reduction = (artifactBaseBuffs.pride + (artifactLevel - 1)) / 100;
+    artifactBonuses.lifesteal = (artifactBaseBuffs.sloth + (artifactLevel - 1)) / 100;
+    artifactBonuses.physical = (artifactBaseBuffs.wrath + (artifactLevel - 1)) / 100;
+    artifactBonuses.heal = (artifactBaseBuffs.greed + (artifactLevel - 1)) / 100;
+    critRate = defaultCrit + artifactBonuses.crit;
+    playerCritText.innerHTML = critRate + "%";
+}
+
 
 
 function mageSkill(skill) {
     //define the skill consumption
     switch (skill) {
        case "icebolt":
-               skillName = "Icebolt";
+               skillName = "Frost Bolt";
                energyCon = 0;
            break;
        case "rainoffire":
@@ -2193,7 +2228,7 @@ function mageSkill(skill) {
             err.id = 'cooldown';
             throw err;
            } else {
-           skillName = "Rain of Fire";
+           skillName = "Flamestrike";
            energyCon = 30;
            }
            break;
@@ -2203,7 +2238,7 @@ function mageSkill(skill) {
             err.id = 'cooldown';
             throw err;
            } else {
-           skillName = "Thunderstorm";
+           skillName = "Arcane Tempest";
            energyCon = 60;
            }
            break;
@@ -2213,7 +2248,7 @@ function mageSkill(skill) {
             err.id = 'cooldown';
             throw err;
            } else {
-           skillName = "Bane of Death";
+           skillName = "Curse of Decay";
            energyCon = 25;
            }
            break;
@@ -2227,7 +2262,7 @@ function mageSkill(skill) {
 function archerSkill (skill) {
     switch (skill) {
             case "arrowoflight":
-                skillName = "Arrow of Light";
+                skillName = "Radiant Arrow";
                 energyCon = 0;
                 break;
             case "bloodshed":
@@ -2236,7 +2271,7 @@ function archerSkill (skill) {
             err.id = 'cooldown';
             throw err;
                 } else {
-                skillName = "Bloodshed";
+                skillName = "Crimson Volley";
                 energyCon = 35;
                 }
                 break;
@@ -2270,7 +2305,7 @@ function paladinSkill(skill) {
     
     case "righteousness":
                 
-    skillName = "Righteousness";
+    skillName = "Righteous Strike";
     energyCon = 0;
     break;
 case "rectitude":
@@ -2279,7 +2314,7 @@ case "rectitude":
             err.id = 'cooldown';
             throw err;
     } else {
-    skillName = "Rectitude";
+    skillName = "Shield of Faith";
     energyCon = 30;
     }
     break;
@@ -2289,7 +2324,7 @@ case "judgment":
             err.id = 'cooldown';
             throw err;
     } else {
-    skillName = "Judgment";
+    skillName = "Divine Judgment";
     energyCon = 60;
     }
     break;
@@ -2299,7 +2334,7 @@ case "honor":
             err.id = 'cooldown';
             throw err;
     } else {
-    skillName = "Honor";
+    skillName = "Sacred Oath";
     energyCon = 40;
     }
     break;
@@ -2354,7 +2389,7 @@ function necroSkill(skill) {
 function knightSkill(skill) {
     switch (skill) {
         case "bloodembrace":
-            skillName = "Blood Embrace";
+        skillName = "Crimson Embrace";
             energyCon = 0;
             break;
         case "rosemarysgift":
@@ -2363,7 +2398,7 @@ function knightSkill(skill) {
             err.id = 'cooldown';
             throw err;
             } else {
-            skillName = "Rosemary's Gift";
+        skillName = "Vampiric Gift";
             energyCon = 30;
             }
             break;
@@ -2373,7 +2408,7 @@ function knightSkill(skill) {
             err.id = 'cooldown';
             throw err;
             } else {
-            skillName = "Ichor Retaliation";
+        skillName = "Ichor Reprisal";
             energyCon = 70;
             }
             break;
@@ -2395,7 +2430,7 @@ function knightSkill(skill) {
 function swordsingerSkill(skill) {
     switch (skill) {
         case "sacredanthems":
-                skillName = "Sacred Anthems";
+                skillName = "Sacred Anthem";
                 energyCon = 0;
                 break;
             case "reveredpresence":
@@ -2414,7 +2449,7 @@ function swordsingerSkill(skill) {
             err.id = 'cooldown';
             throw err;
                 } else {
-                skillName = "Divine Chant";
+                skillName = "Holy Chant";
                 energyCon = 80;
                 }
                 break;
@@ -2437,7 +2472,7 @@ function swordsingerSkill(skill) {
 function cryomancerSkill(skill) {
     switch (skill) {
             case "frostycrown":
-                skillName = "Frosty Crown";
+                skillName = "Frost Crown";
                 energyCon = 0;
                 break;
             case "frigidmind":
@@ -2446,7 +2481,7 @@ function cryomancerSkill(skill) {
             err.id = 'cooldown';
             throw err;
                 } else {
-                skillName = "Frigid Mind";
+                skillName = "Frozen Mind";
                 energyCon = 40;
                 }
                 break;
