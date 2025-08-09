@@ -58,31 +58,6 @@ body {
 	font-family: "Lucida Console";
 	margin-bottom: -5px;
 }
-input[type="text"] {
-	border: none;
-	border-radius: 10px;
-	padding: 12px 20px;
-	background-color: #000000;
-	background-size: cover;
-	color: #fff;
-	font-family: "Lucida Console";
-	letter-spacing: 2px;
-	margin-top: 50px;
-	width: 700px;
-	height: 50px;
-	font-size: 27px;
-	border: 3px solid #ffeecf;
-	transition: border-color 0.3s ease-in-out; /* add transition property */
-	animation: blink-border 3s ease-in-out infinite; /* add animation property */
-  }
-  
-  input[type="text"]:focus {
-	border-color: #fdbf4b; /* changes border color when input is active to orange */
-	outline: none;
-	animation: none;
-	transition: border-color 0.3s ease-in-out;
-  }
-  
   .popupInput {
 	position: absolute;
 	top: 996px;
@@ -358,9 +333,9 @@ input[type="text"] {
 	font-size: 25px;
 }
 .icon {
-	width: 70px;
-	border-radius: 5px;
-	box-shadow: 0 0 0 1px rgb(255, 240, 198);
+        width: 100px;
+        border-radius: 5px;
+        box-shadow: 0 0 0 1px rgb(255, 240, 198);
 
 }
 
@@ -926,26 +901,26 @@ li {
 	color: white;
 }
 .support {
-	display: block;
-	width: 218px;
-	height: 60px;
-	font-size: 22px;
-	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
-	margin-left: auto;
-	color:#000;
-	background-color: rgb(238, 238, 238);
-	font-weight: bold;
+        display: block;
+        width: 260px;
+        height: 70px;
+        font-size: 26px;
+        font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+        margin-left: auto;
+        color:#000;
+        background-color: rgb(238, 238, 238);
+        font-weight: bold;
 }
 .classchange {
-	display: block;
-	width: 230px;
-	height: 50px;
-	font-size: 15px;
-	font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
-	margin-left: auto;
-	color:#fff;
-	background-color: rgb(238, 238, 238);
-	font-weight: bold;
+        display: block;
+        width: 260px;
+        height: 60px;
+        font-size: 18px;
+        font-family: "Roboto", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+        margin-left: auto;
+        color:#fff;
+        background-color: rgb(238, 238, 238);
+        font-weight: bold;
 }
 .help {
 	margin-left: -28px;
