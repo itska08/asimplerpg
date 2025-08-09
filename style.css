@@ -349,17 +349,17 @@ body {
 	display: none;
 }
 #playerdmgtext {
-	z-index: 999999;
-	position: absolute;
-	display: none;
-	font-size: 70px;
-	opacity: 1;
-	transition: all 0.1s;
-	top: 413px;
-	left: 311px;
-	color: darkred;
-	font-weight: bold;
-	text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
+        z-index: 999999;
+        position: absolute;
+        display: none;
+        font-size: 70px;
+        opacity: 1;
+        transition: all 0.1s;
+        top: 413px;
+        left: 0;
+        color: darkred;
+        font-weight: bold;
+        text-shadow: 0px 0px 0 #fff, -5px 0 0 #fff, 0 5px 0 #fff, 0 -5px 0 #fff, 5px 5px #fff, -5px -5px 0 #fff, 5px -5px 0 #fff, -5px 5px 0 #fff;
 }
 #phoenixdmgtext {
 	z-index: 999999;
@@ -811,12 +811,25 @@ p {
 	text-align: center;
 }
 span {
-	background-color: #ffffff00;
-	color: #d94f45;
-	font-size: 16px;
-	padding: 1px 10px;
-	font-weight: 700;
-	line-height: 2em;
+        background-color: #ffffff00;
+        color: #d94f45;
+        font-size: 16px;
+        padding: 1px 10px;
+        font-weight: 700;
+        line-height: 2em;
+}
+.tooltip {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #ffffff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        z-index: 10;
+}
+a:hover .tooltip {
+        display: block;
 }
 .damage {
 	color: rgb(255, 135, 135);
@@ -1017,18 +1030,18 @@ li {
 
 
   .rhombus {
-	  background: linear-gradient(rgba(245, 245, 245, 0.1), rgba(245, 245, 245, 0.1)), rgba(255, 255, 255, 0.1) no-repeat center center fixed;
-	background-size: cover;
-	width: 160px;
-	height: 160px;
-	transform: rotate(45deg);
-	position: relative;
-	top: 35px;
-	left: 879px;
-	animation: freeze 1s infinite;
-	border: 2px solid #c2d6d6;
-	box-sizing: border-box;
-	box-shadow: 0 0 10px #c2d6d6;
+          background: linear-gradient(rgba(245, 245, 245, 0.1), rgba(245, 245, 245, 0.1)), rgba(255, 255, 255, 0.1) no-repeat center center fixed;
+        background-size: cover;
+        width: 160px;
+        height: 160px;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: freeze 1s infinite;
+        border: 2px solid #c2d6d6;
+        box-sizing: border-box;
+        box-shadow: 0 0 10px #c2d6d6;
   }
   
   @keyframes freeze {
@@ -1039,21 +1052,20 @@ li {
   }
   
   #rhombus2 {
-	   width: 100px;
-	height: 100px;
-	  top: 63px;
-	  left: 865px;
-	  z-index: 4;
+           width: 100px;
+        height: 100px;
+          top: 30px;
+          left: 30px;
+          z-index: 4;
   }
   #rhombus3 {
-	   width: 50px;
-	height: 50px;
-	  top: -44px;
-	  left: 985px;
+           width: 50px;
+        height: 50px;
+          top: 55px;
+          left: 55px;
   }
   
   #icyglass {
-	position: absolute;
-	display: none;
-	position: absolute;
+        position: absolute;
+        display: none;
   }

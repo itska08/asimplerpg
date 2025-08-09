@@ -46,6 +46,20 @@ let effectInterval;
 /* custom function */
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
+const positionDamageText = (target) => {
+  const rect = target.getBoundingClientRect();
+  const dmgElem = document.getElementById("playerdmgtext");
+  dmgElem.style.left = rect.left + rect.width / 2 - dmgElem.offsetWidth / 2 + "px";
+};
+
+const positionRhombuses = () => {
+  const char = document.getElementById("char1");
+  const rect = char.getBoundingClientRect();
+  const icy = document.getElementById("icyglass");
+  icy.style.left = rect.left + rect.width / 2 - 80 + "px";
+  icy.style.top = rect.top + rect.height / 2 - 80 + "px";
+};
+
 
 /* texts, graphics and buttons */
 let dragonHealthText = document.querySelector("h4");
@@ -422,6 +436,7 @@ let switchClass = (playerClassName) => {
             document.getElementById("char1").style.width = "548px";
             document.getElementById("char1").style.top = "122px";
             document.getElementById("char1").style.right = "13px";
+            positionRhombuses();
             switchButtonDefault.setAttribute("id","cryomancerclass");
             switchButtonDefault.innerHTML = "Frost Empress";
             document.getElementById("playerHealth").setAttribute("max","12000");
@@ -621,7 +636,7 @@ let LevelUp = (statstype) => {
     switch (statstype) {
         case "atk":
             statslvl[0]++;
-            playerdefaultatk = playerdefaultatk + playerdefaultatk*0.02*statslvl[0];
+            playerdefaultatk *= 1.02;
             playerATK = playerdefaultatk;
             playerAtkText.innerHTML = parseInt(playerATK);
             atklvlText.innerHTML = "Lvl. "+statslvl[0];
@@ -672,6 +687,7 @@ let LevelUp = (statstype) => {
     document.getElementById("message").style.pointerEvents = "auto";
     lvlupPanel.classList.remove('show');
     updateArtifacts();
+    playerAtkText.innerHTML = parseInt(playerATK);
 }
 
 
@@ -1820,23 +1836,24 @@ let castMagic = (skill) =>  {
             document.getElementById("lightnumber").innerHTML = lightmark;
             let totalDot = bleedDot + poisonDot;
             
+            const dmgElem = document.getElementById("playerdmgtext");
             if (critHit == false) {
-                document.getElementById("playerdmgtext").innerHTML = damagePlayer.toFixed(0);
-                document.getElementById("playerdmgtext").style.display = "block";
-                document.getElementById("playerdmgtext").style.left = "311px";
-                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
-                document.getElementById("playerdmgtext").style.opacity = 1;
+                dmgElem.innerHTML = damagePlayer.toFixed(0);
+                dmgElem.style.display = "block";
+                positionDamageText(document.getElementById("dragon"));
+                setTimeout(()=>{dmgElem.style.opacity = 0}, 1000);
+                dmgElem.style.opacity = 1;
                 logmessage = "You did <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> DMG on the dragon by using <span class='damage'>" + skillName + "</span>.";
-                
-                
+
+
             } else {
-                document.getElementById("playerdmgtext").innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
-                document.getElementById("playerdmgtext").style.display = "block";
-                document.getElementById("playerdmgtext").style.left = "311px";
-                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
-                document.getElementById("playerdmgtext").style.opacity = 1;
+                dmgElem.innerHTML = "CRIT<br>" + damagePlayer.toFixed(0);
+                dmgElem.style.display = "block";
+                positionDamageText(document.getElementById("dragon"));
+                setTimeout(()=>{dmgElem.style.opacity = 0}, 1000);
+                dmgElem.style.opacity = 1;
                 logmessage = "You did a <span class='damage'>Critical DMG</span> of <span class='damage'>" + damagePlayer.toFixed(0) + " (+" +totalDot.toFixed(0)+ " DoT DMG)</span> on the dragon by using <span class='damage'>" + skillName + "</span>.";
-                
+
                 critHit=false;
 
             }
@@ -1898,11 +1915,12 @@ let castMagic = (skill) =>  {
         
      
 
-        document.getElementById("playerdmgtext").innerHTML = damageDragon.toFixed(0);
-                document.getElementById("playerdmgtext").style.display = "block";
-                document.getElementById("playerdmgtext").style.left = "849px";
-                setTimeout(()=>{document.getElementById("playerdmgtext").style.opacity = 0}, 1000);
-                document.getElementById("playerdmgtext").style.opacity = 1;
+        const dmgElem2 = document.getElementById("playerdmgtext");
+        dmgElem2.innerHTML = damageDragon.toFixed(0);
+        dmgElem2.style.display = "block";
+        positionDamageText(document.getElementById("char1"));
+        setTimeout(()=>{dmgElem2.style.opacity = 0}, 1000);
+        dmgElem2.style.opacity = 1;
         dragonHP = dragonHP - damageDragon*reflectmodifier;
         holyshieldText.innerHTML = parseInt(holyshieldamount);
         holyshieldbar.value = parseInt(holyshieldamount);
